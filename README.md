@@ -1,2 +1,2 @@
 # WDAI_Project
-We creating real estate menagement support system.
+We are creating real estate menagement support system.

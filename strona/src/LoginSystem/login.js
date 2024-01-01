@@ -46,45 +46,32 @@ export function Login(props) {
     }
 
     return (
-        <div className="centeredDiv">
-            <div className="mainContainer">
-                <span className="hyperlink smallerText" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
-                <div className="titleContainer">
-                    <div>Login</div>
+        <div className="centeredDiv text14">
+            <div>
+                <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
+                <div className="titleContainer">Login</div>
+
+                <label htmlFor="email">Email</label><br/>
+                <input id="email" type={"email"} autoComplete="email"
+                       placeholder="Enter your email here"
+                       onChange={ev => userInfoRef.current.email = ev.target.value }
+                       onKeyDown={(event) => {if (event.key === "Enter") onButtonClick()}}
+                />
+                <br/><span className="errorLabel">{emailError}</span><br/>
+
+                <label htmlFor="password">Password</label><br/>
+                <input id="password" type={"password"} autoComplete="current-password"
+                    placeholder="Enter your password here"
+                    onChange={ev => userInfoRef.current.password = ev.target.value }
+                    onKeyDown={(event) => {if (event.key === "Enter") onButtonClick()}}
+                />
+                <br/><span className="errorLabel">{passwordError}</span><br/><br/>
+
+                <div className="textAlignedCenter">
+                    <button className="greenButton" onClick={onButtonClick}>Log in</button>
                 </div>
-                <br />
-                <div className="inputContainer">
 
-                    <label htmlFor="email">Email</label><br/>
-                    <input
-                        id="email"
-                        autoComplete="email"
-                        placeholder="Enter your email here"
-                        onChange={ev => userInfoRef.current.email = ev.target.value }
-                        onKeyDown={(event) => {if (event.key === "Enter") onButtonClick()}}
-                        className="inputBox" />
-                    <br/><span className="errorLabel">{emailError}</span><br/>
-
-                    <label htmlFor="password">Password</label><br/>
-                    <input
-                        id="password"
-                        autoComplete="current-password"
-                        type={"password"}
-                        placeholder="Enter your password here"
-                        onChange={ev => userInfoRef.current.password = ev.target.value }
-                        onKeyDown={(event) => {if (event.key === "Enter") onButtonClick()}}
-                        className="inputBox" />
-                    <br/><span className="errorLabel">{passwordError}</span><br/>
-
-                    <div className="centered">
-                        <br/><input
-                        className="inputButton greenButton"
-                        type="button"
-                        onClick={onButtonClick}
-                        value={"Log in"} />
-                    </div>
-                    <br/><span>Don't have an account?{' '} <span className="hyperlink hyperlinkBlue" onClick={() => navigate("/register")}>Sign up</span> </span>
-                </div>
+                <br/><br/><span>Don't have an account? <span className="hyperlink hyperlinkBlue" onClick={() => navigate("/register")}>Sign up</span> </span>
             </div>
         </div>
 

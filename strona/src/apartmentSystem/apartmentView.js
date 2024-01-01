@@ -1,6 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {ApartmentManager} from "./apartmentManager";
 import {useEffect} from "react";
+import './apartmentOnList.css';
 
 export function ApartmentView(props) {
     const {id} = useParams();
@@ -10,8 +11,6 @@ export function ApartmentView(props) {
 
     const apartment = apartments.find(apartment => apartment.id === parseInt(id));
 
-
-
     useEffect(() => {
         if (!loggedIn) navigate('/');
     }, [loggedIn, navigate]);
@@ -20,7 +19,7 @@ export function ApartmentView(props) {
         <>
             {apartment ?
                 <>
-                    <span className="hyperlink smallerText" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
+                    <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back to the apartments list</span>
                     <h1>Apartment view: {id}</h1>
                     <div>Adres: {apartment.city} {apartment.street} {apartment.buildingNumber}/{apartment.apartmentNumber}</div>
                     <div>Adres: {apartment.country} {apartment.postalCode}</div>

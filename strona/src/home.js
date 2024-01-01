@@ -1,15 +1,16 @@
-import React from "react"
+import React, {useState} from "react"
 import {useNavigate} from "react-router-dom";
 import {UserManager} from "./LoginSystem/userManager";
 import {ApartmentManager} from "./apartmentSystem/apartmentManager";
-
+import {PopupRemovingAccount as Popup} from "./components/popup";
 
 export function Home(props) {
     const {loggedIn, userInfo} = props
     const navigate = useNavigate();
-    const {users, removeUser} = UserManager()
+    const {users, removeUser} = UserManager();
     const {apartments} = ApartmentManager();
 
+    const [showPopup, setShowPopup] = useState(false);
 
     function loginButton() {
         if (loggedIn) {
@@ -20,37 +21,30 @@ export function Home(props) {
         }
     }
 
-    function handleRemoveUser() {
-        if (userInfo.id !== 0) {
-            removeUser(userInfo.id)
-            localStorage.removeItem("user")
-            props.setLoggedIn(false)
-        }
-    }
+    const openPopup = () => { if (userInfo.id !== 0) { setShowPopup(true); } };
+    const closePopup = () => { setShowPopup(false); };
+    const confirmDelete = () => {
+        removeUser(userInfo.id)
+        localStorage.removeItem("user")
+        props.setLoggedIn(false)
+        closePopup();
+    };
 
     return (
         <div className="centeredDiv">
             <button onClick={() => console.log(apartments)}>Console print apartments</button>
             <button onClick={() => console.log(users)}>Console print users</button>
 
-            <div className="mainContainer centered">
+            <div className="text14 textAlignedCenter">
                 <div className="titleContainer">
                     <div>Welcome!</div>
                 </div>
 
                 <div>This is the home page.</div>
                 <br/><br/><br/>
-                <div className="buttonContainer">
-                    <input
-                        className="inputButton greenButton"
-                        type="button"
-                        onClick={loginButton}
-                        value={loggedIn ? "Log out" : "Log in"} />
-                    {(!loggedIn ? <input
-                        className="inputButton whiteButton"
-                        type="button"
-                        onClick={() => navigate("/register")}
-                        value={"Sign up"} /> : <div/> )}
+                <div className="TextAlignedCenter">
+                    <button className='inputButton greenButton' onClick={loginButton}>{loggedIn ? "Log out" : "Log in"}</button>
+                    {(!loggedIn ? <button className='inputButton whiteButton' onClick={() => navigate("/register")}>Sign up</button> : <div/> )}
                 </div>
             </div>
             {(loggedIn ?
@@ -62,16 +56,9 @@ export function Home(props) {
                         <br/> Password: {userInfo.password}
                         <br/><br/>
                     </div>
-                    <input
-                        className="inputButton redButton"
-                        type="button"
-                        onClick={handleRemoveUser}
-                        value={"Remove account"} />
-                    <input
-                        className="inputButton greenButton longerButton"
-                        type="button"
-                        onClick={() => navigate("/apartments")}
-                        value={"Show my apartments"} />
+                    <button className="redButton" onClick={openPopup}>Remove account</button>
+                    <Popup show={showPopup} onClose={closePopup} onConfirm={confirmDelete}/>
+                    <button className="greenButton longerButton" onClick={() => navigate("/apartments")}>Show my apartments</button>
                 </> : <div/> )}
         </div>
     );

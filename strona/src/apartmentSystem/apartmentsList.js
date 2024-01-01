@@ -2,6 +2,8 @@ import {useNavigate} from "react-router-dom";
 import {ApartmentManager} from "./apartmentManager";
 import React, {useEffect, useState} from "react";
 import {UserManager} from "../LoginSystem/userManager";
+import {ApartmentOnList} from "./apartmentOnList";
+import {PopupRemovingApartment as Popup} from "../components/popup";
 
 export function ApartmentsList(props) {
     const {loggedIn, userInfo} = props
@@ -11,18 +13,39 @@ export function ApartmentsList(props) {
 
     const [userApartments, setUserApartments] = useState([]);
 
+    const [showPopup, setShowPopup] = useState(false);
+    const [apartmentIdToDelete, setApartmentIdToDelete] = useState(null);
+
     useEffect(() => {
         if (!loggedIn) navigate('/');
         const filteredApartments = apartments.filter(apartment => apartment.ownerID === userInfo.id);
         setUserApartments(filteredApartments);
     }, [navigate, loggedIn, users, apartments, userInfo.id]);
 
+    const openPopup = (apartmentID) => {
+        setShowPopup(true);
+        setApartmentIdToDelete(apartmentID);
+    };
+
+    const closePopup = () => {
+        setShowPopup(false);
+        setApartmentIdToDelete(null);
+    };
+
+    const confirmDelete = () => {
+        if (apartmentIdToDelete) {
+            removeApartment(apartmentIdToDelete);
+            closePopup();
+        }
+    };
 
     function createNewApartment() {
         let newApartment = {
-            ownerID:  userInfo.id,
+            ownerID: userInfo.id,
+            title: "Mieszkanie w centrum miasta",
+            description: "Fajne mieszkanie",
             country: "Poland",
-            city: "Kraków",
+            city: "Wrocław",
             postalCode: "30-000",
             street: "Długa",
             developmentType: 0,
@@ -33,29 +56,29 @@ export function ApartmentsList(props) {
             floor: 1,
             price: 250_000,
             rooms: 4,
-            description: "Fajne mieszkanie",
             pictures: ["https://cdn.galleries.smcloud.net/t/galleries/gf-7VEN-X6uc-bYsP_kobiece-wnetrze-z-elementami-art-deco-salon-664x442.jpg"]
         }
         registerApartment(newApartment);
     }
+
     return (
         <>
-            <span className="hyperlink smallerText" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
             <h1>Apartments List of user: {userInfo.firstname} {userInfo.lastname}</h1>
             {userApartments.length === 0 ? <div>You don't have any apartments yet.</div> :
-                <>
+                <div>
                     <ul>
                         {userApartments.map(apartment => (
                             <li key={apartment.id}>
-                                {apartment.id} {apartment.ownerID} {apartment.city} {apartment.street} {apartment.buildingNumber}/{apartment.apartmentNumber}
-                                <button onClick={() => navigate(`/apartments/${apartment.id}`)}>View</button>
-                                <button onClick={() => removeApartment(apartment.id)}>Remove</button>
+                                <ApartmentOnList apartment={apartment} navigate={navigate}
+                                                 openPopup={openPopup}/>
                             </li>
                         ))}
                     </ul>
-                </>
+                </div>
             }
-            <button onClick={createNewApartment}>Add new apartment</button>
+            <Popup show={showPopup} onClose={closePopup} onConfirm={confirmDelete}/>
+            <button className="greenButton longerButton" onClick={createNewApartment}>Add new apartment</button>
         </>
     )
 }

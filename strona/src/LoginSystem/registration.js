@@ -79,72 +79,50 @@ export function Registration(props) {
 
     return (
         <div className="centeredDiv">
-            <div className="mainContainer">
-                <span className="hyperlink smallerText" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
-                <div className="titleContainer">
-                    <div>Registration</div>
-                </div>
-                <br />
-                <div className="inputContainer">
+            <div>
+                <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
+                <div className="titleContainer">Registration</div>
 
-                    <label htmlFor="firstname">Firstname</label><br/>
-                    <input
-                        id="firstname"
-                        autoComplete="on"
-                        placeholder="Enter your firstname"
-                        onChange={ev => userInfoRef.current.firstname = ev.target.value }
-                        className="inputBox" />
-                    <br/><span className="errorLabel">{firstnameError}</span><br/>
+                <label htmlFor="firstname">Firstname</label><br/>
+                <input id="firstname" autoComplete="on"
+                    placeholder="Enter your firstname"
+                    onChange={ev => userInfoRef.current.firstname = ev.target.value }
+                />
+                <br/><span className="errorLabel">{firstnameError}</span><br/>
 
-                    <label htmlFor="lastname">Lastname</label><br/>
-                    <input
-                        id="lastname"
-                        autoComplete="on"
-                        placeholder="Enter your lastname"
-                        onChange={ev => userInfoRef.current.lastname = ev.target.value }
-                        className="inputBox" />
-                    <br/><span className="errorLabel">{lastnameError}</span><br/>
+                <label htmlFor="lastname">Lastname</label><br/>
+                <input id="lastname" autoComplete="on"
+                    placeholder="Enter your lastname"
+                    onChange={ev => userInfoRef.current.lastname = ev.target.value }
+                />
+                <br/><span className="errorLabel">{lastnameError}</span><br/>
 
-                    <label htmlFor="email">Email</label><br/>
-                    <input
-                        id="email"
-                        autoComplete="email"
-                        placeholder="Enter your email here"
-                        onChange={ev => userInfoRef.current.email = ev.target.value }
-                        className="inputBox" />
-                    <br/><span className="errorLabel">{emailError}</span><br/>
+                <label htmlFor="email">Email</label><br/>
+                <input id="email" autoComplete="email"
+                    placeholder="Enter your email here"
+                    onChange={ev => userInfoRef.current.email = ev.target.value }
+                />
+                <br/><span className="errorLabel">{emailError}</span><br/>
 
-                    <label htmlFor="password">Password</label><br/>
-                    <input
-                        id="password"
-                        autoComplete="new-password"
-                        type={"password"}
-                        placeholder="Enter your password here"
-                        onChange={ev => userInfoRef.current.password = ev.target.value }
-                        className="inputBox" />
-                    <br/><span className="errorLabel">{passwordError}</span><br/>
+                <label htmlFor="password">Password</label><br/>
+                <input id="password" type={"password"} autoComplete="new-password"
+                    placeholder="Enter your password here"
+                    onChange={ev => userInfoRef.current.password = ev.target.value }
+                />
+                <br/><span className="errorLabel">{passwordError}</span><br/>
 
-                    <label htmlFor="repeatedPassword">Repeat your password</label><br/>
-                    <input
-                        id="repeatedPassword"
-                        autoComplete="new-password"
-                        type={"password"}
-                        placeholder="Repeat your password"
-                        onChange={ev => repeatedPasswordRef.current = ev.target.value }
-                        className="inputBox" />
-                    <br/><span className="errorLabel">{repeatedPasswordError}</span><br/>
+                <label htmlFor="repeatedPassword">Repeat your password</label><br/>
+                <input id="repeatedPassword" type={"password"} autoComplete="new-password"
+                    placeholder="Repeat your password"
+                    onChange={ev => repeatedPasswordRef.current = ev.target.value }
+                />
+                <br/><span className="errorLabel">{repeatedPasswordError}</span><br/><br/>
 
-                    <div className="centered">
-                        <input
-                        className="inputButton greenButton"
-                        type="button"
-                        onClick={onButtonClick}
-                        value={"Log in"} />
-                    </div>
+                <div className="textAlignedCenter">
+                    <button className="greenButton" onClick={onButtonClick}>Register</button>
                 </div>
 
-                <br/><br/><span>Already have an account?{' '} <span className="hyperlink hyperlinkBlue" onClick={() => navigate("/login")}>Log in</span> </span>
-
+                <br/><br/><span>Already have an account? <span className="hyperlink hyperlinkBlue" onClick={() => navigate("/login")}>Log in</span> </span>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 
 export function ApartmentManager() {
     const [apartments, setApartments] = useState([]);
@@ -27,6 +27,8 @@ export function ApartmentManager() {
             const newApartment = {
                 id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
                 ownerID: apartmentInfo.ownerID,
+                title: apartmentInfo.title,
+                description: apartmentInfo.description,
                 country: apartmentInfo.country,
                 city: apartmentInfo.city,
                 postalCode: apartmentInfo.postalCode,
@@ -40,7 +42,6 @@ export function ApartmentManager() {
                 floor: apartmentInfo.floor,
                 price: apartmentInfo.price,
                 rooms: apartmentInfo.rooms,
-                description: apartmentInfo.description,
                 pictures: apartmentInfo.pictures,
             };
             const updatedApartments = [...prevApartments, newApartment];

@@ -6,6 +6,7 @@ import {Registration} from "./LoginSystem/registration";
 import {UserManager} from "./LoginSystem/userManager";
 import {ApartmentsList} from "./apartmentSystem/apartmentsList";
 import {ApartmentView} from "./apartmentSystem/apartmentView";
+import DocumentList from "./documents/DocumentList";
 
 export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -21,6 +22,7 @@ export default function App() {
                     <Route path="/register" element={<Registration setLoggedIn={setLoggedIn} setUserInfo={setUserInfo} />} />
                     <Route path="/apartments" element={<ApartmentsList userInfo={userInfo} loggedIn={loggedIn}/>} />
                     <Route path="/apartments/:id" element={<ApartmentView userInfo={userInfo} loggedIn={loggedIn}/>} />
+                    <Route path="/documents" element={<DocumentList />} />
                 </Routes>
             </BrowserRouter>
         </div>

@@ -1,0 +1,25 @@
+const documentsData = [
+    {id: 1, name: 'Przedwstępna umowa sprzedaży mieszkania z zadatkiem', category: 'sprzedaż', pdfUrl: './samples/1.pdf'},
+    {id: 2, name: 'Przedwstępna umowa sprzedaży mieszkania z zaliczką', category: 'sprzedaż', pdfUrl: 'samples/2.pdf'},
+    {id: 3, name: 'Przedwstępna umowa sprzedaży mieszkania ze spółdzielczym prawem własnościowym', category: 'sprzedaż', pdfUrl: 'samples/3.pdf'},
+    {id: 4, name: 'Przedwstępna umowa sprzedaży mieszkania finansowana kredytem hipotecznym', category: 'sprzedaż', pdfUrl: 'samples/4.pdf'},
+    {id: 5, name: 'Przedwstępna umowa sprzedaży lokalu użytkowego', category: 'sprzedaż', pdfUrl: 'samples/5.pdf'},
+    {id: 6, name: 'Przedwstępna umowa sprzedaży domu', category: 'sprzedaż', pdfUrl: 'samples/6.pdf'},
+    {id: 7, name: 'Protokół zdawczo-odbiorczy przekazania mieszkania / domu / lokalu / gruntu', category: 'sprzedaż', pdfUrl: 'samples/7.pdf'},
+    {id: 8, name: 'Umowa najmu mieszkania na czas nieokreślony z lokatorem', category: 'najem', pdfUrl: 'samples/8.pdf'},
+    {id: 9, name: 'Umowa najmu mieszkania na czas określony z lokatorem', category: 'najem', pdfUrl: 'samples/9.pdf'},
+    {id: 10, name: 'Umowa najmu domu jednorodzinnego z lokatorem', category: 'najem', pdfUrl: 'samples/10.pdf'},
+    {id: 11, name: 'Umowa najmu lokalu użytkowego', category: 'najem', pdfUrl: 'samples/11.pdf'},
+    {id: 12, name: 'Protokół zdawczo-odbiorczy przedmiotu najmu: mieszkania / domu / lokalu użytkowego', category: 'najem', pdfUrl: 'samples/12.pdf'},
+    {id: 13, name: 'Wypowiedzenie umowy najmu na czas określony', category: 'najem', pdfUrl: 'samples/13.pdf'},
+    {id: 14, name: 'Umowa najmu mieszkania z podziałem na pokoje', category: 'najem', pdfUrl: 'samples/14.pdf'},
+    {id: 15, name: 'Pozew o eksmisję', category: 'najem', pdfUrl: 'samples/15.pdf'},
+    {id: 16, name: 'Wniosek o wgląd do księgi wieczystej/wydanie wydruku księgi wieczystej', category: 'inne', pdfUrl: 'samples/16.pdf'},
+    {id: 17, name: 'Wniosek o założenie księgi wieczystej', category: 'inne', pdfUrl: 'samples/17.pdf'},
+    {id: 18, name: 'Wniosek o wpis w księdze wieczystej', category: 'inne', pdfUrl: 'samples/18.pdf'},
+    {id: 19, name: 'Wniosek o pozwolenie na budowę', category: 'inne', pdfUrl: 'samples/19.pdf'},
+    {id: 20, name: 'Wniosek o pozwolenie na rozbiórkę', category: 'inne', pdfUrl: 'samples/20.pdf'},
+    {id: 21, name: 'Wypowiedzenie umowy najmu na czas nieokreślony', category: 'najem', pdfUrl: 'samples/21.pdf'},
+];
+
+export default documentsData;

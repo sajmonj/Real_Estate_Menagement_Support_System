@@ -59,6 +59,7 @@ export function Home(props) {
                     <button className="redButton" onClick={openPopup}>Remove account</button>
                     <Popup show={showPopup} onClose={closePopup} onConfirm={confirmDelete}/>
                     <button className="greenButton longerButton" onClick={() => navigate("/apartments")}>Show my apartments</button>
+                    <button className="greenButton longerButton" onClick={() => navigate("/documents")}>Documents samples</button>
                 </> : <div/> )}
         </div>
     );

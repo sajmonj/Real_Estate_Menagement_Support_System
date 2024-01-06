@@ -3,7 +3,7 @@ import {Container, Tabs, Button, Tab, Card, Row, Col, Modal} from 'react-bootstr
 
 function SummaryPage({ formData, clearFormData }) {
     const [key, setKey] = useState('general');
-    const [setShowModal] = useState(false);
+    // const [setShowModal] = useState(false);
 
     const maxImagesToShow = 4;
 

@@ -7,6 +7,10 @@ import {UserManager} from "./LoginSystem/userManager";
 import {ApartmentsList} from "./apartmentSystem/apartmentsList";
 import {ApartmentView} from "./apartmentSystem/apartmentView";
 import DocumentList from "./documents/DocumentList";
+import { ApartmentProvider } from './contexts/ApartmentContext';
+import PropertyForm from './components/PropertyForm';
+import ApartmentList from './components/ApartmentList';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -23,6 +27,8 @@ export default function App() {
                     <Route path="/apartments" element={<ApartmentsList userInfo={userInfo} loggedIn={loggedIn}/>} />
                     <Route path="/apartments/:id" element={<ApartmentView userInfo={userInfo} loggedIn={loggedIn}/>} />
                     <Route path="/documents" element={<DocumentList />} />
+                    <Route path="/property-form" element={<PropertyForm />} />
+                    <Route path="/apartment-list" element={<ApartmentList />} />
                 </Routes>
             </BrowserRouter>
         </div>

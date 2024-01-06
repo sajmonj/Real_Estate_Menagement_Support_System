@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.centered {
+    text-align: center;
+}
+
+.centeredDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.mainContainer {
+    font-size: 14px;
+}
+
+.smallerText {
+    font-size: 12px;
+}
+
+.titleContainer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.ButtonContainer {
+    text-align: center;
+}
+
+.inputContainer > .errorLabel {
+    color: red;
+    font-size: 12px;
+    float: right;
+}
+
+
+.inputButton {
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    height: 40px;
+    width: 150px;
+}
+
+.inputBox {
+    margin-top: 3px;
+    height: 35px;
+    width: 350px;
+    border-radius: 8px;
+    border: 1px solid grey;
+    padding-left: 8px;
+}
+
+.greenButton { background-color: darkseagreen; }
+.greenButton:hover { background-color: #607e60; color: white; }
+
+.whiteButton { background-color: white; border: 1px solid grey; }
+.whiteButton:hover { background-color: #e6e6e6; }
+
+.redButton { background-color: red; color: white; }
+.redButton:hover { background-color: darkred; }
+
+.longerButton { width: 200px; }
+
+.hyperlink {
+    cursor: pointer;
+    align-self: flex-start;
+
+}
+.hyperlinkBlue {
+    color: #0077ff;
+    text-decoration-line: underline;
+}

@@ -1,0 +1,26 @@
+.step {
+    text-align: center;
+    width: 100%;
+}
+
+.step-number {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 24px;
+    opacity: 0.5; /* Domyślnie kroki są półprzezroczyste */
+}
+
+.step-label {
+    font-size: 14px;
+}
+
+.step.active .step-number,
+.step.complete .step-number {
+    opacity: 1; /* Aktywny lub zakończony krok jest w pełni widoczny */
+}
+
+.step.complete .step-number {
+    color: #28a745; /* Kolor dla zakończonych kroków */
+}
+
+/* Dodaj dodatkowe style dla mobilnych rozdzielczości jeśli potrzeba */

@@ -6,7 +6,7 @@ import DetailsForm from "./DetailsForm";
 import OwnerForm from "./OwnerForm";
 import UploadPhotosForm from "./UploadPhotosForm";
 import AdvertisementForm from "./AdvertisementForm";
-import SummaryPage from "../SummaryPage"; // Dodaj import dla SummaryPage
+import SummaryPage from "../pages/SummaryPage";
 
 function PropertyForm() {
     const [step, setStep] = useState(1);

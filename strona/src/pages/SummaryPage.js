@@ -3,13 +3,12 @@ import {Container, Tabs, Button, Tab, Card, Row, Col, Modal} from 'react-bootstr
 
 function SummaryPage({ formData, clearFormData }) {
     const [key, setKey] = useState('general');
-    const [showModal, setShowModal] = useState(false);
+    const [setShowModal] = useState(false);
 
-    // Maksymalna liczba zdjęć do wyświetlenia w pierwszym rzędzie
     const maxImagesToShow = 4;
 
-    const openModal = () => setShowModal(true);
-    const closeModal = () => setShowModal(false);
+    // const openModal = () => setShowModal(true);
+    // const closeModal = () => setShowModal(false);
     const [showImagesModal, setShowImagesModal] = useState(false);
     const [showZoomedImageModal, setShowZoomedImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);

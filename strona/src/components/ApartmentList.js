@@ -1,7 +1,5 @@
-// src/ApartmentList.js
-
 import React from 'react';
-import { useApartments } from '../ApartmentContext';
+import {useApartments} from "../contexts/ApartmentContext";
 
 const ApartmentList = () => {
     const { apartments } = useApartments();
@@ -12,7 +10,6 @@ const ApartmentList = () => {
                 <div key={index}>
                     <h3>{apartment.title}</h3>
                     <p>{apartment.description}</p>
-                    {/* Inne informacje o mieszkaniu */}
                 </div>
             ))}
         </div>

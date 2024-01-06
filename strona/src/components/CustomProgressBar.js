@@ -1,6 +1,6 @@
 import React from 'react';
-import { ProgressBar, Step } from 'react-bootstrap';
-import '../css/ProgressBar.css';
+// import { ProgressBar } from 'react-bootstrap';
+import '../style/ProgressBar.css';
 
 const stepsLabels = [
     "Typ nieruchomości",

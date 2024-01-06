@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, { useState } from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Home} from './home';
 import {Login} from './LoginSystem/login';
@@ -12,13 +12,14 @@ import PropertyForm from './components/PropertyForm';
 import ApartmentList from './components/ApartmentList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function App() {
+
+const App = () => {
     const [loggedIn, setLoggedIn] = useState(false)
     const {initialState} = UserManager();
     const [userInfo, setUserInfo] = useState(initialState)
 
     return (
-        <div className="App">
+        <ApartmentProvider>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home userInfo={userInfo} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>} />
@@ -31,6 +32,7 @@ export default function App() {
                     <Route path="/apartment-list" element={<ApartmentList />} />
                 </Routes>
             </BrowserRouter>
-        </div>
+        </ApartmentProvider>
     );
 }
+export default App;

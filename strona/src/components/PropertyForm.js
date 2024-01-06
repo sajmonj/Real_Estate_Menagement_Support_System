@@ -10,7 +10,6 @@ import SummaryPage from "../pages/SummaryPage";
 
 function PropertyForm() {
     const [step, setStep] = useState(1);
-    // Aby było zapisane po odświeżeniu
     const [formData, setFormData] = useState(() => {
         const savedFormData = localStorage.getItem('formData');
         return savedFormData ? JSON.parse(savedFormData) : {};

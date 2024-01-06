@@ -1,5 +1,5 @@
 import React from 'react';
-import {useApartments} from "../contexts/ApartmentContext";
+import { useApartments } from '../contexts/ApartmentContext';
 
 const ApartmentList = () => {
     const { apartments } = useApartments();

@@ -29,6 +29,9 @@ export function Home(props) {
         props.setLoggedIn(false)
         closePopup();
     };
+    const navigateToAddApartment = () => {
+        navigate("/add-apartment"); // Załóżmy, że ścieżka do formularza dodawania mieszkania to "/add-apartment"
+    };
 
     return (
         <div className="centeredDiv">
@@ -60,6 +63,7 @@ export function Home(props) {
                     <Popup show={showPopup} onClose={closePopup} onConfirm={confirmDelete}/>
                     <button className="greenButton longerButton" onClick={() => navigate("/apartments")}>Show my apartments</button>
                     <button className="greenButton longerButton" onClick={() => navigate("/documents")}>Documents samples</button>
+                    <button className="greenButton longerButton" onClick={navigateToAddApartment}>Add New Apartment</button>
                 </> : <div/> )}
         </div>
     );

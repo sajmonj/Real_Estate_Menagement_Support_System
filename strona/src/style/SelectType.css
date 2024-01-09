@@ -1,0 +1,23 @@
+.select-type-container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.type-button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #007bff; /* Kolor granicy Bootstrap 'primary' */
+    border-radius: 0.25rem;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+.type-button .icon-wrapper {
+    /* Dodaj tutaj stylowanie dla ikon */
+}
+
+.type-button:hover {
+    background-color: #007bff; /* Kolor tła Bootstrap 'primary' */
+    color: white;
+}

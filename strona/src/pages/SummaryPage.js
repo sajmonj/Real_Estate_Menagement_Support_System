@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import {Container, Tabs, Button, Tab, Card, Row, Col, Modal} from 'react-bootstrap';
+import {useApartments} from "../contexts/ApartmentContext";
 
 function SummaryPage({ formData, clearFormData }) {
     const [key, setKey] = useState('general');
+    const { apartments, addApartment } = useApartments();
     // const [setShowModal] = useState(false);
 
     const maxImagesToShow = 4;
@@ -26,6 +28,31 @@ function SummaryPage({ formData, clearFormData }) {
         clearFormData();
         // Dodaj tutaj ewentualne przekierowanie lub inne działania po wyczyszczeniu danych
     };
+
+    const handleSaveToApartmentList = () => {
+        addApartment({
+            title: formData.title,
+            description: formData.description,
+            // photos: formData.photos,
+            propertyType: formData.propertyType,
+            detailedType: formData.detailedType,
+            street: formData.street,
+            streetNumber: formData.streetNumber,
+            apartmentNumber: formData.apartmentNumber,
+            city: formData.city,
+            zipcode: formData.zipcode,
+            area: formData.area,
+            bathrooms: formData.bathrooms,
+            kitchens: formData.kitchens,
+            rooms: formData.rooms,
+            estimatedRent: formData.estimatedRent,
+            ownerName: formData.ownerName,
+            ownerEmail: formData.ownerEmail,
+            ownerPhone: formData.ownerPhone
+        });
+        clearFormData();
+
+    }
 
     return (
         <Container className="mt-4">
@@ -166,6 +193,7 @@ function SummaryPage({ formData, clearFormData }) {
 
             {/* Przycisk do wyczyszczenia danych */}
             <button className="btn btn-danger" onClick={handleClearData}>Wyczyść Dane</button>
+            <button className="btn" onClick={handleSaveToApartmentList}>Zapisz Dane</button>
         </Container>
     );
 }

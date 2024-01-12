@@ -35,8 +35,8 @@ export function Home(props) {
 
     return (
         <div className="centeredDiv">
-            <button onClick={() => console.log(apartments)}>Console print apartments</button>
-            <button onClick={() => console.log(users)}>Console print users</button>
+            {/*<button onClick={() => console.log(apartments)}>Console print apartments</button>*/}
+            {/*<button onClick={() => console.log(users)}>Console print users</button>*/}
 
             <div className="text14 textAlignedCenter">
                 <div className="titleContainer">
@@ -61,7 +61,7 @@ export function Home(props) {
                     </div>
                     <button className="redButton" onClick={openPopup}>Remove account</button>
                     <Popup show={showPopup} onClose={closePopup} onConfirm={confirmDelete}/>
-                    <button className="greenButton longerButton" onClick={() => navigate("/apartments")}>Show my apartments</button>
+                    <button className="greenButton longerButton" onClick={() => navigate("/apartment-list")}>Show my apartments</button>
                     <button className="greenButton longerButton" onClick={() => navigate("/documents")}>Documents samples</button>
                     <button className="greenButton longerButton" onClick={navigateToAddApartment}>Add New Apartment</button>
                 </> : <div/> )}

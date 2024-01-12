@@ -39,6 +39,10 @@ export function ApartmentsList(props) {
         }
     };
 
+    const navigateToAddApartment = () => {
+        navigate("/add-apartment"); // Załóżmy, że ścieżka do formularza dodawania mieszkania to "/add-apartment"
+    };
+
     function createNewApartment() {
         let newApartment = {
             ownerID: userInfo.id,
@@ -78,7 +82,7 @@ export function ApartmentsList(props) {
                 </div>
             }
             <Popup show={showPopup} onClose={closePopup} onConfirm={confirmDelete}/>
-            <button className="greenButton longerButton" onClick={createNewApartment}>Add new apartment</button>
+            <button className="greenButton longerButton" onClick={navigateToAddApartment}>Add New Apartment</button>
         </>
     )
 }

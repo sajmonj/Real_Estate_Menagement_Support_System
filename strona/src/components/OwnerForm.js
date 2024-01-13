@@ -10,7 +10,7 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
         email: formData.email,
         phone: formData.phone
     });
-    const [isOwner, setIsOwner] = useState(null); // null, true, false
+    // const [isOwner, setIsOwner] = useState(null); // null, true, false
     const [isValid, setIsValid] = useState(true);
 
     const handleChange = e => {
@@ -21,23 +21,29 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
 
     const isFormValid = () => {
         // console.log("ASDASD", owner.name, owner.phone, owner.email);
-        return (isOwner === false && owner.name && owner.email && owner.phone) || isOwner === true;
+        return owner.name && owner.email && owner.phone;
     };
 
     const handleSubmit = e => {
         e.preventDefault();
         if (isFormValid()) {
-            if (isOwner === true) {
-                // console.log(userInfo.name, userInfo.email, userInfo.phone);
-                // console.log("ASDASD", owner.name, owner.phone, owner.email);
-                // setOwner({...owner, name: userInfo.firstname + userInfo.lastname});
-                console.log("USER", userInfo);
-                console.log("OWNER KUR", owner);
-                updateFormData({ name: userInfo.name, email: userInfo.email, phone: userInfo.phone });
-            } else {
-                updateFormData(owner);
-            }
-            console.log("FORMDATA", formData);
+            // if (isOwner === true) {
+            //     // console.log(userInfo.name, userInfo.email, userInfo.phone);
+            //     // console.log("ASDASD", owner.name, owner.phone, owner.email);
+            //     // setOwner({...owner, name: userInfo.firstname + userInfo.lastname});
+            //     console.log("USER", userInfo);
+            //     console.log("OWNER KUR", owner);
+            //     updateFormData({ name: userInfo.name, email: userInfo.email, phone: userInfo.phone });
+            // } else {
+            //     updateFormData(owner);
+            // }
+            // console.log("FORMDATA", formData);
+            // nextStep();
+            console.log("1",owner);
+            console.log("2",owner.name, owner.email, owner.phone);
+            console.log("3", userInfo);
+            console.log("4", formData);
+            updateFormData(owner);
             nextStep();
         } else {
             setIsValid(false);
@@ -59,24 +65,24 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
                             <Card.Title>Owner Information</Card.Title>
                             {!isValid && <Alert variant="danger">Please fill in all required fields.</Alert>}
                             <Form onSubmit={handleSubmit}>
-                                <div className="d-flex justify-content-around mb-4">
-                                    <Button
-                                        variant={isOwner === true ? "primary" : "outline-primary"}
-                                        onClick={() => setIsOwner(true)}
-                                        className="custom-btn"
-                                    >
-                                        <FontAwesomeIcon icon={faUser} className="me-2" /> Ja jestem właścicielem
-                                    </Button>
-                                    <Button
-                                        variant={isOwner === false ? "primary" : "outline-primary"}
-                                        onClick={() => setIsOwner(false)}
-                                        className="custom-btn"
-                                    >
-                                        <FontAwesomeIcon icon={faUserTie} className="me-2" /> Ktoś inny jest właścicielem
-                                    </Button>
-                                </div>
-                                {isOwner === false && (
-                                    <>
+                                {/*<div className="d-flex justify-content-around mb-4">*/}
+                                {/*    <Button*/}
+                                {/*        variant={isOwner === true ? "primary" : "outline-primary"}*/}
+                                {/*        onClick={() => setIsOwner(true)}*/}
+                                {/*        className="custom-btn"*/}
+                                {/*    >*/}
+                                {/*        <FontAwesomeIcon icon={faUser} className="me-2" /> Ja jestem właścicielem*/}
+                                {/*    </Button>*/}
+                                {/*    <Button*/}
+                                {/*        variant={isOwner === false ? "primary" : "outline-primary"}*/}
+                                {/*        onClick={() => setIsOwner(false)}*/}
+                                {/*        className="custom-btn"*/}
+                                {/*    >*/}
+                                {/*        <FontAwesomeIcon icon={faUserTie} className="me-2" /> Ktoś inny jest właścicielem*/}
+                                {/*    </Button>*/}
+                                {/*</div>*/}
+                                {/*{isOwner === false && (*/}
+                                {/*    <>*/}
                                         <Form.Group className="mb-3">
                                             <Form.Control
                                                 type="text"
@@ -106,8 +112,8 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
                                                 placeholder="Telefon"
                                             />
                                         </Form.Group>
-                                    </>
-                                )}
+                                    {/*</>*/}
+                                {/*)}*/}
 
                                 <div className="d-flex justify-content-end mt-4">
                                     <Button variant="secondary" className="me-2" onClick={prevStep}>Wstecz</Button>

@@ -6,16 +6,16 @@ import CustomProgressBar from "./CustomProgressBar";
 
 function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
     const [owner, setOwner] = useState({
-        name: formData.name || '',
-        email: formData.email || '',
-        phone: formData.phone || ''
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
     });
     const [isOwner, setIsOwner] = useState(null); // null, true, false
     const [isValid, setIsValid] = useState(true);
 
     const handleChange = e => {
         setOwner({ ...owner, [e.target.name]: e.target.value });
-        console.log("Owner",owner);
+        // console.log("Owner",owner);
         setIsValid(true);
     };
 
@@ -28,12 +28,16 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
         e.preventDefault();
         if (isFormValid()) {
             if (isOwner === true) {
-                console.log(userInfo.name, userInfo.email, userInfo.phone);
-                console.log("ASDASD", owner.name, owner.phone, owner.email);
+                // console.log(userInfo.name, userInfo.email, userInfo.phone);
+                // console.log("ASDASD", owner.name, owner.phone, owner.email);
+                // setOwner({...owner, name: userInfo.firstname + userInfo.lastname});
+                console.log("USER", userInfo);
+                console.log("OWNER KUR", owner);
                 updateFormData({ name: userInfo.name, email: userInfo.email, phone: userInfo.phone });
             } else {
                 updateFormData(owner);
             }
+            console.log("FORMDATA", formData);
             nextStep();
         } else {
             setIsValid(false);

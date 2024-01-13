@@ -35,8 +35,8 @@ export function Home(props) {
 
     return (
         <div className="centeredDiv">
-            {/*<button onClick={() => console.log(apartments)}>Console print apartments</button>*/}
-            {/*<button onClick={() => console.log(users)}>Console print users</button>*/}
+            <button onClick={() => console.log(apartments)}>Console print apartments</button>
+            <button onClick={() => console.log(users)}>Console print users</button>
 
             <div className="text14 textAlignedCenter">
                 <div className="titleContainer">

@@ -146,9 +146,9 @@ function SummaryPage({ formData, clearFormData }) {
                     <Card className="mb-3">
                         <Card.Body>
                             <Card.Title>Informacje o Właścicielu</Card.Title>
-                            <Card.Text><strong>Imię i nazwisko:</strong> {formData.ownerName}</Card.Text>
-                            <Card.Text><strong>Email:</strong> {formData.ownerEmail}</Card.Text>
-                            <Card.Text><strong>Telefon:</strong> {formData.ownerPhone}</Card.Text>
+                            <Card.Text><strong>Imię i nazwisko:</strong> {formData.name}</Card.Text>
+                            <Card.Text><strong>Email:</strong> {formData.email}</Card.Text>
+                            <Card.Text><strong>Telefon:</strong> {formData.phone}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Tab>

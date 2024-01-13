@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import CustomProgressBar from "./CustomProgressBar";
 
-function OwnerForm({ formData, updateFormData, nextStep, prevStep }) {
+function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
     const [owner, setOwner] = useState({
         name: formData.name || '',
         email: formData.email || '',
@@ -15,10 +15,12 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep }) {
 
     const handleChange = e => {
         setOwner({ ...owner, [e.target.name]: e.target.value });
+        console.log("Owner",owner);
         setIsValid(true);
     };
 
     const isFormValid = () => {
+        // console.log("ASDASD", owner.name, owner.phone, owner.email);
         return (isOwner === false && owner.name && owner.email && owner.phone) || isOwner === true;
     };
 
@@ -26,7 +28,9 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep }) {
         e.preventDefault();
         if (isFormValid()) {
             if (isOwner === true) {
-                updateFormData({ name: 'student', email: 'kowalski@student.agh.pl', phone: owner.phone });
+                console.log(userInfo.name, userInfo.email, userInfo.phone);
+                console.log("ASDASD", owner.name, owner.phone, owner.email);
+                updateFormData({ name: userInfo.name, email: userInfo.email, phone: userInfo.phone });
             } else {
                 updateFormData(owner);
             }

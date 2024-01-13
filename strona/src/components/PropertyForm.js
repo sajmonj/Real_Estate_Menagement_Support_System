@@ -7,8 +7,11 @@ import OwnerForm from "./OwnerForm";
 import UploadPhotosForm from "./UploadPhotosForm";
 import AdvertisementForm from "./AdvertisementForm";
 import SummaryPage from "../pages/SummaryPage";
+import {useNavigate} from "react-router-dom";
 
-function PropertyForm() {
+function PropertyForm(props) {
+    const navigate = useNavigate();
+    const {loggedIn, userInfo} = props
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState(() => {
         const savedFormData = localStorage.getItem('formData');
@@ -18,7 +21,12 @@ function PropertyForm() {
     // const [formData, setFormData] = useState({});
 
     const nextStep = () => {
-        setStep(step + 1);
+        if(step === 5){
+            setStep(step + 2);
+        }
+        else{
+            setStep(step + 1);
+        }
     };
 
     const prevStep = () => {
@@ -40,6 +48,8 @@ function PropertyForm() {
     const clearFormData = () => {
         localStorage.removeItem('formData');
         setFormData({});
+        // console.log("USER",userInfo.name);
+        navigate("/");
         // Resetuj stan do stanu początkowego
     };
 
@@ -53,7 +63,7 @@ function PropertyForm() {
         case 4:
             return <DetailsForm formData={formData} updateFormData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 5:
-            return <OwnerForm formData={formData} updateFormData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
+            return <OwnerForm formData={formData} updateFormData={updateFormData} nextStep={nextStep} prevStep={prevStep} userInfo={{userInfo}} />;
         case 6:
             return <UploadPhotosForm formData={formData} updateFormData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 7:

@@ -17,8 +17,9 @@ export function ApartmentsList(props) {
     const [apartmentIdToDelete, setApartmentIdToDelete] = useState(null);
 
     useEffect(() => {
+        // console.log(userInfo);
         if (!loggedIn) navigate('/');
-        const filteredApartments = apartments.filter(apartment => apartment.ownerID === userInfo.id);
+        const filteredApartments = apartments.filter(apartment => apartment.email === userInfo.email);
         setUserApartments(filteredApartments);
     }, [navigate, loggedIn, users, apartments, userInfo.id]);
 

@@ -23,27 +23,29 @@ export function ApartmentManager() {
     }
 
     function registerApartment(apartmentInfo) {
+        console.log("asd",apartmentInfo);
         setApartments(prevApartments => {
             const newApartment = {
                 id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
-                ownerID: apartmentInfo.ownerID,
-                title: apartmentInfo.title,
-                description: apartmentInfo.description,
-                country: apartmentInfo.country,
+                adDescription: apartmentInfo.adDescription,
+                adTitle: apartmentInfo.adTitle,
+                bathrooms: apartmentInfo.bathrooms,
                 city: apartmentInfo.city,
-                postalCode: apartmentInfo.postalCode,
-                street: apartmentInfo.street,
-                developmentType: apartmentInfo.developmentType,
-                // developmentType: 0 - blok, 1 - kamienica, 2 - dom, 3 - szeregowiec, 4 - apartamentowiec
-                buildingNumber: apartmentInfo.buildingNumber,
-                apartmentNumber: apartmentInfo.apartmentNumber,
+                detailedType: apartmentInfo.detailedType,
+                email: apartmentInfo.email,
+                estimatedRent: apartmentInfo.estimatedRent,
+                kitchens: apartmentInfo.kitchens,
+                name: apartmentInfo.name,
+                phone: apartmentInfo.phone,
+                propertyType: apartmentInfo.propertyType,
                 area: apartmentInfo.area,
-                furnished: apartmentInfo.furnished,
-                floor: apartmentInfo.floor,
-                price: apartmentInfo.price,
+                apartmentNumber: apartmentInfo.apartmentNumber,
                 rooms: apartmentInfo.rooms,
-                pictures: apartmentInfo.pictures,
+                street: apartmentInfo.street,
+                streetNumber: apartmentInfo.streetNumber,
+                zipCode: apartmentInfo.zipCode
             };
+            console.log(newApartment);
             const updatedApartments = [...prevApartments, newApartment];
             localStorage.setItem('apartments', JSON.stringify(updatedApartments));
             return updatedApartments;

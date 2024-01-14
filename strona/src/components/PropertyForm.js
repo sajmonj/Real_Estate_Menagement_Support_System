@@ -21,12 +21,7 @@ function PropertyForm(props) {
     // const [formData, setFormData] = useState({});
 
     const nextStep = () => {
-        if(step === 5){
-            setStep(step + 2);
-        }
-        else{
             setStep(step + 1);
-        }
     };
 
     const prevStep = () => {

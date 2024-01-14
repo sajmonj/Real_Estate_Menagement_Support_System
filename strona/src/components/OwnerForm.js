@@ -21,7 +21,7 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
 
     const isFormValid = () => {
         const owner = ownerRef.current;
-        return (isOwner === false && owner.name && owner.email && owner.phone) || isOwner === true;
+        return (!isOwner && owner.name && owner.email && owner.phone) || isOwner;
     };
 
     const handleSubmit = e => {

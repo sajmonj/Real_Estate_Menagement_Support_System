@@ -18,6 +18,7 @@ function UploadPhotosForm({ formData, updateFormData, nextStep, prevStep }) {
 
     const handleSubmit = e => {
         e.preventDefault();
+        console.log(selectedFiles);
         updateFormData({ ...formData, photos: selectedFiles });
         nextStep();
     };

@@ -29,6 +29,7 @@ export function ApartmentManager() {
                 id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
                 adDescription: apartmentInfo.adDescription,
                 adTitle: apartmentInfo.adTitle,
+                photos: apartmentInfo.photos,
                 bathrooms: apartmentInfo.bathrooms,
                 city: apartmentInfo.city,
                 detailedType: apartmentInfo.detailedType,

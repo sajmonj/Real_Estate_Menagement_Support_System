@@ -6,12 +6,12 @@ ul {
 
 .apartmentOnListView {
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-columns: 4fr 1fr;
     grid-gap: 20px;
     align-items: center;
     padding: 10px;
     margin: 10px;
-    width: 80%;
+    width: 90%;
     border: 2px solid grey;
     border-radius: 10px;
 }
@@ -37,4 +37,11 @@ ul {
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+
+.photo {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 450px;
 }

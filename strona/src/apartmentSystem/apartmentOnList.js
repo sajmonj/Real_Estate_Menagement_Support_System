@@ -12,25 +12,31 @@ export function ApartmentOnList({apartment, navigate, openPopup}) {
 
     return (
         <div className="apartmentOnListView">
-            {/*<img className="apartmentSmallPicture" src={apartment.photos[0]} alt={apartment.title} />*/}
+            {/*<img className="apartmentSmallPicture" src={apartment.pictures[0]} alt={apartment.title} />*/}
             <div>
-                <h3>{apartment.street}</h3>
-                <p className="closeText">{apartment.description}</p><br/>
+                <h3>{apartment.street} {apartment.streetNumber}</h3>
+                {/*<p className="closeText">{apartment.description}</p><br/>*/}
                 <div className="infoGrid">
                     <div className="closeText">
                         <p>{apartment.street.length === 0 ? apartment.city : "ul. " + apartment.street} {apartment.streetNumber}{apartment.apartmentNumber === 0 ? "" : "/" + apartment.apartmentNumber}</p>
-                        <p>{apartment.city} {apartment.zipCode}</p>
+                        <p>{apartment.zipCode} {apartment.city}</p>
                         {/*<p>{apartment.country}</p>*/}
                     </div>
+                    {/*<div className='closeText'>*/}
+                    {/*    <p>Typ: {getDevelopmentTypeName(apartment.developmentType)}</p>*/}
+                    {/*    <p>Stan: {apartment.furnished ? "Umeblowany" : "Nie umeblowany"}</p>*/}
+                    {/*    <p>Piętro: {apartment.floor}</p>*/}
+                    {/*</div>*/}
                     <div className='closeText'>
-                        {/*<p>Typ: {getDevelopmentTypeName(apartment.developmentType)}</p>*/}
-                        {/*<p>Stan: {apartment.furnished ? "Umeblowany" : "Nie umeblowany"}</p>*/}
-                        {/*<p>Piętro: {apartment.floor}</p>*/}
+                        <p>Rooms: {apartment.rooms}</p>
+                        <p>Kitchens: {apartment.kitchens}</p>
+                        <p>Bathrooms: {apartment.bathrooms}</p>
+                        <p>Area: {apartment.area} m²</p>
+                        <p>Est. rent price: {apartment.estimatedRent} PLN</p>
                     </div>
                     <div className='closeText'>
-                        <p>Pokoje: {apartment.rooms}</p>
-                        <p>Powierzchnia: {apartment.area} m²</p>
-                        <p>Cena: {apartment.estimatedRent} PLN</p>
+                        <p>Property type: {apartment.propertyType}</p>
+                        <p>DetailedType: {apartment.detailedType}</p>
                     </div>
                 </div>
             </div>

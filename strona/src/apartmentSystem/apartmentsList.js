@@ -17,6 +17,7 @@ export function ApartmentsList(props) {
 
 
     useEffect(() => {
+        // console.log(userInfo);
         if (!loggedIn) navigate('/');
         const apartmentsOfUser = apartments.filter(apartment => apartment.email === userInfo.email);
         setUserApartments(apartmentsOfUser);

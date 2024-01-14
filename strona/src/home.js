@@ -7,7 +7,7 @@ import {PopupRemovingAccount as Popup} from "./components/popup";
 export function Home(props) {
     const {loggedIn, userInfo} = props
     const navigate = useNavigate();
-    const {users, removeUser} = UserManager();
+    const {printUsers, removeUser} = UserManager();
     const {apartments} = ApartmentManager();
 
     const [showPopup, setShowPopup] = useState(false);
@@ -35,8 +35,8 @@ export function Home(props) {
 
     return (
         <div className="centeredDiv">
-            <button onClick={() => console.log(apartments)}>Console print apartments</button>
-            <button onClick={() => console.log(users)}>Console print users</button>
+            <button onClick={() => console.log(apartments)}>Print apartments</button>
+            <button onClick={printUsers}>Print users</button>
 
             <div className="text14 textAlignedCenter">
                 <div className="titleContainer">
@@ -46,8 +46,10 @@ export function Home(props) {
                 <div>This is the home page.</div>
                 <br/><br/><br/>
                 <div className="TextAlignedCenter">
-                    <button className='inputButton greenButton' onClick={loginButton}>{loggedIn ? "Log out" : "Log in"}</button>
-                    {(!loggedIn ? <button className='inputButton whiteButton' onClick={() => navigate("/register")}>Sign up</button> : <div/> )}
+                    <button className='inputButton greenButton'
+                            onClick={loginButton}>{loggedIn ? "Log out" : "Log in"}</button>
+                    {(!loggedIn ? <button className='inputButton whiteButton' onClick={() => navigate("/register")}>Sign
+                        up</button> : <div/>)}
                 </div>
             </div>
             {(loggedIn ?
@@ -56,15 +58,19 @@ export function Home(props) {
                         <br/> ID: {userInfo.id}
                         <br/> Firstname: {userInfo.firstname} {userInfo.lastname}
                         <br/> Email: {userInfo.email}
-                        <br/> Password: {userInfo.password}
                         <br/><br/>
                     </div>
                     <button className="redButton" onClick={openPopup}>Remove account</button>
                     <Popup show={showPopup} onClose={closePopup} onConfirm={confirmDelete}/>
-                    <button className="greenButton longerButton" onClick={() => navigate("/apartments")}>Show my apartments</button>
-                    <button className="greenButton longerButton" onClick={() => navigate("/documents")}>Documents samples</button>
-                    <button className="greenButton longerButton" onClick={navigateToAddApartment}>Add New Apartment</button>
-                </> : <div/> )}
+                    <button className="greenButton longerButton" onClick={() => navigate("/apartments")}>Show my
+                        apartments
+                    </button>
+                    <button className="greenButton longerButton" onClick={() => navigate("/documents")}>Documents
+                        samples
+                    </button>
+                    <button className="greenButton longerButton" onClick={navigateToAddApartment}>Add New Apartment
+                    </button>
+                </> : <div/>)}
         </div>
     );
 }

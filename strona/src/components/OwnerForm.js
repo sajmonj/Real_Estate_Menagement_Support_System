@@ -1,49 +1,46 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import CustomProgressBar from "./CustomProgressBar";
 
 function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
-    const [owner, setOwner] = useState({
+    const ownerRef = useRef({
         name: formData.name,
         email: formData.email,
         phone: formData.phone
     });
-    // const [isOwner, setIsOwner] = useState(null); // null, true, false
+    const [isOwner, setIsOwner] = useState(null); // null, true, false
     const [isValid, setIsValid] = useState(true);
 
     const handleChange = e => {
-        setOwner({ ...owner, [e.target.name]: e.target.value });
-        // console.log("Owner",owner);
+        ownerRef.current = ({ ...ownerRef.current, [e.target.name]: e.target.value });
+        console.log("Owner",ownerRef.current);
         setIsValid(true);
     };
 
     const isFormValid = () => {
-        // console.log("ASDASD", owner.name, owner.phone, owner.email);
-        return owner.name && owner.email && owner.phone;
+        const owner = ownerRef.current;
+        return (!isOwner && owner.name && owner.email && owner.phone) || isOwner;
     };
 
     const handleSubmit = e => {
         e.preventDefault();
         if (isFormValid()) {
-            // if (isOwner === true) {
-            //     // console.log(userInfo.name, userInfo.email, userInfo.phone);
-            //     // console.log("ASDASD", owner.name, owner.phone, owner.email);
-            //     // setOwner({...owner, name: userInfo.firstname + userInfo.lastname});
-            //     console.log("USER", userInfo);
-            //     console.log("OWNER KUR", owner);
-            //     updateFormData({ name: userInfo.name, email: userInfo.email, phone: userInfo.phone });
-            // } else {
-            //     updateFormData(owner);
-            // }
-            // console.log("FORMDATA", formData);
-            // nextStep();
-            console.log("1",owner);
-            console.log("2",owner.name, owner.email, owner.phone);
-            console.log("3", userInfo);
-            console.log("4", formData);
-            updateFormData(owner);
+            if (isOwner === true) {
+                ownerRef.current = {
+                    id: userInfo.id,
+                    name: userInfo.firstname + ' ' + userInfo.lastname,
+                    email: userInfo.email,
+                    password: userInfo.password,
+                };
+                //console.log("USER", userInfo);
+                //console.log("OWNER", ownerRef.current);
+                updateFormData({ name: userInfo.name, email: userInfo.email, phone: userInfo.phone });
+            } else {
+                updateFormData(ownerRef.current);
+            }
+            console.log("FORMDATA", formData);
             nextStep();
         } else {
             setIsValid(false);
@@ -65,29 +62,29 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
                             <Card.Title>Owner Information</Card.Title>
                             {!isValid && <Alert variant="danger">Please fill in all required fields.</Alert>}
                             <Form onSubmit={handleSubmit}>
-                                {/*<div className="d-flex justify-content-around mb-4">*/}
-                                {/*    <Button*/}
-                                {/*        variant={isOwner === true ? "primary" : "outline-primary"}*/}
-                                {/*        onClick={() => setIsOwner(true)}*/}
-                                {/*        className="custom-btn"*/}
-                                {/*    >*/}
-                                {/*        <FontAwesomeIcon icon={faUser} className="me-2" /> Ja jestem właścicielem*/}
-                                {/*    </Button>*/}
-                                {/*    <Button*/}
-                                {/*        variant={isOwner === false ? "primary" : "outline-primary"}*/}
-                                {/*        onClick={() => setIsOwner(false)}*/}
-                                {/*        className="custom-btn"*/}
-                                {/*    >*/}
-                                {/*        <FontAwesomeIcon icon={faUserTie} className="me-2" /> Ktoś inny jest właścicielem*/}
-                                {/*    </Button>*/}
-                                {/*</div>*/}
-                                {/*{isOwner === false && (*/}
-                                {/*    <>*/}
+                                <div className="d-flex justify-content-around mb-4">
+                                    <Button
+                                        variant={isOwner === true ? "primary" : "outline-primary"}
+                                        onClick={() => setIsOwner(true)}
+                                        className="custom-btn"
+                                    >
+                                        <FontAwesomeIcon icon={faUser} className="me-2" /> Ja jestem właścicielem
+                                    </Button>
+                                    <Button
+                                        variant={isOwner === false ? "primary" : "outline-primary"}
+                                        onClick={() => setIsOwner(false)}
+                                        className="custom-btn"
+                                    >
+                                        <FontAwesomeIcon icon={faUserTie} className="me-2" /> Ktoś inny jest właścicielem
+                                    </Button>
+                                </div>
+                                {isOwner === false && (
+                                    <>
                                         <Form.Group className="mb-3">
                                             <Form.Control
                                                 type="text"
                                                 name="name"
-                                                value={owner.name}
+                                                value={ownerRef.current.name}
                                                 onChange={handleChange}
                                                 placeholder="Imię i nazwisko "
                                                 className="mb-2"
@@ -97,7 +94,7 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
                                             <Form.Control
                                                 type="email"
                                                 name="email"
-                                                value={owner.email}
+                                                value={ownerRef.current.email}
                                                 onChange={handleChange}
                                                 placeholder="Email"
                                                 className="mb-2" // Dodano margines poniżej
@@ -107,13 +104,13 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
                                             <Form.Control
                                                 type="tel"
                                                 name="phone"
-                                                value={owner.phone}
+                                                value={ownerRef.current.phone}
                                                 onChange={handleChange}
                                                 placeholder="Telefon"
                                             />
                                         </Form.Group>
-                                    {/*</>*/}
-                                {/*)}*/}
+                                    </>
+                                )}
 
                                 <div className="d-flex justify-content-end mt-4">
                                     <Button variant="secondary" className="me-2" onClick={prevStep}>Wstecz</Button>

@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {UserManager} from "./userManager";
 
 export function Registration(props) {
-    const { users, registerUser, initialState } = UserManager();
+    const { getUserByEmail, registerUser, initialState } = UserManager();
     const userInfoRef = useRef(initialState);
     const repeatedPasswordRef = useRef("");
     const [firstnameError, setFirstnameError] = useState("")
@@ -65,15 +65,15 @@ export function Registration(props) {
             return
         }
 
-        const user = users.find((user) => user.email === userInfo.email);
+        const user = getUserByEmail(userInfo);
 
         if (user) {
             setEmailError("User with this email already exists");
         } else {
             const newUser = registerUser(userInfo);
-            props.setLoggedIn(true)
-            props.setUserInfo(newUser)
-            navigate("/")
+            props.setLoggedIn(true);
+            props.setUserInfo(newUser);
+            navigate("/");
         }
     }
 

@@ -27,7 +27,7 @@ const App = () => {
                     <Route path="/apartments" element={<ApartmentsList userInfo={userInfo} loggedIn={loggedIn} />} />
                     <Route path="/apartments/:id" element={<ApartmentView userInfo={userInfo} loggedIn={loggedIn} />} />
                     <Route path="/documents" element={<DocumentList />} />
-                    <Route path="/add-apartment" element={<PropertyForm loggedIn={loggedIn} userInfo={{userInfo} }/>} />
+                    <Route path="/add-apartment" element={<PropertyForm loggedIn={loggedIn} userInfo={userInfo}/>} />
                     <Route path="/apartment-list" element={<ApartmentList />} />
                 </Routes>
             </BrowserRouter>

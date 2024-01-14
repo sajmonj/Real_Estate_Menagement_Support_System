@@ -21,12 +21,12 @@ function PropertyForm(props) {
     // const [formData, setFormData] = useState({});
 
     const nextStep = () => {
-        // if(step === 5){
-        //     setStep(step + 2);
-        // }
-        // else{
+        if(step === 5){
+            setStep(step + 2);
+        }
+        else{
             setStep(step + 1);
-        // }
+        }
     };
 
     const prevStep = () => {
@@ -64,7 +64,7 @@ function PropertyForm(props) {
         case 4:
             return <DetailsForm formData={formData} updateFormData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 5:
-            return <OwnerForm formData={formData} updateFormData={updateFormData} nextStep={nextStep} prevStep={prevStep} userInfo={{userInfo}} />;
+            return <OwnerForm formData={formData} updateFormData={updateFormData} nextStep={nextStep} prevStep={prevStep} userInfo={userInfo} />;
         case 6:
             return <UploadPhotosForm formData={formData} updateFormData={updateFormData} nextStep={nextStep} prevStep={prevStep} />;
         case 7:

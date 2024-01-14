@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react';
 import {ApartmentManager} from "../apartmentSystem/apartmentManager";
+import bcrypt from 'bcryptjs';
 
 export function UserManager() {
     const [users, setUsers] = useState([]);
     const initialState = { id: '', firstname: '', lastname: '', email: '', password: '' };
     const {removeApartmentsByOwnerID} = ApartmentManager();
+    bcrypt.genSaltSync(10)
 
     useEffect(() => {
         const storedUsers = localStorage.getItem('users');
@@ -12,7 +14,7 @@ export function UserManager() {
             const parsedUsers = JSON.parse(storedUsers);
             setUsers(parsedUsers);
         } else {
-            const testUser = { id: 0, firstname: 'Test', lastname: 'User', email: 'student@agh.edu.pl', password: 'student' };
+            const testUser = { id: 0, firstname: 'Test', lastname: 'User', email: 'student@agh.edu.pl', password: hashPassword('student') };
             setUsers([testUser]);
             localStorage.setItem('users', JSON.stringify([testUser]));
         }
@@ -24,13 +26,16 @@ export function UserManager() {
             firstname: userInfo.firstname,
             lastname: userInfo.lastname,
             email: userInfo.email,
-            password: userInfo.password,
+            password: hashPassword(userInfo.password),
         };
         setUsers((prevUsers) => [...prevUsers, newUser]);
         localStorage.setItem('users', JSON.stringify([...users, newUser]));
         return newUser;
     }
 
+    function hashPassword(password) {
+        return bcrypt.hashSync(password);
+    }
     function removeUser(id) {
         removeApartmentsByOwnerID(id);
         const newUsers = users.filter((user) => user.id !== id);
@@ -38,6 +43,20 @@ export function UserManager() {
         localStorage.setItem('users', JSON.stringify(newUsers));
     }
 
-    return { users, registerUser, removeUser, initialState };
+     function getUserLogin(userInfo) {
+        const user = users.find((user) => user.email === userInfo.email);
+         if (user && bcrypt.compareSync(userInfo.password, user.password)) return user;
+         else return null;
+    }
+
+    function getUserByEmail(userInfo) {
+        return users.find((user) => user.email === userInfo.email);
+    }
+
+    function printUsers() {
+        console.log(users);
+    }
+
+    return { printUsers, getUserLogin, getUserByEmail, registerUser, removeUser, initialState };
 }
 

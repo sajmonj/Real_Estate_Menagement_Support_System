@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {UserManager} from "./userManager";
 
 export function Login(props) {
-    const { users, initialState } = UserManager();
+    const { getUserLogin, initialState } = UserManager();
     const userInfoRef = useRef(initialState);
     const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError] = useState("")
@@ -33,7 +33,8 @@ export function Login(props) {
             return
         }
 
-        const user = users.find((user) => user.email === userInfo.email && user.password === userInfo.password);
+        const user = getUserLogin(userInfo);
+        console.log("Znaleziony: ", user);
 
         if (user) {
             props.setLoggedIn(true);

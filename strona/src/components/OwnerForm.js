@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import CustomProgressBar from "./CustomProgressBar";
 
-function OwnerForm({ formData, updateFormData, nextStep, prevStep }) {
-    const [owner, setOwner] = useState({
-        name: formData.name || '',
-        email: formData.email || '',
-        phone: formData.phone || ''
+function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
+    const ownerRef = useRef({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
     });
     const [isOwner, setIsOwner] = useState(null); // null, true, false
     const [isValid, setIsValid] = useState(true);
 
     const handleChange = e => {
-        setOwner({ ...owner, [e.target.name]: e.target.value });
+        ownerRef.current = ({ ...ownerRef.current, [e.target.name]: e.target.value });
+        console.log("Owner",ownerRef.current);
         setIsValid(true);
     };
 
     const isFormValid = () => {
+        const owner = ownerRef.current;
         return (isOwner === false && owner.name && owner.email && owner.phone) || isOwner === true;
     };
 
@@ -26,10 +28,19 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep }) {
         e.preventDefault();
         if (isFormValid()) {
             if (isOwner === true) {
-                updateFormData({ name: 'student', email: 'kowalski@student.agh.pl', phone: owner.phone });
+                ownerRef.current = {
+                    id: userInfo.id,
+                    name: userInfo.firstname + ' ' + userInfo.lastname,
+                    email: userInfo.email,
+                    password: userInfo.password,
+                };
+                //console.log("USER", userInfo);
+                //console.log("OWNER", ownerRef.current);
+                updateFormData({ name: userInfo.name, email: userInfo.email, phone: userInfo.phone });
             } else {
-                updateFormData(owner);
+                updateFormData(ownerRef.current);
             }
+            console.log("FORMDATA", formData);
             nextStep();
         } else {
             setIsValid(false);
@@ -73,7 +84,7 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep }) {
                                             <Form.Control
                                                 type="text"
                                                 name="name"
-                                                value={owner.name}
+                                                value={ownerRef.current.name}
                                                 onChange={handleChange}
                                                 placeholder="Imię i nazwisko "
                                                 className="mb-2"
@@ -83,7 +94,7 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep }) {
                                             <Form.Control
                                                 type="email"
                                                 name="email"
-                                                value={owner.email}
+                                                value={ownerRef.current.email}
                                                 onChange={handleChange}
                                                 placeholder="Email"
                                                 className="mb-2" // Dodano margines poniżej
@@ -93,7 +104,7 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep }) {
                                             <Form.Control
                                                 type="tel"
                                                 name="phone"
-                                                value={owner.phone}
+                                                value={ownerRef.current.phone}
                                                 onChange={handleChange}
                                                 placeholder="Telefon"
                                             />

@@ -1,50 +1,91 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {ApartmentManager} from "./apartmentManager";
-import {useEffect} from "react";
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Card, Row, Col } from 'react-bootstrap';
+import { ApartmentManager } from './apartmentManager';
 import './apartmentOnList.css';
 
 export function ApartmentView(props) {
-    const {id} = useParams();
-    const {loggedIn, userInfo} = props;
+    const { id } = useParams();
     const navigate = useNavigate();
-    const {apartments, getDevelopmentTypeName} = ApartmentManager();
+    const { apartments } = ApartmentManager();
 
     const apartment = apartments.find(apartment => apartment.id === parseInt(id));
 
     useEffect(() => {
-        if (!loggedIn) navigate('/');
-    }, [loggedIn, navigate]);
+        if (!props.loggedIn) navigate('/');
+    }, [props.loggedIn, navigate]);
+
+    if (!apartment) {
+        return <div>Apartment not found</div>;
+    }
 
     return (
-        <>
-            {apartment ?
-                <>
+        <Container className="mt-4">
+            <Row>
+                <Col>
                     <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back to the apartments list</span>
-                    <h1>Apartment view:</h1>
-                    <div>Address: {apartment.street} {apartment.streetNumber}/{apartment.apartmentNumber} {apartment.city} {apartment.postalCode}</div>
-                    <div>Property type: {apartment.propertyType} / {apartment.detailedType}</div>
-                    <div>Area: {apartment.area} m2</div>
-                    <div>Estimated rent price: {apartment.estimatedRent} PLN</div>
-                    <div>Rooms: {apartment.rooms}</div>
-                    <div>Kitchens: {apartment.kitchens}</div>
-                    <div>Bathrooms: {apartment.bathrooms}</div>
-                    <br></br>
-                    <h3>Advertisement: </h3>
-                    <h5>{apartment.adTitle}</h5>
-                    <div>Description: {apartment.adDescription}</div>
-                    {   apartment.photos ?
-                        <div>
-                            Photos:
-                            {apartment.photos.map(photo => (
-                                <img className="photo" src={photo} alt='apartment photo'/>
-                            ))}
-                        </div>
-                        : <div>No photos available</div>
-                    }
-                    {/*<img src={apartment.pictures[0]} alt="Apartment picture"/>*/}
-                </>
-                : <div>Apartment not found</div>
-            }
-        </>
-    )
+                    <h1>Apartment View</h1>
+
+                    {/* Address */}
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <Card.Title>Address</Card.Title>
+                            <Card.Text>{apartment.street} {apartment.streetNumber}/{apartment.apartmentNumber}, {apartment.city}, {apartment.postalCode}</
+                                Card.Text>
+                        </Card.Body>
+                    </Card>
+
+                    {/* Property Details */}
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <Card.Title>Property Details</Card.Title>
+                            <Card.Text>Type: {apartment.propertyType} / {apartment.detailedType}</Card.Text>
+                            <Card.Text>Area: {apartment.area} m2</Card.Text>
+                            <Card.Text>Estimated Rent: {apartment.estimatedRent} PLN</Card.Text>
+                            <Card.Text>Rooms: {apartment.rooms}</Card.Text>
+                            <Card.Text>Kitchens: {apartment.kitchens}</Card.Text>
+                            <Card.Text>Bathrooms: {apartment.bathrooms}</Card.Text>
+                        </Card.Body>
+                    </Card>
+
+                    {/* Owner Details */}
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <Card.Title>Owner Details</Card.Title>
+                            {/* Placeholder for Owner Details */}
+                            <Card.Text>Name: [Owner Name]</Card.Text>
+                            <Card.Text>Contact: [Owner Contact]</Card.Text>
+                        </Card.Body>
+                    </Card>
+
+                    {/* Advertisement */}
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <Card.Title>Advertisement</Card.Title>
+                            <h5>{apartment.adTitle}</h5>
+                            <Card.Text>{apartment.adDescription}</Card.Text>
+                        </Card.Body>
+                    </Card>
+
+                    {/* Photos */}
+                    {apartment.photos && (
+                        <Card className="mb-3">
+                            <Card.Body>
+                                <Card.Title>Photos</Card.Title>
+                                <Row>
+                                    {apartment.photos.map((photo, index) => (
+                                        <Col key={index} md={4} className="mb-3">
+                                            <img src={photo} alt={`Apartment photo ${index}`} className="img-fluid" />
+                                        </Col>
+                                    ))}
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    )}
+                </Col>
+            </Row>
+        </Container>
+    );
 }
+
+export default ApartmentView;

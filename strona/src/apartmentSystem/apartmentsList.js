@@ -39,9 +39,9 @@ export function ApartmentsList(props) {
             .filter(apartment => apartment.street.toLowerCase().includes(e.target.value.toLowerCase()))
             .sort((a, b) => {
                 if (sortedType.current === 'numeric') {
-                    return sortOrder.current === 'desc' ? a[sortedKey.current]-b[sortedKey.current] : b[sortedKey.current]-a[sortedKey.current];
+                    return sortOrder.current === 'asc' ? a[sortedKey.current]-b[sortedKey.current] : b[sortedKey.current]-a[sortedKey.current];
                 } else if (sortedType.current === 'string') {
-                    return sortOrder.current === 'desc' ? a[sortedKey.current].localeCompare(b[sortedKey.current]) : b[sortedKey.current].localeCompare(a[sortedKey.current]);
+                    return sortOrder.current === 'asc' ? a[sortedKey.current].localeCompare(b[sortedKey.current]) : b[sortedKey.current].localeCompare(a[sortedKey.current]);
                 } else return 1;
         }));
     };

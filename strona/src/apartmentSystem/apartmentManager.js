@@ -21,11 +21,7 @@ export function ApartmentManager() {
             default: return "pozostałe"
         }
     }
-
-    function registerApartment(apartmentInfo) {
-        console.log("asd",apartmentInfo);
-        setApartments(prevApartments => {
-            const newApartment = {
+    /*
                 id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
                 adDescription: apartmentInfo.adDescription,
                 adTitle: apartmentInfo.adTitle,
@@ -45,12 +41,18 @@ export function ApartmentManager() {
                 street: apartmentInfo.street,
                 streetNumber: apartmentInfo.streetNumber,
                 zipCode: apartmentInfo.zipCode
-            };
-            console.log(newApartment);
-            const updatedApartments = [...prevApartments, newApartment];
-            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
-            return updatedApartments;
-        });
+     */
+
+    function registerApartment(apartmentInfo) {
+        console.log("tutaj",apartmentInfo);
+        const newApartment = {
+            ...apartmentInfo,
+            id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1
+        };
+        setApartments((prevApartments) => [...prevApartments, newApartment]);
+        localStorage.setItem('apartments', JSON.stringify([...apartments, newApartment]));
+        console.log("Po zapisaniu:", newApartment);
+        return newApartment;
     }
 
     function removeApartment(id) {
@@ -61,14 +63,14 @@ export function ApartmentManager() {
         });
     }
 
-    function removeApartmentsByOwnerID(ownerID) {
+    function removeApartmentsByOwnerEmail(ownerEmail) {
         setApartments(prevApartments => {
-            const newApartments = prevApartments.filter(apartment => apartment.ownerID !== ownerID);
+            const newApartments = prevApartments.filter(apartment => apartment.email !== ownerEmail);
             localStorage.setItem('apartments', JSON.stringify(newApartments));
             return newApartments;
         });
     }
 
-    return { apartments, registerApartment, removeApartment, getDevelopmentTypeName, removeApartmentsByOwnerID};
+    return { apartments, registerApartment, removeApartment, getDevelopmentTypeName, removeApartmentsByOwnerEmail};
 }
 

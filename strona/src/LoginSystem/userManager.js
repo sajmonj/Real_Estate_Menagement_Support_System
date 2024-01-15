@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 export function UserManager() {
     const [users, setUsers] = useState([]);
     const initialState = { id: '', firstname: '', lastname: '', email: '', password: '' };
-    const {removeApartmentsByOwnerID} = ApartmentManager();
+    const {removeApartmentsByOwnerEmail} = ApartmentManager();
     bcrypt.genSaltSync(10)
 
     useEffect(() => {
@@ -36,9 +36,9 @@ export function UserManager() {
     function hashPassword(password) {
         return bcrypt.hashSync(password);
     }
-    function removeUser(id) {
-        removeApartmentsByOwnerID(id);
-        const newUsers = users.filter((user) => user.id !== id);
+    function removeUser(userInfo) {
+        removeApartmentsByOwnerEmail(userInfo.email);
+        const newUsers = users.filter((user) => user.id !== userInfo.id);
         setUsers(newUsers);
         localStorage.setItem('users', JSON.stringify(newUsers));
     }

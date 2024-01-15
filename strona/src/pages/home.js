@@ -21,8 +21,8 @@ export default function Home(props) {
     }
 
     function handleRemoveUser() {
-        if (userInfo.id !== 0) {
-            removeUser(userInfo.id)
+        if (userInfo.email !== 'student@agh.edu.pl') {
+            removeUser(userInfo)
             localStorage.removeItem("user")
             props.setLoggedIn(false)
         }

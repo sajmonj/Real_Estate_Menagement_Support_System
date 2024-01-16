@@ -18,10 +18,11 @@ export function ApartmentView(props) {
     const { addEventToApartment } = ApartmentManager();
 
     const handleAddEvent = () => {
-        const newEvent = new Event(eventDescription);
+        const newEvent = new Event(newEvent.description, new Date(newEvent.date));
         addEventToApartment(apartment.id, newEvent);
-        setEventDescription('');
+        setNewEvent({ date: '', description: '' });
     };
+
 
     useEffect(() => {
         if (!props.loggedIn) navigate('/');
@@ -128,7 +129,7 @@ export function ApartmentView(props) {
                         <Card.Body>
                             <Card.Title>Historia Wydarzeń</Card.Title>
                             {/* Lista wydarzeń */}
-                            {apartment.events && apartment.events.length > 0 ? (
+                            {apartment && apartment.events && apartment.events.length > 0 ? (
                                 apartment.events.map((event, index) => (
                                     <div key={index} className="mb-2">
                                         <strong>Data: </strong>{event.date}<br />

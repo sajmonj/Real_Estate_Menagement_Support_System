@@ -7,15 +7,16 @@ import './apartmentOnList.css';
 export function ApartmentView(props) {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { apartments } = ApartmentManager();
+    const { addEventToApartment, apartments } = ApartmentManager();
 
-    const apartment = apartments.find(apartment => apartment.id === parseInt(id));
+    const apartment = apartments ? apartments.find(apartment => apartment.id === parseInt(id)) : null;
+
     const [key, setKey] = useState('general');
     const [showZoomedImageModal, setShowZoomedImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [newEvent, setNewEvent] = useState({ date: '', description: '' });
     const [eventDescription, setEventDescription] = useState('');
-    const { addEventToApartment } = ApartmentManager();
+    const [events, setEvents] = useState([]);
 
     const handleAddEvent = () => {
         const newEvent = new Event(newEvent.description, new Date(newEvent.date));
@@ -25,8 +26,12 @@ export function ApartmentView(props) {
 
 
     useEffect(() => {
-        if (!props.loggedIn) navigate('/');
-    }, [props.loggedIn, navigate]);
+        const currentApartment = apartments.find(apartment => apartment.id === parseInt(id));
+        if (currentApartment && currentApartment.events) {
+            setEvents(currentApartment.events);
+        }
+    }, [apartments, id]);
+
 
     const openZoomedImageModal = (imageUrl) => {
         setSelectedImage(imageUrl);
@@ -40,6 +45,7 @@ export function ApartmentView(props) {
 
     const addEvent = (e) => {
         e.preventDefault();
+        console.log("Dodawanie wydarzenia:", newEvent.date, newEvent.description); // Dodaj tę linię do debugowania
         const eventToAdd = new Event(newEvent.description, new Date(newEvent.date));
         addEventToApartment(apartment.id, eventToAdd);
         setNewEvent({ date: '', description: '' });

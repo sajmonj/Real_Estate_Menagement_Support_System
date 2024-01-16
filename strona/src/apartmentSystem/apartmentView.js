@@ -14,6 +14,14 @@ export function ApartmentView(props) {
     const [showZoomedImageModal, setShowZoomedImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [newEvent, setNewEvent] = useState({ date: '', description: '' });
+    const [eventDescription, setEventDescription] = useState('');
+    const { addEventToApartment } = ApartmentManager();
+
+    const handleAddEvent = () => {
+        const newEvent = new Event(eventDescription);
+        addEventToApartment(apartment.id, newEvent);
+        setEventDescription('');
+    };
 
     useEffect(() => {
         if (!props.loggedIn) navigate('/');
@@ -31,11 +39,11 @@ export function ApartmentView(props) {
 
     const addEvent = (e) => {
         e.preventDefault();
-        // Tutaj możesz dodać logikę dodawania wydarzenia do historii mieszkania
-        // Na przykład: addEventToApartment(id, newEvent);
-        console.log('Dodawanie wydarzenia:', newEvent);
-        setNewEvent({ date: '', description: '' }); // Resetowanie formularza po dodaniu wydarzenia
+        const eventToAdd = new Event(newEvent.description, new Date(newEvent.date));
+        addEventToApartment(apartment.id, eventToAdd);
+        setNewEvent({ date: '', description: '' });
     };
+
 
     if (!apartment) {
         return <div>Apartment not found</div>;

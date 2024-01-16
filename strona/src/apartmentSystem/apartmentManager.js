@@ -6,10 +6,14 @@ export function ApartmentManager() {
     useEffect(() => {
         const storedApartments = localStorage.getItem('apartments');
         if (storedApartments) {
-            const parsedApartments = JSON.parse(storedApartments);
+            const parsedApartments = JSON.parse(storedApartments).map(apartment => ({
+                ...apartment,
+                events: apartment.events || [] // Upewnij się, że events to tablica
+            }));
             setApartments(parsedApartments);
         }
     }, []);
+
 
     function getDevelopmentTypeName(type) {
         switch (type) {
@@ -75,14 +79,12 @@ export function ApartmentManager() {
 
     function addEventToApartment(apartmentId, event) {
         setApartments(prevApartments => {
-            const updatedApartments = prevApartments.map(apartment => {
+            return prevApartments.map(apartment => {
                 if (apartment.id === apartmentId) {
-                    return { ...apartment, events: [...apartment.events, event] };
+                    return { ...apartment, events: [...(apartment.events || []), event] };
                 }
                 return apartment;
             });
-            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
-            return updatedApartments;
         });
     }
 
@@ -119,6 +121,6 @@ export function ApartmentManager() {
         });
     }
 
-    return { apartments, registerApartment, removeApartment, getDevelopmentTypeName, removeApartmentsByOwnerEmail};
+    return { apartments, registerApartment, removeApartment, getDevelopmentTypeName, removeApartmentsByOwnerEmail, addEventToApartment };
 }
 

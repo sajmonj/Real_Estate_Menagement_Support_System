@@ -1,50 +1,118 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {ApartmentManager} from "./apartmentManager";
-import {useEffect} from "react";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Tab, Tabs, Card, Row, Col, Modal } from 'react-bootstrap';
+import { ApartmentManager } from './apartmentManager';
 import './apartmentOnList.css';
 
 export function ApartmentView(props) {
-    const {id} = useParams();
-    const {loggedIn, userInfo} = props;
+    const { id } = useParams();
     const navigate = useNavigate();
-    const {apartments, getDevelopmentTypeName} = ApartmentManager();
+    const { apartments } = ApartmentManager();
 
     const apartment = apartments.find(apartment => apartment.id === parseInt(id));
+    const [key, setKey] = useState('general');
+    const [showZoomedImageModal, setShowZoomedImageModal] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
-        if (!loggedIn) navigate('/');
-    }, [loggedIn, navigate]);
+        if (!props.loggedIn) navigate('/');
+    }, [props.loggedIn, navigate]);
+
+    const openZoomedImageModal = (imageUrl) => {
+        setSelectedImage(imageUrl);
+        setShowZoomedImageModal(true);
+    };
+    const closeZoomedImageModal = () => setShowZoomedImageModal(false);
+
+    if (!apartment) {
+        return <div>Apartment not found</div>;
+    }
 
     return (
-        <>
-            {apartment ?
-                <>
-                    <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back to the apartments list</span>
-                    <h1>Apartment view:</h1>
-                    <div>Address: {apartment.street} {apartment.streetNumber}/{apartment.apartmentNumber} {apartment.city} {apartment.postalCode}</div>
-                    <div>Property type: {apartment.propertyType} / {apartment.detailedType}</div>
-                    <div>Area: {apartment.area} m2</div>
-                    <div>Estimated rent price: {apartment.estimatedRent} PLN</div>
-                    <div>Rooms: {apartment.rooms}</div>
-                    <div>Kitchens: {apartment.kitchens}</div>
-                    <div>Bathrooms: {apartment.bathrooms}</div>
-                    <br></br>
-                    <h3>Advertisement: </h3>
-                    <h5>{apartment.adTitle}</h5>
-                    <div>Description: {apartment.adDescription}</div>
-                    {   apartment.photos ?
-                        <div>
-                            Photos:
-                            {apartment.photos.map(photo => (
-                                <img className="photo" src={photo} alt='apartment photo'/>
+        <Container className="mt-4">
+            <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back to the apartments list</span>
+            <h1>Apartment View</h1>
+
+            <Tabs id="apartment-tabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
+                <Tab eventKey="general" title="Ogólny">
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <Card.Title>General Information</Card.Title>
+                            <Card.Text><strong>Property Type:</strong> {apartment.propertyType}</Card.Text>
+                            <Card.Text><strong>Detailed Type:</strong> {apartment.detailedType}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <Card.Title>Address</Card.Title>
+                            <Card.Text>{apartment.street} {apartment.streetNumber}/{apartment.apartmentNumber}, {apartment.city}, {apartment.postalCode}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    {apartment.photos && (
+                        <Card className="mb-3">
+                            <Card.Body>
+                                <Card.Title>Photos</Card.Title>
+                                <Row>
+                                    {apartment.photos.map((photo, index) => (
+                                        <Col key={index} md={4} className="mb-3">
+                                            <img src={photo} alt={`Apartment photo ${index}`} className="img-fluid" onClick={() => openZoomedImageModal(photo)} />
+                                        </Col>
+                                    ))}
+                                </Row>
+                            </
+                                Card.Body>
+                        </Card>
+                    )}
+                </Tab>
+
+                <Tab eventKey="advertisement" title="Ogłoszenie">
+                    {apartment.photos && (
+                        <Row className="mb-3">
+                            {apartment.photos.map((photo, index) => (
+                                <Col key={index} md={4} className="mb-3">
+                                    <img src={photo} alt={`Apartment photo ${index}`} className="img-fluid" onClick={() => openZoomedImageModal(photo)} />
+                                </Col>
                             ))}
-                        </div>
-                        : <div>No photos available</div>
-                    }
-                    {/*<img src={apartment.pictures[0]} alt="Apartment picture"/>*/}
-                </>
-                : <div>Apartment not found</div>
-            }
-        </>
-    )
+                        </Row>
+                    )}
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <h5>{apartment.adTitle}</h5>
+                            <Card.Text>{apartment.adDescription}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Tab>
+
+                <Tab eventKey="details" title="Szczegóły">
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <Card.Title>Property Details</Card.Title>
+                            <Card.Text><strong>Area:</strong> {apartment.area} m2</Card.Text>
+                            <Card.Text><strong>Estimated Rent:</strong> {apartment.estimatedRent} PLN</Card.Text>
+                            <Card.Text><strong>Rooms:</strong> {apartment.rooms}</Card.Text>
+                            <Card.Text><strong>Kitchens:</strong> {apartment.kitchens}</Card.Text>
+                            <Card.Text><strong>Bathrooms:</strong> {apartment.bathrooms}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="mb-3">
+                        <Card.Body>
+                            <Card.Title>Owner Details</Card.Title>
+                            {/* Placeholder for Owner Details */}
+                            <Card.Text><strong>Name:</strong> [Owner Name]</Card.Text>
+                            <Card.Text><strong>Contact:</strong> [Owner Contact]</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Tab>
+            </Tabs>
+
+            {/* Modal do wyświetlenia powiększonego zdjęcia */}
+            <Modal show={showZoomedImageModal} onHide={closeZoomedImageModal} size="lg">
+                <Modal.Body>
+                    <img src={selectedImage} alt="Zoomed in apartment photo" className="img-fluid" />
+                </Modal.Body>
+            </Modal>
+        </Container>
+    );
 }
+
+export default ApartmentView;

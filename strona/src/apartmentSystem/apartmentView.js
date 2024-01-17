@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {Container, Tab, Tabs, Card, Row, Col, Modal, Form, Button, Table} from 'react-bootstrap';
+import {Container, Tab, Tabs, Card, Row, Col, Modal, Form, Button} from 'react-bootstrap';
 import { ApartmentManager } from './apartmentManager';
 import './apartmentOnList.css';
 import TimelineItem from '../components/Timeline.js';
@@ -22,16 +22,11 @@ export function ApartmentView(props) {
     const [isAmountEnabled, setIsAmountEnabled] = useState(false);
     const [amount, setAmount] = useState(0);
 
-
     // const handleAddEvent = () => {
     //     const newEvent = new Event(newEvent.description, new Date(newEvent.date));
     //     addEventToApartment(apartment.id, newEvent);
     //     setNewEvent({ date: '', description: '' });
     // };
-    const handleAddTenantClick = () => {
-        // Przekierowanie do strony/formularza dodawania nowego wynajmującego
-        navigate('../pages/addTenant');
-    };
 
 
     useEffect(() => {
@@ -66,6 +61,9 @@ export function ApartmentView(props) {
         setIsAmountEnabled(false);
         setAmount(0);
     };
+    const handleEditApartmentClick = () => {
+        navigate(`/edit-apartment/${id}`);
+    };
 
     if (!apartment) {
         return <div>Apartment not found</div>;
@@ -73,8 +71,15 @@ export function ApartmentView(props) {
 
     return (
         <Container className="mt-4">
-            <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back to the apartments list</span>
-            <h1>Apartment View</h1>
+            <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back</span>
+            <Row>
+                <Col>
+                    <h1>Apartment View</h1>
+                </Col>
+                <Col className="text-end">
+                    <Button variant="primary" onClick={handleEditApartmentClick}>Edit Apartment</Button>
+                </Col>
+            </Row>
             <Tabs id="apartment-tabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
                 <Tab eventKey="general" title="General">
                     <Card className="mb-3">
@@ -164,7 +169,7 @@ export function ApartmentView(props) {
                                         </Form.Group>
                                     </Col>
                                 </Row>
-                                <div class="mb-3 row">
+                                <div className="mb-3 row">
                                     <Form.Group controlId="formEventDescription">
                                         <Form.Control as="textarea" name="description" placeholder="Description" value={newEvent.description} onChange={handleEventChange} required />
                                     </Form.Group>
@@ -187,6 +192,7 @@ export function ApartmentView(props) {
                                             <Form.Control
                                                 type="number"
                                                 name="amount"
+                                                placeholder={"Amount"}
                                                 value={newEvent.amount}
                                                 onChange={handleEventChange}
                                                 min="0"

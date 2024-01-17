@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import EditApartment from './apartmentSystem/EditApartment';
 import { Home } from './home';
 import { Login } from './LoginSystem/login';
 import { Registration } from "./LoginSystem/registration";
@@ -29,6 +30,7 @@ const App = () => {
                     <Route path="/documents" element={<DocumentList />} />
                     <Route path="/add-apartment" element={<PropertyForm loggedIn={loggedIn} userInfo={userInfo}/>} />
                     <Route path="/apartment-list" element={<ApartmentList />} />
+                    <Route path="/edit-apartment/:id" element={<EditApartment />} />
                 </Routes>
             </BrowserRouter>
         </ApartmentProvider>

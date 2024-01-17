@@ -70,6 +70,19 @@ export function ApartmentManager() {
         });
     }
 
+    function updateApartment(apartmentId, updatedData) {
+        setApartments(prevApartments => {
+            const updatedApartments = prevApartments.map(apartment => {
+                if (apartment.id === parseInt(apartmentId)) {
+                    return { ...apartment, ...updatedData };
+                }
+                return apartment;
+            });
+            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+            return updatedApartments;
+        });
+    }
+
     function removeApartmentsByOwnerEmail(ownerEmail) {
         setApartments(prevApartments => {
             const newApartments = prevApartments.filter(apartment => apartment.email !== ownerEmail);
@@ -155,7 +168,8 @@ export function ApartmentManager() {
         getDevelopmentTypeName,
         removeApartmentsByOwnerEmail,
         addEventToApartment,
-        updateTotalAmount
+        updateTotalAmount,
+        updateApartment
     };
 }
 

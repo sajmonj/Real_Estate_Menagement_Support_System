@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Tab, Tabs, Card, Row, Col, Modal, Form, Button } from 'react-bootstrap';
+import {Container, Tab, Tabs, Card, Row, Col, Modal, Form, Button, Table} from 'react-bootstrap';
 import { ApartmentManager } from './apartmentManager';
 import './apartmentOnList.css';
 import TimelineItem from '../components/Timeline.js';
+
 
 export function ApartmentView(props) {
     const { id } = useParams();
@@ -27,6 +28,10 @@ export function ApartmentView(props) {
     //     addEventToApartment(apartment.id, newEvent);
     //     setNewEvent({ date: '', description: '' });
     // };
+    const handleAddTenantClick = () => {
+        // Przekierowanie do strony/formularza dodawania nowego wynajmującego
+        navigate('../pages/addTenant');
+    };
 
 
     useEffect(() => {
@@ -53,7 +58,7 @@ export function ApartmentView(props) {
             title: newEvent.title,
             date: newEvent.date,
             description: newEvent.description,
-            amount: newEvent.amount
+            amount: parseFloat(newEvent.amount) || 0
             // amount: isAmountEnabled ? parseFloat(amount) : null // Dodaj kwotę
         };
         setNewEvent({ title: '', date: '', description: '', amount: '' });
@@ -196,14 +201,13 @@ export function ApartmentView(props) {
                             </Form>
 
                             <div className="timeline">
-                                {apartment.events.map((event, index) => (
+                                {[...apartment.events].reverse().map((event, index) => (
                                     <TimelineItem key={index} event={event} />
                                 ))}
                             </div>
                         </Card.Body>
                     </Card>
                 </Tab>
-
             </Tabs>
             {/* Modal do wyświetlenia powiększonego zdjęcia */}
             <Modal show={showZoomedImageModal} onHide={closeZoomedImageModal} size="lg">

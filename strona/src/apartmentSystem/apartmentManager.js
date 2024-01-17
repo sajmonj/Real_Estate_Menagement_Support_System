@@ -83,18 +83,17 @@ export function ApartmentManager() {
             const updatedApartments = prevApartments.map(apartment => {
                 if (apartment.id === apartmentId) {
                     const updatedEvents = [...apartment.events, event];
-                    // return { ...apartment, events: updatedEvents };
-                    const newTotalAmount = updatedEvents.reduce((sum, currEvent) => sum + parseFloat(currEvent.amount || 0), parseFloat(apartment.totalAmount || 0));
+                    const newTotalAmount = (apartment.totalAmount || 0) + parseFloat(event.amount || 0);
                     return { ...apartment, events: updatedEvents, totalAmount: newTotalAmount };
                 }
                 return apartment;
             });
 
+            // Zapisz zaktualizowane apartamenty w localStorage
             localStorage.setItem('apartments', JSON.stringify(updatedApartments));
             return updatedApartments;
         });
     }
-
 
 
     function updateTotalAmount(apartmentId, newAmount) {
@@ -113,41 +112,41 @@ export function ApartmentManager() {
     }
 
 
-    function updateEvent(apartmentId, eventId, newEventData) {
-        setApartments(prevApartments => {
-            const updatedApartments = prevApartments.map(apartment => {
-                if (apartment.id === apartmentId) {
-                    const updatedEvents = apartment.events.map(event => {
-                        if (event.id === eventId) {
-                            return { ...event, ...newEventData };
-                        }
-                        return event;
-                    });
-                    return { ...apartment, events: updatedEvents };
-                }
-                return apartment;
-            });
-
-            // Zapisz zaktualizowane apartamenty w localStorage
-            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
-            return updatedApartments;
-        });
-    }
-
-
-    function removeEvent(apartmentId, eventId) {
-        setApartments(prevApartments => {
-            const updatedApartments = prevApartments.map(apartment => {
-                if (apartment.id === apartmentId) {
-                    const filteredEvents = apartment.events.filter(event => event.id !== eventId);
-                    return { ...apartment, events: filteredEvents };
-                }
-                return apartment;
-            });
-            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
-            return updatedApartments;
-        });
-    }
+    // function updateEvent(apartmentId, eventId, newEventData) {
+    //     setApartments(prevApartments => {
+    //         const updatedApartments = prevApartments.map(apartment => {
+    //             if (apartment.id === apartmentId) {
+    //                 const updatedEvents = apartment.events.map(event => {
+    //                     if (event.id === eventId) {
+    //                         return { ...event, ...newEventData };
+    //                     }
+    //                     return event;
+    //                 });
+    //                 return { ...apartment, events: updatedEvents };
+    //             }
+    //             return apartment;
+    //         });
+    //
+    //
+    //         localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+    //         return updatedApartments;
+    //     });
+    // }
+    //
+    //
+    // function removeEvent(apartmentId, eventId) {
+    //     setApartments(prevApartments => {
+    //         const updatedApartments = prevApartments.map(apartment => {
+    //             if (apartment.id === apartmentId) {
+    //                 const filteredEvents = apartment.events.filter(event => event.id !== eventId);
+    //                 return { ...apartment, events: filteredEvents };
+    //             }
+    //             return apartment;
+    //         });
+    //         localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+    //         return updatedApartments;
+    //     });
+    // }
 
     return {
         apartments,

@@ -9,20 +9,21 @@ export function EditApartment() {
     const navigate = useNavigate();
     const { apartments, updateApartment } = ApartmentManager();
     const apartment = apartments.find(ap => ap.id === parseInt(id));
-
-    const [apartmentData, setApartmentData] = useState(apartment || {});
+    const [apartmentData, setApartmentData] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (!apartment) {
-            // Handle apartment not found
+        if (!apartment && !isLoading) {
             navigate('/apartments');
+        } else if (apartment) {
+            setApartmentData({ ...apartment });
+            setIsLoading(false);
         }
-    }, [apartment, navigate]);
+    }, [apartment, isLoading, navigate]);
 
     const handleChange = (e) => {
         setApartmentData({ ...apartmentData, [e.target.name]: e.target.value });
     };
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,13 +31,52 @@ export function EditApartment() {
         navigate(`/apartment/${id}`);
     };
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <Container>
             <h1>Edit Apartment</h1>
             <Form onSubmit={handleSubmit}>
                 {/* Form fields for editing apartment */}
+                <Form.Group controlId="formApartmentTitle">
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="title"
+                        value={apartmentData.title || ''}
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="formApartmentDescription">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        name="description"
+                        value={apartmentData.description}
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+
+                {/* Dodaj więcej pól formularza dla innych atrybutów mieszkania, np. adres, typ nieruchomości, itp. */}
+                {/* Przykład: */}
+                <Form.Group controlId="formApartmentAddress">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="address"
+                        value={apartmentData.address || ''}
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+
+                {/* ...inne pola... */}
+
                 <Button type="submit">Save Changes</Button>
             </Form>
+
         </Container>
     );
 }

@@ -62,7 +62,8 @@ export function ApartmentView(props) {
         setAmount(0);
     };
     const handleEditApartmentClick = () => {
-        navigate(`/edit-apartment/${id}`);
+        console.log("Editing apartment with ID:", apartment.id);
+        navigate(`/edit-apartment/${apartment.id}`);
     };
 
     if (!apartment) {

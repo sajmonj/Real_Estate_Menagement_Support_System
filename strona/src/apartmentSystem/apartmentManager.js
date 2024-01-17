@@ -82,9 +82,8 @@ export function ApartmentManager() {
         setApartments(prevApartments => {
             const updatedApartments = prevApartments.map(apartment => {
                 if (apartment.id === apartmentId) {
-                    const newTotalAmount = (apartment.totalAmount || 0) + (event.amount || 0);
-                    const updatedEvents = [...(apartment.events || []), event];
-                    return { ...apartment, events: updatedEvents, totalAmount: newTotalAmount };
+                    const updatedEvents = [event, ...(apartment.events || [])];
+                    return { ...apartment, events: updatedEvents };
                 }
                 return apartment;
             });

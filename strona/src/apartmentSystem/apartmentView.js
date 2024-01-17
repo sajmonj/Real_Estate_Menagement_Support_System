@@ -53,13 +53,14 @@ export function ApartmentView(props) {
             title: newEvent.title,
             date: newEvent.date,
             description: newEvent.description,
-            amount: isAmountEnabled ? parseFloat(amount) : null // Dodaj kwotę
+            amount: isAmountEnabled ? parseFloat(amount) : 0 // Użyj zmiennej `amount`
         };
-        setNewEvent({ title: '', date: '', description: '', amount: '' });
         addEventToApartment(apartment.id, eventToAdd);
         setIsAmountEnabled(false);
         setAmount(0);
+        setNewEvent({ title: '', date: '', description: '', amount: '' });
     };
+
 
     if (!apartment) {
         return <div>Apartment not found</div>;

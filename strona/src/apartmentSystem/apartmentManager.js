@@ -82,8 +82,9 @@ export function ApartmentManager() {
         setApartments(prevApartments => {
             const updatedApartments = prevApartments.map(apartment => {
                 if (apartment.id === apartmentId) {
-                    const updatedEvents = [event, ...(apartment.events || [])];
-                    return { ...apartment, events: updatedEvents };
+                    const newTotalAmount = (apartment.totalAmount || 0) + (event.amount || 0);
+                    const updatedEvents = [...(apartment.events || []), event];
+                    return { ...apartment, events: updatedEvents, totalAmount: newTotalAmount };
                 }
                 return apartment;
             });
@@ -92,6 +93,7 @@ export function ApartmentManager() {
             return updatedApartments;
         });
     }
+
 
 
     function updateTotalAmount(apartmentId, newAmount) {

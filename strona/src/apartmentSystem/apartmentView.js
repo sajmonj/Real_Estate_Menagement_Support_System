@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Tab, Tabs, Card, Row, Col, Modal, Form, Button } from 'react-bootstrap';
 import { ApartmentManager } from './apartmentManager';
 import './apartmentOnList.css';
+import TimelineItem from '../components/Timeline.js';
 
 export function ApartmentView(props) {
     const { id } = useParams();
@@ -134,17 +135,12 @@ export function ApartmentView(props) {
                     <Card className="mb-3">
                         <Card.Body>
                             <Card.Title>Historia Wydarzeń</Card.Title>
-                            {/* Lista wydarzeń */}
-                            {apartment && apartment.events && apartment.events.length > 0 ? (
-                                apartment.events.map((event, index) => (
-                                    <div key={index} className="mb-2">
-                                        <strong>Data: </strong>{event.date}<br />
-                                        <strong>Opis: </strong>{event.description}
-                                    </div>
-                                ))
-                            ) : (
-                                <p>Brak wydarzeń.</p>
-                            )}
+                            <div className="timeline">
+                                {apartment.events.map((event, index) => (
+                                    <TimelineItem key={index} event={event} />
+                                ))}
+                            </div>
+
                             {/* Formularz dodawania nowego wydarzenia */}
                             <Form onSubmit={addEvent}>
                                 <Form.Group controlId="formEventDate">

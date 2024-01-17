@@ -22,6 +22,9 @@ const TimelineItem = ({ event }) => {
                 <div className="timeline__item-body">
                     <div className={`timeline__item-body-content ${isExpanded ? 'expanded' : ''}`}>
                         <p className="timeline__item-p">{event.description}</p>
+                        {event.amount && (
+                            <p className="timeline__item-p"><strong>Kwota: </strong>{event.amount} PLN</p>
+                        )}
                     </div>
                 </div>
             )}

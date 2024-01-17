@@ -8,16 +8,19 @@ import TimelineItem from '../components/Timeline.js';
 export function ApartmentView(props) {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { addEventToApartment, apartments } = ApartmentManager();
+    const { apartments, addEventToApartment, updateTotalAmount } = ApartmentManager();
 
     const apartment = apartments ? apartments.find(apartment => apartment.id === parseInt(id)) : null;
 
     const [key, setKey] = useState('general');
     const [showZoomedImageModal, setShowZoomedImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [newEvent, setNewEvent] = useState({ date: '', description: '' });
+    const [newEvent, setNewEvent] = useState({ date: '', description: '', amount: '' });
     const [eventDescription, setEventDescription] = useState('');
     const [events, setEvents] = useState([]);
+    const [isAmountEnabled, setIsAmountEnabled] = useState(false);
+    const [amount, setAmount] = useState(0);
+
 
     const handleAddEvent = () => {
         const newEvent = new Event(newEvent.description, new Date(newEvent.date));
@@ -47,17 +50,16 @@ export function ApartmentView(props) {
     const addEvent = (e) => {
         e.preventDefault();
         const eventToAdd = {
+            title: newEvent.title,
             date: newEvent.date,
             description: newEvent.description,
-            title: "Tytuł Wydarzenia"
+            amount: isAmountEnabled ? parseFloat(amount) : null // Dodaj kwotę
         };
+        setNewEvent({ title: '', date: '', description: '', amount: '' });
         addEventToApartment(apartment.id, eventToAdd);
-        setNewEvent({ date: '', description: '' });
-
+        setIsAmountEnabled(false);
+        setAmount(0);
     };
-
-
-
 
     if (!apartment) {
         return <div>Apartment not found</div>;
@@ -68,12 +70,13 @@ export function ApartmentView(props) {
             <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back to the apartments list</span>
             <h1>Apartment View</h1>
             <Tabs id="apartment-tabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
-                <Tab eventKey="general" title="Ogólny">
+                <Tab eventKey="general" title="General">
                     <Card className="mb-3">
                         <Card.Body>
                             <Card.Title>General Information</Card.Title>
                             <Card.Text><strong>Property Type:</strong> {apartment.propertyType}</Card.Text>
                             <Card.Text><strong>Detailed Type:</strong> {apartment.detailedType}</Card.Text>
+                            <Card.Text><strong>Sumaryczna kwota:</strong> {apartment.totalAmount || 0} PLN</Card.Text>
                         </Card.Body>
                     </Card>
                     <Card className="mb-3">
@@ -99,7 +102,7 @@ export function ApartmentView(props) {
                     )}
                 </Tab>
 
-                <Tab eventKey="advertisement" title="Ogłoszenie">
+                <Tab eventKey="advertisement" title="Advertisement">
                     {apartment.photos && (
                         <Row className="mb-3">
                             {apartment.photos.map((photo, index) => (
@@ -117,7 +120,7 @@ export function ApartmentView(props) {
                     </Card>
                 </Tab>
 
-                <Tab eventKey="details" title="Szczegóły">
+                <Tab eventKey="details" title="Details">
                     <Card className="mb-3">
                         <Card.Body>
                             <Card.Title>Property Details</Card.Title>
@@ -137,28 +140,62 @@ export function ApartmentView(props) {
                         </Card.Body>
                     </Card>
                 </Tab>
-                <Tab eventKey="history" title="Historia">
+                <Tab eventKey="history" title="History">
                     <Card className="mb-3">
                         <Card.Body>
-                            <Card.Title>Historia Wydarzeń</Card.Title>
+                            <Card.Title>History of events</Card.Title>
+                            {/* Formularz dodawania nowego wydarzenia */}
+                            <Form onSubmit={addEvent}>
+                                <Row className="mb-3">
+                                    <Col md={10}>
+                                        <Form.Group controlId="formEventTitle">
+                                            <Form.Control type="text" name="title" placeholder="Title" value={newEvent.title} onChange={handleEventChange} required />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={2}>
+                                        <Form.Group controlId="formEventDate">
+                                            <Form.Control type="date" name="date" value={newEvent.date} onChange={handleEventChange} required />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Form.Group controlId="formEventDescription">
+                                    <Form.Control as="textarea" name="description" placeholder="Description" value={newEvent.description} onChange={handleEventChange} required />
+                                </Form.Group>
+                                <Row className="mb-3">
+                                    <Col md={4}>
+                                        <Form.Group controlId="formEventAmountCheckbox">
+                                            <Form.Check
+                                                type="checkbox"
+                                                label="Add amount"
+                                                checked={isAmountEnabled}
+                                                onChange={(e) => setIsAmountEnabled(e.target.checked)}
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                {isAmountEnabled && (
+                                    <Col md={4}>
+                                        <Form.Group controlId="formEventAmount">
+                                            {/*<Form.Label>Kwota</Form.Label>*/}
+                                            <Form.Control
+                                                type="number"
+                                                name="amount"
+                                                value={newEvent.amount}
+                                                onChange={handleEventChange}
+                                                min="0"
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                )}
+
+                                </Row>
+                                <Button variant="primary" type="submit" className="mt-2">Add event</Button>
+                            </Form>
+
                             <div className="timeline">
                                 {apartment.events.map((event, index) => (
                                     <TimelineItem key={index} event={event} />
                                 ))}
                             </div>
-
-                            {/* Formularz dodawania nowego wydarzenia */}
-                            <Form onSubmit={addEvent}>
-                                <Form.Group controlId="formEventDate">
-                                    <Form.Label>Data</Form.Label>
-                                    <Form.Control type="date" name="date" value={newEvent.date} onChange={handleEventChange} />
-                                </Form.Group>
-                                <Form.Group controlId="formEventDescription">
-                                    <Form.Label>Opis</Form.Label>
-                                    <Form.Control as="textarea" name="description" value={newEvent.description} onChange={handleEventChange} />
-                                </Form.Group>
-                                <Button variant="primary" type="submit" className="mt-2">Dodaj Wydarzenie</Button>
-                            </Form>
                         </Card.Body>
                     </Card>
                 </Tab>

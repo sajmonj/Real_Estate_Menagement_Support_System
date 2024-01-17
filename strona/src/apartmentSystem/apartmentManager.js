@@ -52,7 +52,8 @@ export function ApartmentManager() {
         const newApartment = {
             ...apartmentInfo,
             id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
-            events: []
+            events: [],
+            totalAmount: 0
         };
 
         setApartments((prevApartments) => [...prevApartments, newApartment]);
@@ -81,8 +82,24 @@ export function ApartmentManager() {
         setApartments(prevApartments => {
             const updatedApartments = prevApartments.map(apartment => {
                 if (apartment.id === apartmentId) {
-                    const updatedEvents = apartment.events ? [...apartment.events, event] : [event];
+                    const updatedEvents = [event, ...(apartment.events || [])];
                     return { ...apartment, events: updatedEvents };
+                }
+                return apartment;
+            });
+
+            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+            return updatedApartments;
+        });
+    }
+
+
+    function updateTotalAmount(apartmentId, newAmount) {
+        setApartments(prevApartments => {
+            const updatedApartments = prevApartments.map(apartment => {
+                if (apartment.id === apartmentId) {
+                    const updatedTotalAmount = (apartment.totalAmount || 0) + newAmount;
+                    return { ...apartment, totalAmount: updatedTotalAmount };
                 }
                 return apartment;
             });
@@ -129,6 +146,14 @@ export function ApartmentManager() {
         });
     }
 
-    return { apartments, registerApartment, removeApartment, getDevelopmentTypeName, removeApartmentsByOwnerEmail, addEventToApartment };
+    return {
+        apartments,
+        registerApartment,
+        removeApartment,
+        getDevelopmentTypeName,
+        removeApartmentsByOwnerEmail,
+        addEventToApartment,
+        updateTotalAmount
+    };
 }
 

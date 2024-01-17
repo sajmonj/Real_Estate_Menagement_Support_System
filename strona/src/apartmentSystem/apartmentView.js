@@ -49,11 +49,11 @@ export function ApartmentView(props) {
         const eventToAdd = {
             date: newEvent.date,
             description: newEvent.description,
-            title: "Tytuł Wydarzenia" // Możesz dostosować tytuł
+            title: "Tytuł Wydarzenia"
         };
         addEventToApartment(apartment.id, eventToAdd);
         setNewEvent({ date: '', description: '' });
-        // Aktualizacja stanu, jeśli to konieczne
+
     };
 
 

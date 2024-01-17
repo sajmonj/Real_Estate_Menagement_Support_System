@@ -8,7 +8,7 @@ export function ApartmentManager() {
         if (storedApartments) {
             const parsedApartments = JSON.parse(storedApartments).map(apartment => ({
                 ...apartment,
-                events: apartment.events || [] // Upewnij się, że events to tablica
+                events: apartment.events || []
             }));
             setApartments(parsedApartments);
         }
@@ -79,14 +79,19 @@ export function ApartmentManager() {
 
     function addEventToApartment(apartmentId, event) {
         setApartments(prevApartments => {
-            return prevApartments.map(apartment => {
+            const updatedApartments = prevApartments.map(apartment => {
                 if (apartment.id === apartmentId) {
-                    return { ...apartment, events: [...(apartment.events || []), event] };
+                    const updatedEvents = apartment.events ? [...apartment.events, event] : [event];
+                    return { ...apartment, events: updatedEvents };
                 }
                 return apartment;
             });
+
+            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+            return updatedApartments;
         });
     }
+
 
     function updateEvent(apartmentId, eventId, newEventData) {
         setApartments(prevApartments => {
@@ -102,10 +107,13 @@ export function ApartmentManager() {
                 }
                 return apartment;
             });
+
+            // Zapisz zaktualizowane apartamenty w localStorage
             localStorage.setItem('apartments', JSON.stringify(updatedApartments));
             return updatedApartments;
         });
     }
+
 
     function removeEvent(apartmentId, eventId) {
         setApartments(prevApartments => {

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-// import '../style/Timeline.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import '../style/Timeline.css';
 
 const TimelineItem = ({ event }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -8,7 +10,7 @@ const TimelineItem = ({ event }) => {
         <div className="timeline__item">
             <div className="timeline__item-header">
                 <button className="timeline__arrow" onClick={() => setIsExpanded(!isExpanded)} aria-expanded={isExpanded}>
-                    {/* SVG i inne elementy */}
+                    <FontAwesomeIcon icon={faChevronDown} className={`timeline__arrow-icon ${isExpanded ? 'expanded' : ''}`} />
                 </button>
                 <span className="timeline__dot"></span>
                 <span className="timeline__meta">
@@ -18,8 +20,8 @@ const TimelineItem = ({ event }) => {
             </div>
             {isExpanded && (
                 <div className="timeline__item-body">
-                    <div className="timeline__item-body-content">
-                        {event.description}
+                    <div className={`timeline__item-body-content ${isExpanded ? 'expanded' : ''}`}>
+                        <p className="timeline__item-p">{event.description}</p>
                     </div>
                 </div>
             )}
@@ -27,27 +29,4 @@ const TimelineItem = ({ event }) => {
     );
 };
 export default TimelineItem;
-// export const Timeline = () => {
-//     const [allExpanded, setAllExpanded] = useState(false);
-//
-//     const toggleAll = (expand) => {
-//         setAllExpanded(expand);
-//     };
-//     return (
-//         <div id="timeline" className="timeline">
-//             <div className="btn-group">
-//                 <button className="btn" onClick={() => toggleAll(true)}>Expand All</button>
-//                 <button className="btn" onClick={() => toggleAll(false)}>Collapse All</button>
-//             </div>
-//             <TimelineItem id="item1" date="January 1, 1970" title="Unix Epoch" isExpanded={allExpanded}>
-//                 <p>This is the day the Unix clock began...</p>
-//             </TimelineItem>
-//             <TimelineItem id="item1" date="January 1, 1970" title="Unix Epoch" isExpanded={allExpanded}>
-//                 <p>This is the day the Unix clock began...</p>
-//             </TimelineItem>
-//             <TimelineItem id="item1" date="January 1, 1970" title="Unix Epoch" isExpanded={allExpanded}>
-//                 <p>This is the day the Unix clock began...</p>
-//             </TimelineItem>
-//         </div>
-//     );
-// };
+

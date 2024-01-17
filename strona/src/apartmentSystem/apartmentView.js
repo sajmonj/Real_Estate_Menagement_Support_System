@@ -46,11 +46,17 @@ export function ApartmentView(props) {
 
     const addEvent = (e) => {
         e.preventDefault();
-        console.log("Dodawanie wydarzenia:", newEvent.date, newEvent.description); // Dodaj tę linię do debugowania
-        const eventToAdd = new Event(newEvent.description, new Date(newEvent.date));
+        const eventToAdd = {
+            date: newEvent.date,
+            description: newEvent.description,
+            title: "Tytuł Wydarzenia" // Możesz dostosować tytuł
+        };
         addEventToApartment(apartment.id, eventToAdd);
         setNewEvent({ date: '', description: '' });
+        // Aktualizacja stanu, jeśli to konieczne
     };
+
+
 
 
     if (!apartment) {

@@ -15,18 +15,18 @@ export function ApartmentView(props) {
     const [key, setKey] = useState('general');
     const [showZoomedImageModal, setShowZoomedImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [newEvent, setNewEvent] = useState({ date: '', description: '', amount: '' });
+    const [newEvent, setNewEvent] = useState({ date: '', description: '', title:'', amount: '' });
     const [eventDescription, setEventDescription] = useState('');
     const [events, setEvents] = useState([]);
     const [isAmountEnabled, setIsAmountEnabled] = useState(false);
     const [amount, setAmount] = useState(0);
 
 
-    const handleAddEvent = () => {
-        const newEvent = new Event(newEvent.description, new Date(newEvent.date));
-        addEventToApartment(apartment.id, newEvent);
-        setNewEvent({ date: '', description: '' });
-    };
+    // const handleAddEvent = () => {
+    //     const newEvent = new Event(newEvent.description, new Date(newEvent.date));
+    //     addEventToApartment(apartment.id, newEvent);
+    //     setNewEvent({ date: '', description: '' });
+    // };
 
 
     useEffect(() => {
@@ -53,7 +53,8 @@ export function ApartmentView(props) {
             title: newEvent.title,
             date: newEvent.date,
             description: newEvent.description,
-            amount: isAmountEnabled ? parseFloat(amount) : null // Dodaj kwotę
+            amount: newEvent.amount
+            // amount: isAmountEnabled ? parseFloat(amount) : null // Dodaj kwotę
         };
         setNewEvent({ title: '', date: '', description: '', amount: '' });
         addEventToApartment(apartment.id, eventToAdd);
@@ -158,11 +159,13 @@ export function ApartmentView(props) {
                                         </Form.Group>
                                     </Col>
                                 </Row>
-                                <Form.Group controlId="formEventDescription">
-                                    <Form.Control as="textarea" name="description" placeholder="Description" value={newEvent.description} onChange={handleEventChange} required />
-                                </Form.Group>
+                                <div class="mb-3 row">
+                                    <Form.Group controlId="formEventDescription">
+                                        <Form.Control as="textarea" name="description" placeholder="Description" value={newEvent.description} onChange={handleEventChange} required />
+                                    </Form.Group>
+                                </div>
                                 <Row className="mb-3">
-                                    <Col md={4}>
+                                    <Col md={2}>
                                         <Form.Group controlId="formEventAmountCheckbox">
                                             <Form.Check
                                                 type="checkbox"
@@ -173,7 +176,7 @@ export function ApartmentView(props) {
                                         </Form.Group>
                                     </Col>
                                 {isAmountEnabled && (
-                                    <Col md={4}>
+                                    <Col md={2}>
                                         <Form.Group controlId="formEventAmount">
                                             {/*<Form.Label>Kwota</Form.Label>*/}
                                             <Form.Control
@@ -182,6 +185,7 @@ export function ApartmentView(props) {
                                                 value={newEvent.amount}
                                                 onChange={handleEventChange}
                                                 min="0"
+                                                required
                                             />
                                         </Form.Group>
                                     </Col>

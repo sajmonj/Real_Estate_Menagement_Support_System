@@ -4,6 +4,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import '../style/Timeline.css';
 
 const TimelineItem = ({ event }) => {
+    console.log(event);
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -23,7 +24,7 @@ const TimelineItem = ({ event }) => {
                     <div className={`timeline__item-body-content ${isExpanded ? 'expanded' : ''}`}>
                         <p className="timeline__item-p">{event.description}</p>
                         {event.amount && (
-                            <p className="timeline__item-p"><strong>Kwota: </strong>{event.amount} PLN</p>
+                            <p className="timeline__item-p"><strong>Amount: </strong>{event.amount} PLN</p>
                         )}
                     </div>
                 </div>

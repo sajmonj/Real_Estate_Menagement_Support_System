@@ -81,3 +81,7 @@ body {
     color: #0077ff;
     text-decoration-line: underline;
 }
+
+.card{
+    padding: 20px;
+}

@@ -6,10 +6,14 @@ export function ApartmentManager() {
     useEffect(() => {
         const storedApartments = localStorage.getItem('apartments');
         if (storedApartments) {
-            const parsedApartments = JSON.parse(storedApartments);
+            const parsedApartments = JSON.parse(storedApartments).map(apartment => ({
+                ...apartment,
+                events: apartment.events || []
+            }));
             setApartments(parsedApartments);
         }
     }, []);
+
 
     function getDevelopmentTypeName(type) {
         switch (type) {
@@ -47,8 +51,11 @@ export function ApartmentManager() {
         console.log("tutaj",apartmentInfo);
         const newApartment = {
             ...apartmentInfo,
-            id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1
+            id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
+            events: [],
+            totalAmount: 0
         };
+
         setApartments((prevApartments) => [...prevApartments, newApartment]);
         localStorage.setItem('apartments', JSON.stringify([...apartments, newApartment]));
         console.log("Po zapisaniu:", newApartment);
@@ -71,6 +78,84 @@ export function ApartmentManager() {
         });
     }
 
-    return { apartments, registerApartment, removeApartment, getDevelopmentTypeName, removeApartmentsByOwnerEmail};
+    function addEventToApartment(apartmentId, event) {
+        setApartments(prevApartments => {
+            const updatedApartments = prevApartments.map(apartment => {
+                if (apartment.id === apartmentId) {
+                    const updatedEvents = [...apartment.events, event];
+                    const newTotalAmount = (apartment.totalAmount || 0) + parseFloat(event.amount || 0);
+                    return { ...apartment, events: updatedEvents, totalAmount: newTotalAmount };
+                }
+                return apartment;
+            });
+
+            // Zapisz zaktualizowane apartamenty w localStorage
+            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+            return updatedApartments;
+        });
+    }
+
+
+    function updateTotalAmount(apartmentId, newAmount) {
+        setApartments(prevApartments => {
+            const updatedApartments = prevApartments.map(apartment => {
+                if (apartment.id === apartmentId) {
+                    const updatedTotalAmount = (apartment.totalAmount || 0) + newAmount;
+                    return { ...apartment, totalAmount: updatedTotalAmount };
+                }
+                return apartment;
+            });
+
+            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+            return updatedApartments;
+        });
+    }
+
+
+    // function updateEvent(apartmentId, eventId, newEventData) {
+    //     setApartments(prevApartments => {
+    //         const updatedApartments = prevApartments.map(apartment => {
+    //             if (apartment.id === apartmentId) {
+    //                 const updatedEvents = apartment.events.map(event => {
+    //                     if (event.id === eventId) {
+    //                         return { ...event, ...newEventData };
+    //                     }
+    //                     return event;
+    //                 });
+    //                 return { ...apartment, events: updatedEvents };
+    //             }
+    //             return apartment;
+    //         });
+    //
+    //
+    //         localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+    //         return updatedApartments;
+    //     });
+    // }
+    //
+    //
+    // function removeEvent(apartmentId, eventId) {
+    //     setApartments(prevApartments => {
+    //         const updatedApartments = prevApartments.map(apartment => {
+    //             if (apartment.id === apartmentId) {
+    //                 const filteredEvents = apartment.events.filter(event => event.id !== eventId);
+    //                 return { ...apartment, events: filteredEvents };
+    //             }
+    //             return apartment;
+    //         });
+    //         localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+    //         return updatedApartments;
+    //     });
+    // }
+
+    return {
+        apartments,
+        registerApartment,
+        removeApartment,
+        getDevelopmentTypeName,
+        removeApartmentsByOwnerEmail,
+        addEventToApartment,
+        updateTotalAmount
+    };
 }
 

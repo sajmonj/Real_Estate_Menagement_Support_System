@@ -94,7 +94,7 @@ export function ApartmentView(props) {
                     <Card className="mb-3">
                         <Card.Body>
                             <Card.Title>Address</Card.Title>
-                            <Card.Text>{apartment.street} {apartment.streetNumber}/{apartment.apartmentNumber}, {apartment.city}, {apartment.postalCode}</Card.Text>
+                            <Card.Text>{apartment.street} {apartment.streetNumber}/{apartment.apartmentNumber}, {apartment.city}, {apartment.zipCode}</Card.Text>
                         </Card.Body>
                     </Card>
                     {apartment.photos && (

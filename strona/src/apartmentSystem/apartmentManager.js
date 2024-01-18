@@ -83,6 +83,7 @@ export function ApartmentManager() {
         });
     }
 
+
     function removeApartmentsByOwnerEmail(ownerEmail) {
         setApartments(prevApartments => {
             const newApartments = prevApartments.filter(apartment => apartment.email !== ownerEmail);

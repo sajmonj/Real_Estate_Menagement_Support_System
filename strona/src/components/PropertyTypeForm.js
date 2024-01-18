@@ -13,22 +13,22 @@ function PropertyTypeForm({ formData, updateFormData, nextStep }) {
     // Definicja opcji wraz z odpowiednimi ikonami
     const options = formData.propertyType === 'commercial'
         ? [
-            { type: 'przemysłowe', icon: faIndustry, label: 'Industrial' },
-            { type: 'biura', icon: faBuilding, label: 'Office' },
-            { type: 'sprzedaż detaliczna', icon: faStore, label: 'Retail' },
-            { type: 'centrum handlowe', icon: faShoppingCart, label: 'Shopping Mall' },
-            { type: 'magazynowy', icon: faWarehouse, label: 'Warehouse' },
-            { type: 'parking', icon: faParking, label: 'Parking' },
-            { type: 'grunt', icon: faTree, label: 'Land' },
-            { type: 'inne', icon: faEllipsisH, label: 'Other' },
+            { type: 'Industrial', icon: faIndustry, label: 'Industrial' },
+            { type: 'Industrial', icon: faBuilding, label: 'Office' },
+            { type: 'Retail', icon: faStore, label: 'Retail' },
+            { type: 'Shopping Mall', icon: faShoppingCart, label: 'Shopping Mall' },
+            { type: 'Warehouse', icon: faWarehouse, label: 'Warehouse' },
+            { type: 'Parking', icon: faParking, label: 'Parking' },
+            { type: 'Land', icon: faTree, label: 'Land' },
+            { type: 'Other', icon: faEllipsisH, label: 'Other' },
         ]
         : [
-            { type: 'dom', icon: faHome, label: 'House' },
-            { type: 'kawalerka', icon: faBuilding, label: 'Apartment' },
-            { type: 'mieszkanie na pokoje', icon: faCity, label: 'Condominium' },
-            { type: 'townhouse', icon: faHouseDamage, label: 'Townhouse' },
-            { type: 'kwatery', icon: faDoorClosed, label: 'Room' },
-            { type: 'inne', icon: faEllipsisH, label: 'Other' },
+            { type: 'House', icon: faHome, label: 'House' },
+            { type: 'Apartment', icon: faBuilding, label: 'Apartment' },
+            { type: 'Condominium', icon: faCity, label: 'Condominium' },
+            { type: 'Townhouse', icon: faHouseDamage, label: 'Townhouse' },
+            { type: 'Room', icon: faDoorClosed, label: 'Room' },
+            { type: 'Other', icon: faEllipsisH, label: 'Other' },
         ];
 
     return (

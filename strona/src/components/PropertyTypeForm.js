@@ -40,8 +40,8 @@ function PropertyTypeForm({ formData, updateFormData, nextStep }) {
             </Row>
             <Row className="justify-content-center text-center mt-4">
                 <Col md={12}>
-                    <h2>Dodajmy Twoją nieruchomość</h2>
-                    <p>Jaki jest to typ nieruchomości?</p>
+                    <h2>Let's add your property </h2>
+                    <p>What type of property is it?</p>
                 </Col>
             </Row>
             <Row className="justify-content-center text-center mt-4">

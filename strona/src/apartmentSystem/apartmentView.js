@@ -146,9 +146,9 @@ export function ApartmentView(props) {
                     <Card className="mb-3">
                         <Card.Body>
                             <Card.Title>Owner Details</Card.Title>
-                            {/* Placeholder for Owner Details */}
-                            <Card.Text><strong>Name:</strong> [Owner Name]</Card.Text>
-                            <Card.Text><strong>Contact:</strong> [Owner Contact]</Card.Text>
+                            <Card.Text><strong>Name:</strong> {apartment.owner.name || '[Owner name]'}</Card.Text>
+                            <Card.Text><strong>Phone:</strong> {apartment.owner.phone || '[Owner phone]'}</Card.Text>
+                            <Card.Text><strong>Email:</strong> {apartment.owner.email || '[Owner email]'}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Tab>

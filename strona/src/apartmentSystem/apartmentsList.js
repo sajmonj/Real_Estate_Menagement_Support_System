@@ -32,7 +32,7 @@ export function ApartmentsList(props) {
 
     const closePopup = () => { setShowPopup(false); setApartmentIdToDelete(null); };
 
-    const confirmDelete = () => {if (apartmentIdToDelete) { removeApartment(apartmentIdToDelete); closePopup(); }};
+    const confirmDelete = () => {if (apartmentIdToDelete != null) { removeApartment(apartmentIdToDelete); closePopup(); }};
 
     const handleSearchChange = (e) => {
         setSearchedApartments(userApartments.slice()

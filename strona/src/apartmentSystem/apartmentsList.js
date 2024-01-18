@@ -32,7 +32,7 @@ export function ApartmentsList(props) {
 
     const closePopup = () => { setShowPopup(false); setApartmentIdToDelete(null); };
 
-    const confirmDelete = () => {if (apartmentIdToDelete) { removeApartment(apartmentIdToDelete); closePopup(); }};
+    const confirmDelete = () => {if (apartmentIdToDelete != null) { removeApartment(apartmentIdToDelete); closePopup(); }};
 
     const handleSearchChange = (e) => {
         setSearchedApartments(userApartments.slice()
@@ -65,7 +65,7 @@ export function ApartmentsList(props) {
 
     return (
         <>
-            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back</span>
             <h1>Apartments List of user: {userInfo.firstname} {userInfo.lastname}</h1>
             <input type="text" placeholder="Search by name" onChange={handleSearchChange}/>
             <button className="whiteButton" onClick={() => handleStringSort('street')}>Sort by street</button>

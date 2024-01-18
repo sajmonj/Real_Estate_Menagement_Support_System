@@ -37,10 +37,6 @@ export function ApartmentView(props) {
     //     addEventToApartment(apartment.id, newEvent);
     //     setNewEvent({ date: '', description: '' });
     // };
-    const handleAddTenantClick = () => {
-        // Przekierowanie do strony/formularza dodawania nowego wynajmującego
-        navigate('../pages/addTenant');
-    };
 
 
     useEffect(() => {
@@ -91,6 +87,10 @@ export function ApartmentView(props) {
         setIsAmountEnabled(false);
         setAmount(0);
     };
+    const handleEditApartmentClick = () => {
+        console.log("Editing apartment with ID:", apartment.id);
+        navigate(`/edit-apartment/${apartment.id}`);
+    };
 
     const addLandlord = (e) => {
         e.preventDefault();
@@ -120,8 +120,15 @@ export function ApartmentView(props) {
 
     return (
         <Container className="mt-4">
-            <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back to the apartments list</span>
-            <h1>Apartment View</h1>
+            <span className="hyperlink text12" onClick={() => navigate("/apartments")}>&lt; Go back</span>
+            <Row>
+                <Col>
+                    <h1>Apartment View</h1>
+                </Col>
+                <Col className="text-end">
+                    <Button variant="primary" onClick={handleEditApartmentClick}>Edit Apartment</Button>
+                </Col>
+            </Row>
             <Tabs id="apartment-tabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
                 <Tab eventKey="general" title="General">
                     <Card className="mb-3">
@@ -135,7 +142,7 @@ export function ApartmentView(props) {
                     <Card className="mb-3">
                         <Card.Body>
                             <Card.Title>Address</Card.Title>
-                            <Card.Text>{apartment.street} {apartment.streetNumber}/{apartment.apartmentNumber}, {apartment.city}, {apartment.postalCode}</Card.Text>
+                            <Card.Text>{apartment.street} {apartment.streetNumber}/{apartment.apartmentNumber}, {apartment.city}, {apartment.zipCode}</Card.Text>
                         </Card.Body>
                     </Card>
                     {apartment.photos && (

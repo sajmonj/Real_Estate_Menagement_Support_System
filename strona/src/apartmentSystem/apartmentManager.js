@@ -26,28 +26,6 @@ export function ApartmentManager() {
             default: return "pozostałe"
         }
     }
-    /*
-                id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
-                adDescription: apartmentInfo.adDescription,
-                adTitle: apartmentInfo.adTitle,
-                photos: apartmentInfo.photos,
-                bathrooms: apartmentInfo.bathrooms,
-                city: apartmentInfo.city,
-                detailedType: apartmentInfo.detailedType,
-                email: apartmentInfo.email,
-                estimatedRent: apartmentInfo.estimatedRent,
-                kitchens: apartmentInfo.kitchens,
-                name: apartmentInfo.name,
-                phone: apartmentInfo.phone,
-                propertyType: apartmentInfo.propertyType,
-                area: apartmentInfo.area,
-                apartmentNumber: apartmentInfo.apartmentNumber,
-                rooms: apartmentInfo.rooms,
-                street: apartmentInfo.street,
-                streetNumber: apartmentInfo.streetNumber,
-                zipCode: apartmentInfo.zipCode
-     */
-
     function registerApartment(apartmentInfo) {
         console.log("tutaj",apartmentInfo);
         const newApartment = {
@@ -73,6 +51,20 @@ export function ApartmentManager() {
             return newApartments;
         });
     }
+
+    function updateApartment(apartmentId, updatedData) {
+        setApartments(prevApartments => {
+            const updatedApartments = prevApartments.map(apartment => {
+                if (apartment.id === parseInt(apartmentId)) {
+                    return { ...apartment, ...updatedData };
+                }
+                return apartment;
+            });
+            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+            return updatedApartments;
+        });
+    }
+
 
     function removeApartmentsByOwnerEmail(ownerEmail) {
         setApartments(prevApartments => {
@@ -128,6 +120,19 @@ export function ApartmentManager() {
             return updatedApartments;
         });
     }
+    function registerApartment(apartmentInfo, ownerInfo) {
+        const newApartment = {
+            ...apartmentInfo,
+            id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
+            owner: ownerInfo,
+            events: [],
+            totalAmount: 0
+        };
+
+        setApartments((prevApartments) => [...prevApartments, newApartment]);
+        localStorage.setItem('apartments', JSON.stringify([...apartments, newApartment]));
+        return newApartment;
+    }
 
 
     // function updateEvent(apartmentId, eventId, newEventData) {
@@ -174,7 +179,8 @@ export function ApartmentManager() {
         removeApartmentsByOwnerEmail,
         addEventToApartment,
         addLandlordToApartment,
-        updateTotalAmount
+        updateTotalAmount,
+        updateApartment
     };
 }
 

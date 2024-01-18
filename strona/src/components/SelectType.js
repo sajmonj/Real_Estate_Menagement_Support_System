@@ -24,21 +24,21 @@ function SelectType({ updateFormData, nextStep }) {
             </Row>
             <Row className="justify-content-center text-center mt-4">
                 <Col md={12}>
-                    <h2>Dodajmy Twoją nieruchomość</h2>
-                    <p>Jakim rodzajem nieruchomości zarządzasz?</p>
+                    <h2>Let's Add Your Property</h2>
+                    <p>What type of property do you manage?</p>
                 </Col>
             </Row>
             <Row className="justify-content-center mt-4">
                 <Col xs={12} md={6} lg={5} xl={4}>
                     <Button variant="outline-primary" className="type-button w-100 mb-3" onClick={() => handleSelectType('residential')}>
                         <FontAwesomeIcon icon="fa-solid fa-house" />
-                        Mieszkaniowy
+                        Residential
                     </Button>
                 </Col>
                 <Col xs={12} md={6} lg={5} xl={4}>
                     <Button variant="outline-primary" className="type-button w-100" onClick={() => handleSelectType('commercial')}>
                         <FontAwesomeIcon icon="fa-solid fa-building" />
-                        Komercyjny
+                        Commercial
                     </Button>
                 </Col>
             </Row>

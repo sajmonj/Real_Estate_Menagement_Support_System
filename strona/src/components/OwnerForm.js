@@ -1,11 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import CustomProgressBar from "./CustomProgressBar";
 
 function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
-    const ownerRef = useRef({
+    const [ownerData, setOwnerData] = useState({
         name: formData.name,
         email: formData.email,
         phone: formData.phone
@@ -13,34 +13,30 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
     const [isOwner, setIsOwner] = useState(null); // null, true, false
     const [isValid, setIsValid] = useState(true);
 
+    useEffect(() => {
+        if (isOwner) {
+            // Użytkownik jest właścicielem, wypełnij dane
+            setOwnerData({
+                name: userInfo.firstname + ' ' + userInfo.lastname,
+                email: userInfo.email,
+                phone: userInfo.phone
+            });
+        }
+    }, [isOwner, userInfo]);
+
     const handleChange = e => {
-        ownerRef.current = ({ ...ownerRef.current, [e.target.name]: e.target.value });
-        console.log("Owner",ownerRef.current);
+        setOwnerData({ ...ownerData, [e.target.name]: e.target.value });
         setIsValid(true);
     };
 
     const isFormValid = () => {
-        const owner = ownerRef.current;
-        return (!isOwner && owner.name && owner.email && owner.phone) || isOwner;
+        return (!isOwner && ownerData.name && ownerData.email && ownerData.phone) || isOwner;
     };
 
     const handleSubmit = e => {
         e.preventDefault();
         if (isFormValid()) {
-            if (isOwner === true) {
-                ownerRef.current = {
-                    id: userInfo.id,
-                    name: userInfo.firstname + ' ' + userInfo.lastname,
-                    email: userInfo.email,
-                    password: userInfo.password,
-                };
-                //console.log("USER", userInfo);
-                //console.log("OWNER", ownerRef.current);
-                updateFormData({ name: userInfo.name, email: userInfo.email, phone: userInfo.phone });
-            } else {
-                updateFormData(ownerRef.current);
-            }
-            console.log("FORMDATA", formData);
+            updateFormData(ownerData);
             nextStep();
         } else {
             setIsValid(false);
@@ -84,9 +80,9 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
                                             <Form.Control
                                                 type="text"
                                                 name="name"
-                                                value={ownerRef.current.name}
+                                                value={ownerData.name}
                                                 onChange={handleChange}
-                                                placeholder="Imię i nazwisko "
+                                                placeholder="Imię i nazwisko"
                                                 className="mb-2"
                                             />
                                         </Form.Group>
@@ -94,17 +90,17 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
                                             <Form.Control
                                                 type="email"
                                                 name="email"
-                                                value={ownerRef.current.email}
+                                                value={ownerData.email}
                                                 onChange={handleChange}
                                                 placeholder="Email"
-                                                className="mb-2" // Dodano margines poniżej
+                                                className="mb-2"
                                             />
                                         </Form.Group>
                                         <Form.Group className="mb-3">
                                             <Form.Control
                                                 type="tel"
                                                 name="phone"
-                                                value={ownerRef.current.phone}
+                                                value={ownerData.phone}
                                                 onChange={handleChange}
                                                 placeholder="Telefon"
                                             />

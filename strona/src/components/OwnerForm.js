@@ -15,7 +15,6 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
 
     useEffect(() => {
         if (isOwner) {
-            // Użytkownik jest właścicielem, wypełnij dane
             setOwnerData({
                 name: userInfo.firstname + ' ' + userInfo.lastname,
                 email: userInfo.email,
@@ -62,14 +61,14 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
                                     <Button
                                         variant={isOwner === true ? "primary" : "outline-primary"}
                                         onClick={() => setIsOwner(true)}
-                                        className="custom-btn"
+                                        className="custom-btn ownerform-btn"
                                     >
                                         <FontAwesomeIcon icon={faUser} className="me-2" /> Ja jestem właścicielem
                                     </Button>
                                     <Button
                                         variant={isOwner === false ? "primary" : "outline-primary"}
                                         onClick={() => setIsOwner(false)}
-                                        className="custom-btn"
+                                        className="custom-btn ownerform-btn"
                                     >
                                         <FontAwesomeIcon icon={faUserTie} className="me-2" /> Ktoś inny jest właścicielem
                                     </Button>
@@ -121,8 +120,10 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
             <style type="text/css">
                 {`
                 .custom-btn {
-                    padding: .75rem 1.5rem;
+                    padding: .5rem 1.5rem;
                     margin: 1rem .5rem;
+                    height: 60px;
+                    width: 280px;             
                 }
                 `}
             </style>

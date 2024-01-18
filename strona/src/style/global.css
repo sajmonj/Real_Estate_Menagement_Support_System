@@ -85,3 +85,8 @@ body {
 .card{
     padding: 20px;
 }
+
+.ownerform-btn  {
+    height: 55px;
+    width: 210px;
+}

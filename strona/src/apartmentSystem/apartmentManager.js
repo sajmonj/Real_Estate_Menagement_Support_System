@@ -8,7 +8,8 @@ export function ApartmentManager() {
         if (storedApartments) {
             const parsedApartments = JSON.parse(storedApartments).map(apartment => ({
                 ...apartment,
-                events: apartment.events || []
+                events: apartment.events || [],
+                landlords: apartment.landlords || []
             }));
             setApartments(parsedApartments);
         }
@@ -24,6 +25,23 @@ export function ApartmentManager() {
             case 4: return "apartamentowiec"
             default: return "pozostałe"
         }
+    }
+    function registerApartment(apartmentInfo) {
+        console.log("tutaj",apartmentInfo);
+        const newApartment = {
+            ...apartmentInfo,
+            id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
+            events: [],
+            landlords: [],
+            totalAmount: 0
+        };
+
+        console.log(newApartment);
+
+        setApartments((prevApartments) => [...prevApartments, newApartment]);
+        localStorage.setItem('apartments', JSON.stringify([...apartments, newApartment]));
+        console.log("Po zapisaniu:", newApartment);
+        return newApartment;
     }
 
     function removeApartment(id) {
@@ -68,6 +86,20 @@ export function ApartmentManager() {
             });
 
             // Zapisz zaktualizowane apartamenty w localStorage
+            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+            return updatedApartments;
+        });
+    }
+
+    function addLandlordToApartment (apartmentID, event) {
+        setApartments(prevApartments => {
+            const updatedApartments = prevApartments.map(apartment => {
+                if (apartment.id === apartmentID) {
+                    const updatedLandlords = [...apartment.landlords, event];
+                    return { ...apartment, landlords: updatedLandlords};
+                }
+                return apartment;
+            });
             localStorage.setItem('apartments', JSON.stringify(updatedApartments));
             return updatedApartments;
         });
@@ -146,6 +178,7 @@ export function ApartmentManager() {
         getDevelopmentTypeName,
         removeApartmentsByOwnerEmail,
         addEventToApartment,
+        addLandlordToApartment,
         updateTotalAmount,
         updateApartment
     };

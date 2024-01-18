@@ -124,7 +124,18 @@ export function ApartmentManager() {
             return updatedApartments;
         });
     }
+    function registerApartment(apartmentInfo, ownerInfo) {
+        const newApartment = {
+            ...apartmentInfo,
+            id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
+            events: [],
+            owner: ownerInfo
+        };
 
+        setApartments((prevApartments) => [...prevApartments, newApartment]);
+        localStorage.setItem('apartments', JSON.stringify([...apartments, newApartment]));
+        return newApartment;
+    }
 
     // function updateEvent(apartmentId, eventId, newEventData) {
     //     setApartments(prevApartments => {

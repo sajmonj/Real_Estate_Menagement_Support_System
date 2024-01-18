@@ -3,13 +3,13 @@ import React from 'react';
 import '../style/ProgressBar.css';
 
 const stepsLabels = [
-    "Typ nieruchomości",
-    "Zastosowanie",
-    "Adres",
-    "Szczegóły nieruchomości",
-    "Informacje o właścicielu",
-    "Zdjęcia nieruchomości",
-    "Tekst na ogłoszenie"
+    "Property type",
+    "Application",
+    "Address",
+    "Property details",
+    "Owner details",
+    "Property photos",
+    "Text for the ad"
 ];
 
 function CustomProgressBar({ currentStep }) {

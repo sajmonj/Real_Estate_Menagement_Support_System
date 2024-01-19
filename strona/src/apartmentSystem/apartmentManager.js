@@ -15,17 +15,6 @@ export function ApartmentManager() {
         }
     }, []);
 
-
-    function getDevelopmentTypeName(type) {
-        switch (type) {
-            case 0: return "blok"
-            case 1: return "kamienica"
-            case 2: return "dom"
-            case 3: return "szeregowiec"
-            case 4: return "apartamentowiec"
-            default: return "pozostałe"
-        }
-    }
     function registerApartment(apartmentInfo) {
         console.log("tutaj",apartmentInfo);
         const newApartment = {
@@ -84,8 +73,6 @@ export function ApartmentManager() {
                 }
                 return apartment;
             });
-
-            // Zapisz zaktualizowane apartamenty w localStorage
             localStorage.setItem('apartments', JSON.stringify(updatedApartments));
             return updatedApartments;
         });
@@ -175,7 +162,6 @@ export function ApartmentManager() {
         apartments,
         registerApartment,
         removeApartment,
-        getDevelopmentTypeName,
         removeApartmentsByOwnerEmail,
         addEventToApartment,
         addLandlordToApartment,

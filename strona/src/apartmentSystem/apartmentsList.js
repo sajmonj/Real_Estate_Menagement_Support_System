@@ -4,8 +4,6 @@ import React, {useEffect, useMemo, useRef, useState} from "react";
 import {ApartmentOnList} from "./apartmentOnList";
 import {PopupRemovingApartment as Popup} from "../components/popup";
 import {CheckboxTree} from "./CheckboxTree";
-import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ValueRange from "./RangeSlider";
 
 import {Form, Container, Row, Col, Stack, Button} from 'react-bootstrap';
@@ -184,7 +182,6 @@ export function ApartmentsList(props) {
                                 <button className="sortButton" onClick={() => handleSort('rooms', 'numeric')}>Rooms
                                 </button>
                             </div>
-                            {/*' maxArea: ' + maxArea + ' maxEstPrice: ' + maxEstPrice + ' maxRoomCount: ' + maxRoomCount + ' isFiltered: ' + isFiltered*/}
                             <div>
                                 <h5>Apartment type</h5>
                                 <CheckboxTree categories={categories} setCategories={setCategories}

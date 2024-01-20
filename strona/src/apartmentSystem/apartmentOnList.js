@@ -26,11 +26,13 @@ export function ApartmentOnList({apartment, navigate, openPopup}) {
                     </div>
                 </div>
             </div>
-            <Button variant="outline-primary" style={{margin: 5}} onClick={(e) => {
+            <div className="buttonPanel">
+                <Button variant="outline-primary" style={{margin: 5}} onClick={(e) => {
                     navigate(`/edit-apartment/${apartment.id}`);
                     e.stopPropagation();}}>Edit</Button>
                 <Button variant="outline-danger" style={{margin: 5}} onClick={(e) => {
                     openPopup(apartment.id); e.stopPropagation(); }}>Remove</Button>
+            </div>
         </div>
     );
 }

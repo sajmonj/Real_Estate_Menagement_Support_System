@@ -42,16 +42,10 @@ export function ApartmentManager() {
     }
 
     function updateApartment(apartmentId, updatedData) {
-        setApartments(prevApartments => {
-            const updatedApartments = prevApartments.map(apartment => {
-                if (apartment.id === parseInt(apartmentId)) {
-                    return { ...apartment, ...updatedData };
-                }
-                return apartment;
-            });
-            localStorage.setItem('apartments', JSON.stringify(updatedApartments));
-            return updatedApartments;
-        });
+        const updatedApartments = apartments.filter(apartment => apartment.id !== parseInt(apartmentId));
+        updatedApartments.push(updatedData);
+        setApartments(updatedApartments);
+        localStorage.setItem('apartments', JSON.stringify(updatedApartments));
     }
 
 

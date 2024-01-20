@@ -32,7 +32,6 @@ function PropertyForm(props) {
     // Aby było zapisane po odświeżeniu
     const updateFormData = (newData) => {
         const updatedFormData = { ...formData, ...newData };
-        console.log("NEWDATE",newData);
         setFormData(updatedFormData);
         localStorage.setItem('formData', JSON.stringify(updatedFormData));
     };

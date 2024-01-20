@@ -3,8 +3,10 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIndustry, faBuilding, faStore, faShoppingCart, faWarehouse, faParking, faTree, faEllipsisH, faHome, faCity, faHouseDamage, faUsers, faDoorClosed, faGraduationCap, faWheelchair } from '@fortawesome/free-solid-svg-icons';
 import CustomProgressBar from "./CustomProgressBar";
+import {useNavigate} from "react-router-dom";
 
 function PropertyTypeForm({ formData, updateFormData, nextStep }) {
+    const navigate = useNavigate();
     const handleSelection = (type) => {
         updateFormData({ detailedType: type });
         nextStep();
@@ -33,6 +35,7 @@ function PropertyTypeForm({ formData, updateFormData, nextStep }) {
 
     return (
         <Container className="select-type-container">
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back</span>
             <Row className="justify-content-center text-center">
                 <Col>
                     <CustomProgressBar currentStep={2} totalSteps={7} />

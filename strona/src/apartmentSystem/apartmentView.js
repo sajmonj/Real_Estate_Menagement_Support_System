@@ -89,7 +89,7 @@ export function ApartmentView(props) {
             ...prevLandlord,
             documents: [...prevLandlord.documents, ...newDocuments]
         }));
-        }
+    }
 
     const handleRemoveFile = index => {
         const newFileList = selectedFiles.filter((_, fileIndex) => fileIndex !== index);
@@ -361,7 +361,7 @@ export function ApartmentView(props) {
                                             <Row>
                                                 {selectedFiles.length > 0 && selectedFiles.map((fileURL, index) => (
                                                     <Col xs={6} md={4} key={index} className="mb-3 position-relative">
-                                                        <img src={fileURL} alt={`Zdjęcie ${index + 1}`} className="img-fluid" />
+                                                        <img src={fileURL} alt={`Dokument ${index + 1}`} className="img-fluid" />
                                                         <CloseButton
                                                             className="position-absolute top-0 end-0"
                                                             onClick={() => handleRemoveFile(index)}

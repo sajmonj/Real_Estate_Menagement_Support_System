@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, CloseButton } from 'react-bootstrap';
 import CustomProgressBar from "./CustomProgressBar";
+import {useNavigate} from "react-router-dom";
 
 function UploadPhotosForm({ formData, updateFormData, nextStep, prevStep }) {
     const [selectedFiles, setSelectedFiles] = useState(formData.photos || []);
+    const navigate = useNavigate();
 
     const handleFileChange = e => {
         const newFiles = Array.from(e.target.files);
@@ -25,6 +27,7 @@ function UploadPhotosForm({ formData, updateFormData, nextStep, prevStep }) {
 
     return (
         <Container className="mt-5">
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back</span>
             <Row className="justify-content-center text-center">
                 <Col>
                     {/*<h1>New Property</h1>*/}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import CustomProgressBar from "./CustomProgressBar";
+import {useNavigate} from "react-router-dom";
 
 function AddressForm({ formData, updateFormData, nextStep, prevStep }) {
     const [address, setAddress] = useState({
@@ -11,6 +12,7 @@ function AddressForm({ formData, updateFormData, nextStep, prevStep }) {
         zipCode: formData.zipCode || ''
     });
     const [isValid, setIsValid] = useState(true);
+    const navigate = useNavigate();
 
     const handleChange = e => {
         setAddress({ ...address, [e.target.name]: e.target.value });
@@ -34,6 +36,7 @@ function AddressForm({ formData, updateFormData, nextStep, prevStep }) {
 
     return (
         <Container className="mt-5">
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back</span>
             <Row className="justify-content-center text-center">
                 <Col>
                     <CustomProgressBar currentStep={3} totalSteps={7} />

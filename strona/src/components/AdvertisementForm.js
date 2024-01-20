@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import CustomProgressBar from "./CustomProgressBar";
+import {useNavigate} from "react-router-dom";
 
 function AdvertisementForm({ formData, updateFormData, nextStep, prevStep }) {
     const [adData, setAdData] = useState({
         adTitle: formData.adTitle || '',
         adDescription: formData.adDescription || '',
     });
+    const navigate = useNavigate();
 
     const handleChange = e => {
         setAdData({ ...adData, [e.target.name]: e.target.value });
@@ -20,6 +22,7 @@ function AdvertisementForm({ formData, updateFormData, nextStep, prevStep }) {
 
     return (
         <Container className="mt-5">
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back</span>
             <Row className="justify-content-center text-center">
                 <Col>
                     <CustomProgressBar currentStep={7} totalSteps={7} />

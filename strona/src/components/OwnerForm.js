@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import CustomProgressBar from "./CustomProgressBar";
+import {useNavigate} from "react-router-dom";
 
 function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
     const [ownerData, setOwnerData] = useState({
@@ -12,6 +13,7 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
     });
     const [isOwner, setIsOwner] = useState(null); // null, true, false
     const [isValid, setIsValid] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (isOwner) {
@@ -44,6 +46,7 @@ function OwnerForm({ formData, updateFormData, nextStep, prevStep, userInfo }) {
 
     return (
         <Container className="mt-5">
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back</span>
             <Row className="justify-content-center text-center">
                 <Col>
                     {/*<h1>New Property</h1>*/}

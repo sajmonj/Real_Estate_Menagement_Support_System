@@ -44,6 +44,7 @@ function SummaryPage({ formData, clearFormData }) {
 
     return (
         <Container className="mt-4">
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back</span>
             <h2 className="mb-3">Podsumowanie Twojej Nieruchomości</h2>
             <Tabs
                 id="controlled-tab-example"

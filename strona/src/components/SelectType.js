@@ -3,9 +3,11 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import CustomProgressBar from './CustomProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import {useNavigate} from "react-router-dom";
 
 
 function SelectType({ updateFormData, nextStep }) {
+    const navigate= useNavigate();
     // Funkcja obsługi wyboru typu nieruchomości
     const handleSelectType = (type) => {
         // Aktualizacja stanu formularza z wybranym typem nieruchomości
@@ -16,6 +18,7 @@ function SelectType({ updateFormData, nextStep }) {
 
     return (
         <Container className="select-type-container">
+            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back</span>
             <Row className="justify-content-center text-center">
                 <Col>
                     {/*<h1>New Property</h1>*/}

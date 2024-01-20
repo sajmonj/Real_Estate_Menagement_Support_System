@@ -145,9 +145,9 @@ export function ApartmentsList(props) {
     return (
         <>
             <h1 style={{marginTop: 20, marginBottom: 20, textAlign: 'center'}}>
-                <span className="hyperlink text14" style={{float: 'left', margin: 15, userSelect: 'none'}}
+                <span className="hyperlink text14" style={{float: 'left', margin: 15, marginRight: -80, userSelect: 'none'}}
                       onClick={() => navigate("/")}>&lt; Go back</span>
-                Apartments List of user: {userInfo.firstname} {userInfo.lastname}
+                Apartments of user: {userInfo.firstname} {userInfo.lastname}
             </h1>
             <div style={{backgroundColor: '#cccccc', height: 1.5, width: '100%', marginBottom: 20}}/>
             <Container>

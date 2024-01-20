@@ -1,5 +1,5 @@
 import React from 'react';
-import './popup.css';
+import '../style/popup.css';
 
 export function PopupRemovingApartment({ show, onClose, onConfirm }) {
     return (

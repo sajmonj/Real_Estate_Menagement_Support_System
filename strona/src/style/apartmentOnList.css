@@ -5,13 +5,13 @@ ul {
 
 .apartmentOnListView {
     display: grid;
-    grid-template-columns: 4fr 1fr;
+    grid-template-columns: 4fr 3fr 3fr 3fr;
     grid-gap: 20px;
-    align-items: center;
-    padding: 10px;
+    padding: 20px;
     border-bottom: 1px solid #cccccc;
     transition: box-shadow 0.5s ease;
     cursor: pointer;
+    align-items: center;
 }
 .apartmentOnListView:hover {
     border-radius: 10px;
@@ -21,15 +21,10 @@ ul {
 }
 
 .apartmentSmallPicture {
-    width: 300px;
-    height: 200px;
     border-radius: 10px;
     background-size: contain;
-}
-
-.infoGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    height: 100px;
+    justify-self: center;
 }
 
 .closeText {
@@ -61,6 +56,7 @@ ul {
     margin: 10px;
     padding: 20px;
     border-radius: 10px;
+    background-color: white;
 }
 
 .iconButton {

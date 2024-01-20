@@ -24,11 +24,25 @@ body {
     height: 100vh;
 }
 
+.whiteBox {
+    background-color: white;
+    border-radius: 50px;
+    padding: 100px;
+}
+
+.background {
+    background-image: url('/public/apartmentMainView.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
 .titleContainer {
-    margin: 20px;
-    text-align: center;
-    font-size: 48px;
+    margin-bottom: 10px;
+    font-size: 40px;
     font-weight: bold;
+    text-align: center;
 }
 
 /* text */
@@ -85,4 +99,22 @@ input {
     color: red;
     font-size: 12px;
     float: right;
+}
+
+.debugBar {
+    position: fixed;
+    bottom: 50%;
+    left: 0;
+    font-size: 12px;
+    border: 2px solid red;
+    background-color: white;
+}
+
+.w300 {
+    width: 300px;
+}
+
+.topMargin {
+    margin-top: 10px;
+    font-size: 12px;
 }

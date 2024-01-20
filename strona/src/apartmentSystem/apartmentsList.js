@@ -30,8 +30,7 @@ export function ApartmentsList(props) {
     const [selectedRoomCountRange, setSelectedRoomCountRange] = useState([]);
     const [maxRoomCount, setMaxRoomCount] = useState(10);
 
-    const [isFiltered, setIsFiltered] = useState(false);
-    const [categories, setCategories] = useState({
+    const initialCategories = {
         Residential: {
             House: false,
             Apartment: false,
@@ -49,7 +48,9 @@ export function ApartmentsList(props) {
             Land: false,
             Other: false,
         },
-    });
+    };
+    const [isFiltered, setIsFiltered] = useState(false);
+    const [categories, setCategories] = useState(initialCategories);
 
 
     useEffect(() => {
@@ -71,7 +72,7 @@ export function ApartmentsList(props) {
         setSelectedAreaRange([0, maxArea]);
 
         const maxEstPrice = apartments.reduce((max, apartment) => {
-            const rentValue = parseFloat(apartment.estimatedRent.split(' ')[0].replace(',','.'));
+            const rentValue = parseFloat(apartment.estimatedRent.replace(',','.'));
             return rentValue > max ? rentValue : max
         }, 10);
         setMaxEstPrice(maxEstPrice);
@@ -102,31 +103,13 @@ export function ApartmentsList(props) {
 
     const goThroughRanges = (apartment) => {
         return apartment.area >= selectedAreaRange[0] && apartment.area <= selectedAreaRange[1] &&
-            parseFloat(apartment.estimatedRent.split(' ')[0].replace(',','.')) >= selectedEstPriceRange[0] &&
-            parseFloat(apartment.estimatedRent.split(' ')[0].replace(',','.')) <= selectedEstPriceRange[1] &&
+            parseFloat(apartment.estimatedRent.replace(',','.')) >= selectedEstPriceRange[0] &&
+            parseFloat(apartment.estimatedRent.replace(',','.')) <= selectedEstPriceRange[1] &&
             apartment.rooms >= selectedRoomCountRange[0] && apartment.rooms <= selectedRoomCountRange[1];
     };
 
     const resetFilters = () => {
-        setCategories({
-            Residential: {
-                House: false,
-                Apartment: false,
-                Condominium: false,
-                Townhouse: false,
-                Room: false,
-                Other: false,
-            },
-            Commercial: {
-                Industrial: false,
-                Retail: false,
-                'Shopping Mall': false,
-                Warehouse: false,
-                Parking: false,
-                Land: false,
-                Other: false,
-            },
-        });
+        setCategories(initialCategories);
         setIsFiltered(false);
         setSelectedAreaRange([0, maxArea]);
         setSelectedEstPriceRange([0, maxEstPrice]);
@@ -144,12 +127,13 @@ export function ApartmentsList(props) {
 
     return (
         <>
-            <h1 style={{marginTop: 20, marginBottom: 20, textAlign: 'center'}}>
+            <h1 style={{paddingTop: 20, paddingBottom: 20, margin: 0, textAlign: 'center', backgroundColor: 'darkseagreen'}}>
                 <span className="hyperlink text14" style={{float: 'left', margin: 15, marginRight: -80, userSelect: 'none'}}
                       onClick={() => navigate("/")}>&lt; Go back</span>
                 Apartments of user: {userInfo.firstname} {userInfo.lastname}
             </h1>
-            <div style={{backgroundColor: '#cccccc', height: 1.5, width: '100%', marginBottom: 20}}/>
+            <div style={{backgroundColor: '#80A980', height: 2, width: '100%'}}/>
+            <div style={{backgroundColor: '#fbfbfb', paddingTop: 20}}>
             <Container>
                 <Row>
                     <Col xs={3}>
@@ -206,7 +190,7 @@ export function ApartmentsList(props) {
                     </Col>
                     <Col>
                         {userApartments.length === 0 ? <div>You don't have any apartments yet.</div> :
-                            <ul>
+                            <ul className='Filters'>
                                 {filteredApartments.sort((a, b) => {
                                     if (sortedType.current === 'numeric') {
                                         return sortOrder === 'asc' ? a[sortedKey] - b[sortedKey] : b[sortedKey] - a[sortedKey];
@@ -223,6 +207,7 @@ export function ApartmentsList(props) {
                     </Col>
                 </Row>
             </Container>
+            </div>
             <Popup show={showPopup} onClose={closePopup} onConfirm={confirmDelete}/>
         </>
     )

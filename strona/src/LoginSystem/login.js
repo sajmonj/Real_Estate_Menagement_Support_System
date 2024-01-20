@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {UserManager} from "./userManager";
+import {Button} from "react-bootstrap";
 
 export function Login(props) {
     const { getUserLogin, initialState } = UserManager();
@@ -47,8 +48,8 @@ export function Login(props) {
     }
 
     return (
-        <div className="centeredDiv text14">
-            <div>
+        <div className="centeredDiv text14 background">
+            <div className='whiteBox'>
                 <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
                 <div className="titleContainer">Login</div>
 
@@ -68,11 +69,12 @@ export function Login(props) {
                 />
                 <br/><span className="errorLabel">{passwordError}</span><br/><br/>
 
-                <div className="textAlignedCenter">
-                    <button className="greenButton" onClick={onButtonClick}>Log in</button>
+                <div style={{textAlign: 'center'}}>
+                    <Button variant='success' style={{width: '300px', alignContent: "center"}}
+                            onClick={onButtonClick}>Log in</Button>
                 </div>
 
-                <br/><br/><span>Don't have an account? <span className="hyperlink hyperlinkBlue" onClick={() => navigate("/register")}>Sign up</span> </span>
+                <br/><span>Don't have an account? <span className="hyperlink hyperlinkBlue" onClick={() => navigate("/register")}>Sign up</span> </span>
             </div>
         </div>
 

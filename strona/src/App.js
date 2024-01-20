@@ -12,7 +12,6 @@ import { ApartmentProvider } from './contexts/ApartmentContext';
 import PropertyForm from './components/PropertyForm';
 import ApartmentList from './components/ApartmentList';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import EditTenant from "./apartmentSystem/EditTenant";
 
 const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -32,7 +31,6 @@ const App = () => {
                     <Route path="/add-apartment" element={<PropertyForm loggedIn={loggedIn} userInfo={userInfo}/>} />
                     <Route path="/apartment-list" element={<ApartmentList />} />
                     <Route path="/edit-apartment/:id" element={<EditApartment />} />
-                    <Route path="/edit-tenant/:idA/:idT" element={<EditTenant />} />
                 </Routes>
             </BrowserRouter>
         </ApartmentProvider>

@@ -4,8 +4,7 @@ import {Container, Tab, Tabs, Card, Row, Col, Modal, Form, Button, Table, CloseB
 import { ApartmentManager } from './apartmentManager';
 import '../style/apartmentOnList.css';
 import TimelineItem from '../components/Timeline.js';
-import TimelineTenantItem from "../components/TimelineTenant";
-import EditTenant from "./EditTenant";
+import TimelineLandlordItem from "../components/TimelineLandlord";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
@@ -13,7 +12,7 @@ import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 export function ApartmentView(props) {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { apartments, addEventToApartment, addLandlordToApartment, updateApartment,updateTotalAmount } = ApartmentManager();
+    const { apartments, addEventToApartment, addLandlordToApartment ,updateTotalAmount } = ApartmentManager();
     const apartment = apartments ? apartments.find(apartment => apartment.id === parseInt(id)) : null;
     const owners = apartment ? apartment.landlords.sort((a,b) => new Date(b.startDate) - new Date(a.startDate)) : null;
     const owner = owners && owners.length > 0
@@ -32,8 +31,6 @@ export function ApartmentView(props) {
     const [isLandlordHistoryExpanded, setIsLandlordHistoryExpanded] = useState(false);
     const [isEventHistoryExpanded, setIsEventHistoryExpanded] = useState(false);
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [editedTenant, setEditedTenant] = useState(null);
-    let activeTenantsCnt = 0;
 
     // const handleAddEvent = () => {
     //     const newEvent = new Event(newEvent.description, new Date(newEvent.date));
@@ -55,23 +52,6 @@ export function ApartmentView(props) {
         setShowZoomedImageModal(true);
     };
     const closeZoomedImageModal = () => setShowZoomedImageModal(false);
-
-    const openEditTenantModal = (tenant) => {
-        setEditedTenant(tenant);
-        console.log("TENATNTNT", tenant);
-    }
-
-    const saveEditedTenant = (editedTenantData) => {
-        const id = apartment.landlords.findIndex((landlord) => landlord.id === editedTenantData.id);
-        const updatedLandlords = [...apartment.landlords];
-        updatedLandlords[id] = editedTenantData;
-
-        const updatedApartment = { ...apartment, landlords: updatedLandlords };
-        const updatedApartments = apartments.map((apt) => (apt.id === apartment.id ? updatedApartment : apt));
-
-        updateApartment(apartment.id, updatedApartment);
-        setEditedTenant(null);
-    }
 
     const handleEventChange = (e) => {
         setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
@@ -213,27 +193,25 @@ export function ApartmentView(props) {
                     </Card>
                     <Card className="mb-3">
                         <Card.Body>
-                            <Card.Title>Active tenants Details</Card.Title>
-                            {apartment.landlords.map((tenant, index) => (
-                                !tenant.endDate || new Date(tenant.endDate) >= new Date() ?
-                                    <div>
-                                        <Card.Text><strong>{++activeTenantsCnt}.<br/> Name:</strong> {tenant.firstName}&nbsp;{tenant.lastName}
-                                        </Card.Text>
-                                        <Card.Text><strong>Contact:</strong></Card.Text>
-                                        <Card.Text><strong>Phone:</strong> {tenant.phone} </Card.Text>
-                                        <Card.Text><strong>Email:</strong> {tenant.email} </Card.Text>
-                                        <br/><br/>
-                                    </div> :
-                                    <div/>
-                             ))}
+                            <Card.Title>Owner Details</Card.Title>
+                            {/* Placeholder for Owner Details */}
+                            <Card.Text><strong>Name:</strong> {owner.firstName}&nbsp;{owner.lastName} </Card.Text>
+                            <Card.Text><strong>Contact:</strong></Card.Text>
+                            <Card.Text><strong>Phone:</strong> {owner.phone} </Card.Text>
+                            <Card.Text><strong>Email:</strong> {owner.email} </Card.Text>
                         </Card.Body>
                     </Card>
                 </Tab>
-                <Tab eventKey="eventsHistory" title="Events history">
+                <Tab eventKey="history" title="History">
                     <Card className="mb-3">
                         <Card.Body>
                             <Card.Title>History of events</Card.Title>
-                            <br/><br/>
+                            <div className="timeline">
+                                {[...apartment.events].sort((a,b) => new Date(b.date) - new Date(a.date)).map((event, index) => (
+                                    <TimelineItem key={index} event={event} />
+                                ))}
+                            </div>
+
                             <Card.Title>
                                 <button className="timeline__arrow" onClick={() => setIsEventHistoryExpanded(!isEventHistoryExpanded)} aria-expanded={isEventHistoryExpanded}>
                                     <FontAwesomeIcon icon={faChevronDown} className={`timeline__arrow-icon ${isLandlordHistoryExpanded ? 'expanded' : ''}`} />
@@ -292,31 +270,34 @@ export function ApartmentView(props) {
                                     <Button variant="primary" type="submit" className="mt-2">Add event</Button>
                                 </Form>
                             )}
-                            <br/><br/>
-                            <div className="timeline">
-                                {[...apartment.events].sort((a,b) => new Date(b.date) - new Date(a.date)).map((event, index) => (
-                                    <TimelineItem key={index} event={event} />
-                                ))}
-                            </div>
+
                         </Card.Body>
                     </Card>
-                </Tab>
 
 
-                <Tab eventKey="tenantsHistory" title="Tenants history">
-                    <Card className="mb-3">
+
+                        <Card className="mb-3">
                         <Card.Body>
-                            <Card.Title>History of Tenants</Card.Title>
-                            <br/><br/>
+                            <Card.Title>History of landlords</Card.Title>
+                            {/* Formularz dodawania nowego  wynajmującego*/}
+
+
+                            <div className="timeline">
+                                {[...apartment.landlords].sort((a,b) => new Date(b.startDate) - new Date(a.startDate)).map((event, index) => (
+                                    <TimelineLandlordItem key={index} event={event} />
+                                ))}
+                            </div>
+
                             <Card.Title>
                                 <button className="timeline__arrow" onClick={() => setIsLandlordHistoryExpanded(!isLandlordHistoryExpanded)} aria-expanded={isLandlordHistoryExpanded}>
                                     <FontAwesomeIcon icon={faChevronDown} className={`timeline__arrow-icon ${isLandlordHistoryExpanded ? 'expanded' : ''}`} />
                                 </button>
-                                Enter new Tenant data
+                                Enter new landlord data
                             </Card.Title>
                             {isLandlordHistoryExpanded && (
                                 <Form onSubmit={addLandlord}>
                                     <br/>
+
                                     <Row className="mb-3">
                                         <Col md={12}>
                                             <Form.Group controlId="formLandlordName">
@@ -353,7 +334,7 @@ export function ApartmentView(props) {
                                         <Col>
                                             <Form.Group controlId="formDocuments">
                                                 Documents:
-                                                <Form.Control type="file" name="documents" multiple value={newLandlord.documents} onChange={handleDocumentsChange} onSubmit={handleLandlordChange} ></Form.Control>
+                                                <Form.Control type="file" name="documents" multiple onChange={handleDocumentsChange} onSubmit={handleLandlordChange} ></Form.Control>
                                             </Form.Group>
 
                                             <Row>
@@ -371,24 +352,13 @@ export function ApartmentView(props) {
                                         </Col>
                                     </Row>
                                     <Button variant="primary" type="submit" className="mt-2" >Add landlord</Button>
+                                    <br/>
+                                    <br/>
                                 </Form>
                             )}
-                            <br/><br/>
-                            <div className="timeline">
-                                {[...apartment.landlords].sort((a,b) => {
-                                    const endDateComp = new Date(b.endDate) - new Date(a.endDate);
-                                    if (endDateComp === 0) {
-                                        return new Date(b.startDate) - new Date(a.startDate);
-                                    }
-                                    return endDateComp;
-                                }).map((event, index) => (
-                                    <TimelineTenantItem key={index} tenant={event} apartmentId={apartment.id} openEditTenantModal={openEditTenantModal} />
-                                ))}
-                            </div>
                         </Card.Body>
                     </Card>
                 </Tab>
-
 
             </Tabs>
             {/* Modal do wyświetlenia powiększonego zdjęcia */}
@@ -397,13 +367,6 @@ export function ApartmentView(props) {
                     <img src={selectedImage} alt="Powiększone zdjęcie mieszkania" className="img-fluid" />
                 </Modal.Body>
             </Modal>
-            {editedTenant && (
-                <EditTenant tenant={editedTenant}
-                            onHide={() => setEditedTenant(null)}
-                            onSave={saveEditedTenant}
-                />
-
-            )}
         </Container>
     );
 }

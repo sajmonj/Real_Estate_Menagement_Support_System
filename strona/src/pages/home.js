@@ -1,15 +1,12 @@
 import React from "react"
 import {useNavigate} from "react-router-dom";
 import {UserManager} from "../LoginSystem/userManager";
-import {ApartmentManager} from "../apartmentSystem/apartmentManager";
 
 
 export default function Home(props) {
     const {loggedIn, userInfo} = props
     const navigate = useNavigate();
-    const {users, removeUser} = UserManager()
-    const {apartments} = ApartmentManager();
-
+    const {removeUser} = UserManager()
 
     function loginButton() {
         if (loggedIn) {
@@ -30,8 +27,8 @@ export default function Home(props) {
 
     return (
         <div className="centeredDiv">
-            <button onClick={() => console.log(apartments)}>Console print apartments</button>
-            <button onClick={() => console.log(users)}>Console print users</button>
+            {/*<button onClick={() => console.log(apartments)}>Console print apartments</button>*/}
+            {/*<button onClick={() => console.log(users)}>Console print users</button>*/}
 
             <div className="mainContainer centered">
                 <div className="titleContainer">
@@ -41,9 +38,8 @@ export default function Home(props) {
                 <div>This is the home page.</div>
                 <br/><br/><br/>
                 <div className="buttonContainer">
-                    <input
+                    <button
                         className="inputButton greenButton"
-                        type="button"
                         onClick={loginButton}
                         value={loggedIn ? "Log out" : "Log in"} />
                     {(!loggedIn ? <input

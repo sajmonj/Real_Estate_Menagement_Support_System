@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {UserManager} from "./userManager";
+import {Button} from "react-bootstrap";
 
 export function Registration(props) {
     const { getUserByEmail, registerUser, initialState } = UserManager();
@@ -78,48 +79,49 @@ export function Registration(props) {
     }
 
     return (
-        <div className="centeredDiv">
-            <div>
+        <div className="centeredDiv background">
+            <div className='whiteBox' style={{paddingTop: 50, paddingBottom: 50}}>
                 <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
                 <div className="titleContainer">Registration</div>
 
-                <label htmlFor="firstname">Firstname</label><br/>
+                <label htmlFor="firstname" className='topMargin' >Firstname</label><br/>
                 <input id="firstname" autoComplete="on"
                     placeholder="Enter your firstname"
                     onChange={ev => userInfoRef.current.firstname = ev.target.value }
                 />
-                <br/><span className="errorLabel">{firstnameError}</span><br/>
+                <br/><span className="errorLabel">{firstnameError}</span>
 
-                <label htmlFor="lastname">Lastname</label><br/>
+                <label htmlFor="lastname" className='topMargin'>Lastname</label><br/>
                 <input id="lastname" autoComplete="on"
                     placeholder="Enter your lastname"
                     onChange={ev => userInfoRef.current.lastname = ev.target.value }
                 />
-                <br/><span className="errorLabel">{lastnameError}</span><br/>
+                <br/><span className="errorLabel">{lastnameError}</span>
 
-                <label htmlFor="email">Email</label><br/>
+                <label htmlFor="email" className='topMargin'>Email</label><br/>
                 <input id="email" autoComplete="email"
                     placeholder="Enter your email here"
                     onChange={ev => userInfoRef.current.email = ev.target.value }
                 />
-                <br/><span className="errorLabel">{emailError}</span><br/>
+                <br/><span className="errorLabel">{emailError}</span>
 
-                <label htmlFor="password">Password</label><br/>
+                <label htmlFor="password" className='topMargin'>Password</label><br/>
                 <input id="password" type={"password"} autoComplete="new-password"
                     placeholder="Enter your password here"
                     onChange={ev => userInfoRef.current.password = ev.target.value }
                 />
-                <br/><span className="errorLabel">{passwordError}</span><br/>
+                <br/><span className="errorLabel">{passwordError}</span>
 
-                <label htmlFor="repeatedPassword">Repeat your password</label><br/>
+                <label htmlFor="repeatedPassword" className='topMargin'>Repeat your password</label><br/>
                 <input id="repeatedPassword" type={"password"} autoComplete="new-password"
                     placeholder="Repeat your password"
                     onChange={ev => repeatedPasswordRef.current = ev.target.value }
                 />
-                <br/><span className="errorLabel">{repeatedPasswordError}</span><br/><br/>
+                <br/><span className="errorLabel">{repeatedPasswordError}</span>
 
-                <div className="textAlignedCenter">
-                    <button className="greenButton" onClick={onButtonClick}>Register</button>
+                <div className="textAlignedCenter" style={{marginTop: 30}}>
+                    <Button variant='success' style={{width: '300px'}}
+                            onClick={onButtonClick}>Register</Button>
                 </div>
 
                 <br/><br/><span>Already have an account? <span className="hyperlink hyperlinkBlue" onClick={() => navigate("/login")}>Log in</span> </span>

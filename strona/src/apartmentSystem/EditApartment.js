@@ -70,7 +70,7 @@ export function EditApartment() {
             zipCode: zipCodePart
         };
         updateApartment(id, updatedApartment);
-        navigate(`/apartments/${id}`);
+        navigate(`/apartment/${id}`);
     };
 
     if (isLoading) {
@@ -79,7 +79,6 @@ export function EditApartment() {
 
     return (
         <Container>
-            <span className="hyperlink text12" onClick={() => navigate(`/apartments/${id}`)}>&lt; Go back</span>
             <h1>Edit Apartment</h1>
             <Form onSubmit={handleSubmit}>
                 <Row>

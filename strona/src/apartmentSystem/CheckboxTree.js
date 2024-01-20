@@ -61,7 +61,7 @@ export const CheckboxTree = ({ categories, setCategories, setIsFiltered }) => {
     return (
         <Form>
             {Object.entries(categories).map(([category, items]) => (
-                <div key={category}>
+                <div key={category} style={{marginBottom: 4}}>
                     <Form.Check
                         type="checkbox"
                         id={`parent-${category}`}
@@ -70,8 +70,7 @@ export const CheckboxTree = ({ categories, setCategories, setIsFiltered }) => {
                         onChange={() => handleParentCheckboxChange(category)}
                         style={{ display: 'inline-block' }}
                     />
-                    <button type="button" className="btn btn-light btn-sm"
-                            style={{width: 30, height: 30, borderRadius: 10}}
+                    <button type="button" className="btn-sm iconButton"
                             onClick={() => handleCategoryToggle(category)} >
                         {expandedCategories[category] ? <FontAwesomeIcon icon={faChevronUp} size="xs"/> : <FontAwesomeIcon icon={faChevronDown} size="xs"/>}
                     </button>

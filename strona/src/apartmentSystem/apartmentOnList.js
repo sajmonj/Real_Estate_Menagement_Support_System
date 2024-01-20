@@ -1,10 +1,11 @@
 import React from "react";
 import './apartmentOnList.css';
+import Button from 'react-bootstrap/Button';
 
 export function ApartmentOnList({apartment, navigate, openPopup}) {
 
     return (
-        <div className="apartmentOnListView">
+        <div className="apartmentOnListView" onClick={() => navigate(`/apartments/${apartment.id}`)}>
             {/*<img className="apartmentSmallPicture" src={apartment.photos != null ? apartment.photos[0] : 'apartmentPlaceholder.png'} alt={apartment.title} />*/}
             <div>
                 <h3>{apartment.street} {apartment.streetNumber}</h3>
@@ -34,9 +35,8 @@ export function ApartmentOnList({apartment, navigate, openPopup}) {
                 </div>
             </div>
             <div className="buttonPanel">
-                <button className="greenButton" onClick={() => navigate(`/edit-apartment/${apartment.id}`)}>Edit</button>
-                <button className="whiteButton" onClick={() => navigate(`/apartments/${apartment.id}`)}>View</button>
-                <button className="redButton" onClick={() => openPopup(apartment.id)}>Remove</button>
+                <Button variant="outline-primary" style={{margin: 5}} onClick={() => navigate(`/edit-apartment/${apartment.id}`)}>Edit</Button>
+                <Button variant="outline-danger" style={{margin: 5}} onClick={() => openPopup(apartment.id)}>Remove</Button>
             </div>
         </div>
     );

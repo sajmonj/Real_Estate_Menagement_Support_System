@@ -8,14 +8,6 @@ body {
     text-align: center;
 }
 
-.centeredDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
 .mainContainer {
     font-size: 14px;
 }
@@ -24,35 +16,63 @@ body {
     font-size: 12px;
 }
 
+.centeredDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
 .titleContainer {
-    margin-top: 20px;
+    margin: 20px;
     text-align: center;
     font-size: 48px;
     font-weight: bold;
 }
 
-.ButtonContainer {
+/* text */
+.textAlignedCenter {
     text-align: center;
 }
 
-.inputContainer > .errorLabel {
-    color: red;
+.text14 {
+    font-size: 14px;
+}
+
+.text12 {
     font-size: 12px;
-    float: right;
 }
 
-
-.inputButton {
-    margin: 10px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    height: 40px;
+/* buttons */
+button {
+    margin: 3px;
     width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.inputBox {
+.greenButton { background-color: darkseagreen; }
+.greenButton:hover { background-color: #607e60; color: white; }
+
+.whiteButton { background-color: white; border: 1px solid grey !important; }
+.whiteButton:hover { background-color: #e6e6e6; }
+
+.redButton { background-color: red; color: white; }
+.redButton:hover { background-color: darkred; }
+
+.longerButton { width: 200px; }
+
+/* links */
+.hyperlink { cursor: pointer; align-self: flex-start; }
+.hyperlinkBlue { color: #0077ff; text-decoration-line: underline; }
+
+
+/* input section */
+input {
     margin-top: 3px;
     height: 35px;
     width: 350px;
@@ -61,32 +81,8 @@ body {
     padding-left: 8px;
 }
 
-.greenButton { background-color: darkseagreen; }
-.greenButton:hover { background-color: #607e60; color: white; }
-
-.whiteButton { background-color: white; border: 1px solid grey; }
-.whiteButton:hover { background-color: #e6e6e6; }
-
-.redButton { background-color: red; color: white; }
-.redButton:hover { background-color: darkred; }
-
-.longerButton { width: 200px; }
-
-.hyperlink {
-    cursor: pointer;
-    align-self: flex-start;
-
-}
-.hyperlinkBlue {
-    color: #0077ff;
-    text-decoration-line: underline;
-}
-
-.card{
-    padding: 20px;
-}
-
-.ownerform-btn  {
-    height: 55px;
-    width: 210px;
+.errorLabel {
+    color: red;
+    font-size: 12px;
+    float: right;
 }

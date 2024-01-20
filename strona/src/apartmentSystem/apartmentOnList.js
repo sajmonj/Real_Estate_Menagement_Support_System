@@ -1,5 +1,5 @@
 import React from "react";
-import './apartmentOnList.css';
+import '../style/apartmentOnList.css';
 import Button from 'react-bootstrap/Button';
 
 export function ApartmentOnList({apartment, navigate, openPopup}) {

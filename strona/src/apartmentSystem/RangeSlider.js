@@ -1,5 +1,5 @@
 import React from 'react';
-import './apartmentOnList.css';
+import '../style/apartmentOnList.css';
 import Stack from "react-bootstrap/Stack";
 
 const ValueRange = ({range, setRange, maxValue}) => {

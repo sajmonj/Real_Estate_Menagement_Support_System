@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {Container, Tab, Tabs, Card, Row, Col, Modal, Form, Button, Table, CloseButton} from 'react-bootstrap';
 import { ApartmentManager } from './apartmentManager';
-import './apartmentOnList.css';
+import '../style/apartmentOnList.css';
 import TimelineItem from '../components/Timeline.js';
 import TimelineLandlordItem from "../components/TimelineLandlord";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";

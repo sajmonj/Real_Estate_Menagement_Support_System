@@ -1,4 +1,4 @@
-import {useState} from "react"
+import React, {useState} from "react"
 import { useNavigate } from "react-router-dom";
 import documentsData from "./documentsData";
 import samplePDF1 from "./samples/1.pdf";
@@ -42,26 +42,34 @@ const DocumentList = () => {
 
     return (
         <div>
-            <span className="hyperlink text12" onClick={() => navigate("/")}>&lt; Go back to the main page</span>
+            <h1 style={{paddingTop: 20, paddingBottom: 20, margin: 0, textAlign: 'center', backgroundColor: 'darkseagreen'}}>
+                <span className="hyperlink text14" style={{float: 'left', margin: 15, marginRight: -80, userSelect: 'none'}}
+                      onClick={() => navigate("/")}>&lt; Go back</span>
+                Documents samples:
+            </h1>
             <div>
-                <label>Filtruj po kategorii:</label>
-                <select onChange={(e) => handleCategoryChange(e.target.value)}>
-                    <option value="all">Wszystko</option>
-                    <option value="sprzedaż">Sprzedaż</option>
-                    <option value="najem">Najem</option>
-                    <option value="inne">Inne</option>
+                <br/>
+                <label>Filter by category: </label>
+                <select style={{margin: 10, backgroundColor: 'darkseagreen'}} onChange={(e) => handleCategoryChange(e.target.value)}>
+                    <option value="all">All</option>
+                    <option value="sprzedaż">Sale</option>
+                    <option value="najem">Tenancy</option>
+                    <option value="inne">Others</option>
                 </select>
+                <br/>
+                <br/>
             </div>
 
             <ul>
                 {filteredDocuments.map(doc => (
-                    <li key={doc.id}>
+                    <li key={doc.id} style={{margin: 10, height: 40, width: '80%', textJustify: "center"}}>
                         <a href={samplesPDF[doc.id-1]} target="_blank" rel="noreferrer">
                             {doc.name}
                         </a>
                     </li>
                 ))}
             </ul>
+            <h1 style={{paddingTop: 20, paddingBottom: 20, margin: 0, textAlign: 'center', backgroundColor: 'darkseagreen'}}></h1>
         </div>
     )
 }

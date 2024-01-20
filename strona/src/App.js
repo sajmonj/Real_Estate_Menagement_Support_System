@@ -32,7 +32,6 @@ const App = () => {
                     <Route path="/add-apartment" element={<PropertyForm loggedIn={loggedIn} userInfo={userInfo}/>} />
                     <Route path="/apartment-list" element={<ApartmentList />} />
                     <Route path="/edit-apartment/:id" element={<EditApartment />} />
-                    <Route path="/edit-tenant/:idA/:idT" element={<EditTenant />} />
                 </Routes>
             </BrowserRouter>
         </ApartmentProvider>

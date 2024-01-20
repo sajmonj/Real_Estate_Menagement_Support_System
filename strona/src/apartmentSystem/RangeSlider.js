@@ -17,9 +17,9 @@ const ValueRange = ({range, setRange, maxValue}) => {
     return (
         <div>
             <Stack direction="horizontal" gap={1}>
-                <input className='smallerInput' value={range[0]} placeholder={range[0]} onChange={handleFromChange}/>
+                <input className='smallerInput' placeholder={"from: " + range[0]} onChange={handleFromChange}/>
                 ―
-                <input className='smallerInput' value={range[1]} placeholder={range[1]} onChange={handleToChange}/>
+                <input className='smallerInput' placeholder={"to: " + range[1]} onChange={handleToChange}/>
             </Stack>
         </div>
     );

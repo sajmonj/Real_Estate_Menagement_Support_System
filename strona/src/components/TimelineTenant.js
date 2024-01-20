@@ -8,13 +8,9 @@ import {Button} from "react-bootstrap";
 
 
 const TimelineItem = ({ tenant, apartmentId, openEditTenantModal }) => {
-    console.log(tenant);
     const navigate = useNavigate();
     const [isExpanded, setIsExpanded] = useState(false);
 
-    function handleEditTenant() {
-        navigate(`/edit-tenant/${apartmentId}/${tenant.id}`);
-    }
 
     return (
         <div className="timeline__item">
@@ -46,9 +42,14 @@ const TimelineItem = ({ tenant, apartmentId, openEditTenantModal }) => {
                             {tenant.postalCode} {tenant.city}</p>
                         <p className="timeline__item-p">Partnership:&nbsp;&nbsp;{tenant.startDate}&nbsp;-&nbsp;{tenant.endDate}</p>
                         <p className="timeline__item-p">Documents:&nbsp;&nbsp;
-                            <a href={tenant.documents} target="_blank" rel="noopener noreferrer">
-                                {`${tenant.documents}`}
-                            </a>
+                            {tenant.documents.map((document, index) => (
+                                <div key={index}>
+                                    <a href={URL.createObjectURL(document)} target="_blank" rel="noopener noreferrer">
+                                        {document.name}
+                                    </a>
+                                    <br/>
+                                </div>
+                            ))}
                         </p>
                         <Button variant="primary" onClick={() => openEditTenantModal(tenant)}>Edit tenant</Button>                        <br/>
                     </div>

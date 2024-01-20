@@ -58,7 +58,6 @@ export function ApartmentView(props) {
 
     const openEditTenantModal = (tenant) => {
         setEditedTenant(tenant);
-        console.log("TENATNTNT", tenant);
     }
 
     const saveEditedTenant = (editedTenantData) => {
@@ -85,8 +84,12 @@ export function ApartmentView(props) {
         const newDocuments = Array.from(e.target.files);
         const newDocumentsURLs = newDocuments.map(document => URL.createObjectURL(document));
         setSelectedFiles(prevFiles => [...prevFiles, ...newDocumentsURLs]);
-        // handleLandlordChange();
-    }
+        console.log("FILES",selectedFiles);
+        setNewLandlord(prevLandlord => ({
+            ...prevLandlord,
+            documents: [...prevLandlord.documents, ...newDocuments]
+        }));
+        }
 
     const handleRemoveFile = index => {
         const newFileList = selectedFiles.filter((_, fileIndex) => fileIndex !== index);
@@ -127,8 +130,7 @@ export function ApartmentView(props) {
             endDate: newLandlord.endDate,
             documents: newLandlord.documents
         }
-        console.log("landlord",landlordToAdd);
-        console.log(landlordToAdd.documents);
+        console.log("LandlordFikes",landlordToAdd.documents);
         setSelectedFiles([]);
         setNewLandlord({id: '', firstName: '', lastName: '', phone: '', email: '', address: '', city: '', postalCode: '', startDate: '', endDate: '', documents: [] });
         addLandlordToApartment(apartment.id, landlordToAdd);
@@ -353,7 +355,7 @@ export function ApartmentView(props) {
                                         <Col>
                                             <Form.Group controlId="formDocuments">
                                                 Documents:
-                                                <Form.Control type="file" name="documents" multiple value={newLandlord.documents} onChange={handleDocumentsChange} onSubmit={handleLandlordChange} ></Form.Control>
+                                                <Form.Control type="file" name="documents" multiple onChange={handleDocumentsChange} />
                                             </Form.Group>
 
                                             <Row>
@@ -370,7 +372,7 @@ export function ApartmentView(props) {
 
                                         </Col>
                                     </Row>
-                                    <Button variant="primary" type="submit" className="mt-2" >Add landlord</Button>
+                                    <Button variant="primary" type="submit" className="mt-2" >Add tenant</Button>
                                 </Form>
                             )}
                             <br/><br/>

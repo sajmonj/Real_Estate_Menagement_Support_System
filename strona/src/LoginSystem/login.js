@@ -40,6 +40,7 @@ export function Login(props) {
         if (user) {
             props.setLoggedIn(true);
             props.setUserInfo(user);
+            localStorage.setItem('loginUser', JSON.stringify({loggedUserInfo: user, loggedDate: Date.now()}));
             navigate("/");
         } else {
             props.setLoggedIn(false);

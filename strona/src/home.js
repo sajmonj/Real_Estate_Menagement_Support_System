@@ -15,7 +15,7 @@ export function Home(props) {
 
     function loginButton() {
         if (loggedIn) {
-            localStorage.removeItem("user")
+            localStorage.removeItem('loginUser');
             props.setLoggedIn(false)
         } else {
             navigate("/login")
@@ -32,7 +32,7 @@ export function Home(props) {
     };
     const confirmDelete = () => {
         removeUser(userInfo.id)
-        localStorage.removeItem("user")
+        localStorage.removeItem('loginUser');
         props.setLoggedIn(false)
         closePopup();
     };

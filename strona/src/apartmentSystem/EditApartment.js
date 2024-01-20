@@ -69,7 +69,7 @@ export function EditApartment() {
             city: cityPart,
             zipCode: zipCodePart
         };
-        updateApartment(id, updatedApartment);
+        updateApartment(parseInt(id), updatedApartment);
         navigate(`/apartments/${id}`);
     };
 
@@ -137,7 +137,7 @@ export function EditApartment() {
                     <Form.Label>Advertisement Description</Form.Label>
                     <Form.Control
                         as="textarea"
-                        name="Advertisement description"
+                        name="adDescription"
                         value={apartmentData.adDescription || ''}
                         onChange={handleChange}
                     />

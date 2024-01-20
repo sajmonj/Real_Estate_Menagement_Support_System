@@ -15,23 +15,23 @@ export function ApartmentManager() {
         }
     }, []);
 
-    function registerApartment(apartmentInfo) {
-        console.log("tutaj",apartmentInfo);
-        const newApartment = {
-            ...apartmentInfo,
-            id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
-            events: [],
-            landlords: [],
-            totalAmount: 0
-        };
-
-        console.log(newApartment);
-
-        setApartments((prevApartments) => [...prevApartments, newApartment]);
-        localStorage.setItem('apartments', JSON.stringify([...apartments, newApartment]));
-        console.log("Po zapisaniu:", newApartment);
-        return newApartment;
-    }
+    // function registerApartment(apartmentInfo) {
+    //     console.log("tutaj",apartmentInfo);
+    //     const newApartment = {
+    //         ...apartmentInfo,
+    //         id: apartments.length === 0 ? 0 : apartments[apartments.length - 1].id + 1,
+    //         events: [],
+    //         landlords: [],
+    //         totalAmount: 0
+    //     };
+    //
+    //     console.log(newApartment);
+    //
+    //     setApartments((prevApartments) => [...prevApartments, newApartment]);
+    //     localStorage.setItem('apartments', JSON.stringify([...apartments, newApartment]));
+    //     console.log("Po zapisaniu:", newApartment);
+    //     return newApartment;
+    // }
 
     function removeApartment(id) {
         setApartments(prevApartments => {
@@ -42,17 +42,28 @@ export function ApartmentManager() {
     }
 
     function updateApartment(apartmentId, updatedData) {
+        console.log("updateApartment called with id:", apartmentId, "and data:", updatedData);
+
         setApartments(prevApartments => {
+            console.log("Previous apartments state:", prevApartments);
+
+            const numericApartmentId = parseInt(apartmentId, 10); // Dodano drugi argument do parseInt
             const updatedApartments = prevApartments.map(apartment => {
-                if (apartment.id === parseInt(apartmentId)) {
+                if (apartment.id === numericApartmentId) {
+                    console.log("Updating apartment with id:", numericApartmentId);
                     return { ...apartment, ...updatedData };
                 }
                 return apartment;
             });
+
+            console.log("Updated apartments state:", updatedApartments);
             localStorage.setItem('apartments', JSON.stringify(updatedApartments));
+            console.log("Updated apartments saved to localStorage");
+
             return updatedApartments;
         });
     }
+
 
 
     function removeApartmentsByOwnerEmail(ownerEmail) {

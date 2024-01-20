@@ -74,6 +74,7 @@ export function Registration(props) {
             const newUser = registerUser(userInfo);
             props.setLoggedIn(true);
             props.setUserInfo(newUser);
+            localStorage.setItem('loginUser', JSON.stringify({loggedUserInfo: user, loggedDate: Date.now()}));
             navigate("/");
         }
     }

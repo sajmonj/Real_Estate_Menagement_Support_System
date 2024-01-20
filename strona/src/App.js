@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import EditApartment from './apartmentSystem/EditApartment';
 import { Home } from './home';
@@ -19,6 +19,24 @@ const App = () => {
     const { initialState } = UserManager();
     const [userInfo, setUserInfo] = useState(initialState);
 
+    useEffect(() => {
+        isLogged();
+    }, [setLoggedIn, setUserInfo]);
+
+    const isLogged = () => {
+        const loginUser = localStorage.getItem('loginUser');
+        if (loginUser) {
+            const {loggedUserInfo, loggedDate} = JSON.parse(loginUser);
+            if (loggedDate + 600000 > Date.now()) {
+                setUserInfo(loggedUserInfo);
+                setLoggedIn(true);
+                return true;
+            }
+        }
+        setLoggedIn(false);
+        return false;
+    };
+
     return (
         <ApartmentProvider>
             <BrowserRouter>
@@ -26,7 +44,7 @@ const App = () => {
                     <Route path="/" element={<Home userInfo={userInfo} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
                     <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUserInfo={setUserInfo} />} />
                     <Route path="/register" element={<Registration setLoggedIn={setLoggedIn} setUserInfo={setUserInfo} />} />
-                    <Route path="/apartments" element={<ApartmentsList userInfo={userInfo} loggedIn={loggedIn} />} />
+                    <Route path="/apartments" element={<ApartmentsList userInfo={userInfo} loggedIn={loggedIn} isLogged={isLogged}/>} />
                     <Route path="/apartments/:id" element={<ApartmentView userInfo={userInfo} loggedIn={loggedIn} />} />
                     <Route path="/documents" element={<DocumentList />} />
                     <Route path="/add-apartment" element={<PropertyForm loggedIn={loggedIn} userInfo={userInfo}/>} />

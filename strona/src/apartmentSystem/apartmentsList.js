@@ -5,11 +5,12 @@ import {ApartmentOnList} from "./apartmentOnList";
 import {PopupRemovingApartment as Popup} from "../components/popup";
 import {CheckboxTree} from "./CheckboxTree";
 import ValueRange from "./RangeSlider";
+import App from "../App";
 
 import {Form, Container, Row, Col, Stack, Button} from 'react-bootstrap';
 
 export function ApartmentsList(props) {
-    const {loggedIn, userInfo} = props
+    const {loggedIn, userInfo, isLogged} = props
     const navigate = useNavigate();
     const {apartments, removeApartment} = ApartmentManager();
 
@@ -54,7 +55,7 @@ export function ApartmentsList(props) {
 
 
     useEffect(() => {
-        if (!loggedIn) navigate('/');
+        if (!isLogged()) navigate('/');
         const apartmentsOfUser = apartments.filter(apartment => apartment.email === userInfo.email);
         setUserApartments(apartmentsOfUser);
         setMaxValuesAndRanges(apartmentsOfUser);
@@ -189,7 +190,10 @@ export function ApartmentsList(props) {
                         </Stack>
                     </Col>
                     <Col>
-                        {userApartments.length === 0 ? <div>You don't have any apartments yet.</div> :
+                        {userApartments.length === 0 ? <div style={{textAlign: "center", margin: 30, fontSize: 16}}>
+                                You don't have any apartments yet.<br/>
+                                <Button variant="outline-success" style={{width: '50%', marginTop: 20}}
+                                        onClick={() => navigate("/add-apartment")}>Add new Apartment</Button></div> :
                             <ul className='Filters'>
                                 {filteredApartments.sort((a, b) => {
                                     if (sortedType.current === 'numeric') {

@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FaCheckCircle, FaMinusCircle } from 'react-icons/fa';
+import {useNavigate} from "react-router-dom";
 import '../style/Timeline.css';
+import {Button} from "react-bootstrap";
 
-const TimelineItem = ({ event }) => {
-    console.log(event);
+
+const TimelineItem = ({ tenant, apartmentId, openEditTenantModal }) => {
+    console.log(tenant);
+    const navigate = useNavigate();
     const [isExpanded, setIsExpanded] = useState(false);
+
+    function handleEditTenant() {
+        navigate(`/edit-tenant/${apartmentId}/${tenant.id}`);
+    }
 
     return (
         <div className="timeline__item">
@@ -15,28 +24,33 @@ const TimelineItem = ({ event }) => {
                 </button>
                 <span className="timeline__dot"></span>
                 <span className="timeline__meta">
-                    <time className="timeline__date">{event.startDate} - {event.endDate}</time><br />
-                    <strong className="timeline__title">{event.firstName} {event.lastName}</strong>
+                    <time className="timeline__date">{tenant.startDate} - {tenant.endDate}</time><br/>
+                    <strong className="timeline__title">{tenant.firstName} {tenant.lastName} </strong>
+                    {!tenant.endDate || new Date(tenant.endDate) >= new Date() ?
+                        <FaCheckCircle style={{ color: 'green' }} /> :
+                        <FaMinusCircle style={{ color: 'red' }} />
+                    }
                 </span>
             </div>
             {isExpanded && (
                 <div className="timeline__item-body">
                     <div className={`timeline__item-body-content ${isExpanded ? 'expanded' : ''}`}>
                         <p className="timeline__item-p">Phone nr:
-                            &nbsp;&nbsp;&nbsp;&nbsp;{event.phone}</p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;{tenant.phone}</p>
                         <p className="timeline__item-p">Email:
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{event.email}</p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{tenant.email}</p>
                         <p className="timeline__item-p">Address:
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{event.address}</p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{tenant.address}</p>
                         <p className="timeline__item-p">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            {event.postalCode} {event.city}</p>
-                        <p className="timeline__item-p">Partnership:&nbsp;&nbsp;{event.startDate}&nbsp;-&nbsp;{event.endDate}</p>
+                            {tenant.postalCode} {tenant.city}</p>
+                        <p className="timeline__item-p">Partnership:&nbsp;&nbsp;{tenant.startDate}&nbsp;-&nbsp;{tenant.endDate}</p>
                         <p className="timeline__item-p">Documents:&nbsp;&nbsp;
-                            <a href={event.documents} target="_blank" rel="noopener noreferrer">
-                                {`${event.documents}`}
+                            <a href={tenant.documents} target="_blank" rel="noopener noreferrer">
+                                {`${tenant.documents}`}
                             </a>
                         </p>
+                        <Button variant="primary" onClick={() => openEditTenantModal(tenant)}>Edit tenant</Button>                        <br/>
                     </div>
                 </div>
             )}

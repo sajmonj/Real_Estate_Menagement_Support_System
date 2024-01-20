@@ -1,7 +1,6 @@
 ul {
     list-style-type: none;
     padding: 0;
-    margin: 30px 0 0 0;
 }
 
 .apartmentOnListView {
@@ -10,16 +9,22 @@ ul {
     grid-gap: 20px;
     align-items: center;
     padding: 10px;
-    margin: 10px;
-    width: 90%;
-    border: 2px solid grey;
+    border-bottom: 1px solid #cccccc;
+    transition: box-shadow 0.5s ease;
+    cursor: pointer;
+}
+.apartmentOnListView:hover {
     border-radius: 10px;
+    -webkit-box-shadow: -2px 7px 14px 0 rgba(163, 163, 163, 1);
+    -moz-box-shadow: -2px 7px 14px 0 rgba(163, 163, 163, 1);
+    box-shadow: -2px 7px 14px 0 rgba(163, 163, 163, 1);
 }
 
 .apartmentSmallPicture {
     width: 300px;
     height: 200px;
     border-radius: 10px;
+    background-size: contain;
 }
 
 .infoGrid {
@@ -44,4 +49,43 @@ ul {
     flex-direction: column;
     height: 300px;
     width: 450px;
+}
+
+.smallerInput {
+    width: 100%;
+    text-align: center;
+}
+
+.Filters {
+    border: 1px solid #cccccc;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.iconButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    float: right;
+    background-color: white;
+    border: 0;
+}
+
+.iconButton:hover {
+    background-color: #e5e5e5;
+}
+
+.sortButton {
+    width: auto;
+    height: 30px;
+    border-radius: 7px;
+    border: 2px solid #e5e5e5;
+    text-underline: dash;
+    margin: 2px;
+    background-color: white;
+}
+.sortButton:hover {
+    background-color: #e5e5e5;
+
 }

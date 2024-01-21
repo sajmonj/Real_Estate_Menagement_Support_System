@@ -5,12 +5,11 @@ import {ApartmentOnList} from "./apartmentOnList";
 import {PopupRemovingApartment as Popup} from "../components/popup";
 import {CheckboxTree} from "./CheckboxTree";
 import ValueRange from "./RangeSlider";
-import App from "../App";
 
 import {Form, Container, Row, Col, Stack, Button} from 'react-bootstrap';
 
 export function ApartmentsList(props) {
-    const {loggedIn, userInfo, isLogged} = props
+    const {loggedIn, userInfo} = props
     const navigate = useNavigate();
     const {apartments, removeApartment} = ApartmentManager();
 
@@ -55,7 +54,7 @@ export function ApartmentsList(props) {
 
 
     useEffect(() => {
-        if (!isLogged()) navigate('/');
+        if (!loggedIn) navigate('/');
         const apartmentsOfUser = apartments.filter(apartment => apartment.email === userInfo.email);
         setUserApartments(apartmentsOfUser);
         setMaxValuesAndRanges(apartmentsOfUser);

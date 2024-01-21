@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {UserManager} from "./LoginSystem/userManager";
 import {ApartmentManager} from "./apartmentSystem/apartmentManager";
 import {PopupRemovingAccount as Popup} from "./components/popup";
-import {Button, Col, Row, Stack} from "react-bootstrap";
+import {Button, Stack} from "react-bootstrap";
 
 export function Home(props) {
     const {loggedIn, userInfo} = props
@@ -31,13 +31,13 @@ export function Home(props) {
         setShowPopup(false);
     };
     const confirmDelete = () => {
-        removeUser(userInfo.id)
+        removeUser(userInfo)
         localStorage.removeItem('loginUser');
         props.setLoggedIn(false)
         closePopup();
     };
     const navigateToAddApartment = () => {
-        navigate("/add-apartment"); // Załóżmy, że ścieżka do formularza dodawania mieszkania to "/add-apartment"
+        navigate("/add-apartment");
     };
 
     return (

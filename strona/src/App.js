@@ -12,7 +12,6 @@ import { ApartmentProvider } from './contexts/ApartmentContext';
 import PropertyForm from './components/PropertyForm';
 import ApartmentList from './components/ApartmentList';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import EditTenant from "./apartmentSystem/EditTenant";
 
 const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -20,22 +19,15 @@ const App = () => {
     const [userInfo, setUserInfo] = useState(initialState);
 
     useEffect(() => {
-        isLogged();
-    }, [setLoggedIn, setUserInfo]);
-
-    const isLogged = () => {
         const loginUser = localStorage.getItem('loginUser');
         if (loginUser) {
             const {loggedUserInfo, loggedDate} = JSON.parse(loginUser);
-            if (loggedDate + 600000 > Date.now()) {
+            if (loggedDate + 600000 > Date.now() && loggedUserInfo) {
                 setUserInfo(loggedUserInfo);
                 setLoggedIn(true);
-                return true;
-            }
-        }
-        setLoggedIn(false);
-        return false;
-    };
+            } else setLoggedIn(false);
+        } else setLoggedIn(false);
+    }, [setLoggedIn, setUserInfo]);
 
     return (
         <ApartmentProvider>
@@ -44,7 +36,7 @@ const App = () => {
                     <Route path="/" element={<Home userInfo={userInfo} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
                     <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUserInfo={setUserInfo} />} />
                     <Route path="/register" element={<Registration setLoggedIn={setLoggedIn} setUserInfo={setUserInfo} />} />
-                    <Route path="/apartments" element={<ApartmentsList userInfo={userInfo} loggedIn={loggedIn} isLogged={isLogged}/>} />
+                    <Route path="/apartments" element={<ApartmentsList userInfo={userInfo} loggedIn={loggedIn}/>} />
                     <Route path="/apartments/:id" element={<ApartmentView userInfo={userInfo} loggedIn={loggedIn} />} />
                     <Route path="/documents" element={<DocumentList />} />
                     <Route path="/add-apartment" element={<PropertyForm loggedIn={loggedIn} userInfo={userInfo}/>} />

@@ -44,7 +44,7 @@ const TimelineItem = ({ tenant, apartmentId, openEditTenantModal }) => {
                         <p className="timeline__item-p">Documents:&nbsp;&nbsp;
                             {tenant.documents.map((document, index) => (
                                 <div key={index}>
-                                    <a href={URL.createObjectURL(document)} target="_blank" rel="noopener noreferrer">
+                                    <a href={document} target="_blank" rel="noopener noreferrer">
                                         {document.name}
                                     </a>
                                     <br/>

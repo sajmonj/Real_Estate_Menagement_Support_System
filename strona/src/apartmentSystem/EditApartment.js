@@ -142,13 +142,14 @@ export function EditApartment() {
                         onChange={handleChange}
                     />
                 </Form.Group>
+
                 <Row>
                     <Col md={3}>
                         <Form.Group controlId="area">
                             <Form.Label>Area</Form.Label>
                             <Form.Control
                                 type="number"
-                                name="area"
+                                name="adDescription"
                                 value={apartmentData.area || ''}
                                 onChange={handleChange}
                             />
